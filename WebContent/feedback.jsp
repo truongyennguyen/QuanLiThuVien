@@ -94,7 +94,7 @@
 										<div class="form-group">
 											<label for="name">Họ và tên</label> <input type="text"
 												id="name" class="form-control bg-none"
-												placeholder="Họ và tên..." maxlength="500" minlength="4">
+												placeholder="Họ và tên..." maxlength="500" minlength="4" required>
 										</div>
 									</div>
 								</div>
@@ -104,7 +104,7 @@
 										<div class="form-group">
 											<label for="password">Email</label> <input type="email"
 												id="email" class="form-control bg-none"
-												placeholder="Email..." maxlength="100" minlength="4">
+												placeholder="Email..." maxlength="100" minlength="4" required>
 										</div>
 									</div>
 								</div>
@@ -114,7 +114,7 @@
 										<div class="form-group">
 											<label for="password">Tiêu đề</label> <input type="text"
 												id="title" class="form-control bg-none"
-												placeholder="Tiêu đề..." maxlength="500" minlength="1">
+												placeholder="Tiêu đề..." maxlength="500" minlength="5" required>
 										</div>
 									</div>
 								</div>
@@ -124,7 +124,7 @@
 										<div class="form-group">
 											<label for="password">Nội dung</label>
 											<textarea rows="5" id="content" class="form-control bg-none"
-												placeholder="Nội dung..." minlength="4"></textarea>
+												placeholder="Nội dung..." minlength="4" required></textarea>
 										</div>
 									</div>
 
