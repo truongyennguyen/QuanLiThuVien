@@ -137,6 +137,31 @@
 										</div>
 									</div>
 							</form>
+							<script>
+                                $(document).ready(function () {
+                                    //Khi bàn phím được nhấn và thả ra thì sẽ chạy phương thức này
+                                    $("#action").validate({
+                                        rules: {
+                                            HoVaTen: "required",
+                                            Email: "required",
+                                            TieuDe: "required",
+                                            NoiDung: {
+                                                required: true,
+                                                minlength: 2
+                                            }
+                                        },
+                                        messages: {
+                                            HoVaTen: "Vui lòng nhập họ tên giùm cái",
+                                            Email: "Cái email đấy bạn",
+                                            TieuDe: "Nhập cái gì zô đi bạn ơi",
+                                            NoiDung: {
+                                                required: "Nhập nội dung đi",
+                                                minlength: "nội dug ngắn vậy, chém gió ah?"
+                                            }
+                                        }
+                                    });
+                                });
+                            </script>
 						</div>
 					</div>
 				</div>
