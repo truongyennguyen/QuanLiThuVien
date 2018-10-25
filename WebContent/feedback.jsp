@@ -124,7 +124,7 @@
 										<div class="form-group">
 											<label for="password">Nội dung</label>
 											<textarea rows="5" id="content" class="form-control bg-none"
-												placeholder="Nội dung..." minlength="4"></textarea>
+												placeholder="Nội dung..." minlength="5"></textarea>
 										</div>
 									</div>
 
