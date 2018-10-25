@@ -104,7 +104,7 @@
 										<div class="form-group">
 											<label for="password">Email</label> <input type="email"
 												id="email" class="form-control bg-none"
-												placeholder="Email..." maxlength="500" minlength="4">
+												placeholder="Email..." maxlength="100" minlength="4">
 										</div>
 									</div>
 								</div>
