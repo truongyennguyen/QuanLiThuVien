@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/overright.css">
     <link rel="stylesheet" href="css/theme.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     <style type="text/css" media="screen">
@@ -68,7 +68,7 @@
                     <!--Toggle-button-->
 
                     <!--Active User-->
-                    <div class="nav navbar-right">
+                    <!-- <div class="nav navbar-right">
                         <div class="active-user navbar-left active">
                             <ul class="list-unstyled">
                                 <li>
@@ -79,9 +79,9 @@
                                         <li>
                                             <a href="#"> <span><i class="icofont icofont-user"></i></span> Thông tin cá nhân</a>
                                         </li>
-                                        <!-- <li>
+                                        <li>
                                             <a href="#"> <span><i class="icofont icofont-notification"></i></span> Notifications</a>
-                                        </li> -->
+                                        </li>
                                         <li>
                                             <a href="#"> <span><i class="icofont icofont-ui-password"></i></span> Đổi mật khẩu</a>
                                         </li>
@@ -95,27 +95,30 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div> -->
                     <!--Mainmenu list-->
                     <div class="navbar-right in fade" id="mainmenu">
                         <ul class="nav navbar-nav nav-white text-uppercase">
                             <li class="active">
-                                <a href="index.html">Trang chủ</a>
+                                <a href="index.jsp">Trang chủ</a>
                             </li>
                             <li>
                                 <a href="#">Giới thiệu</a>
                             </li>
                             <li>
-                                <a href="notification.html">Thông báo</a>
+                                <a href="noitification.jsp">Thông báo</a>
                             </li>
                             <li>
-                                <a href="room.html">Phòng đọc</a>
+                                <a href="room.jsp">Phòng đọc</a>
                             </li>
                             <li>
-                                <a href="feedback.html">Phản hồi</a>
+                                <a href="feedback.jsp">Phản hồi</a>
                             </li>
                             <li>
-                                <a href="books.html">Sách</a>
+                                <a href="books.jsp">Sách</a>
+                            </li>
+                            <li>
+                                <a href="login.jsp">Đăng nhập</a>
                             </li>
                         </ul>
                     </div>
@@ -132,8 +135,8 @@
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1 text-center">
                         <div class="jumbotron">
                             <h1 class="text-white">Có hơn 458,948 cuốn sách ở đây</h1>
-                            <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut gravida, quam vitae
-                                <br/> est Sed non eros elementum nulla sodales ullamcorper.</p>
+                            <p class="text-white">Đến với thư viện đa năng của chúng tôi bạn có thể tận hưởng sự tuyệt vời thời đại mới tha hồ đọc, tải, mượn trực tuyến cùng những cuốn sách mới nhất, hay nhất!!!
+                            </p>
                         </div>
                         <div class="title-bar white">
                             <ul class="list-inline list-unstyled">
@@ -210,7 +213,7 @@
                         </ul>
                     </div>
                     <div class="space-30"></div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut gravida, quam vitae est Sed non eros elementum nulla sodales ullamcorper.</p>
+                    <p>Bạn sẽ thỏa mãn với những cuốn sách hay nhất. Chúng tôi sẽ luôn cập nhập sách mới nhất.</p>
                 </div>
             </div>
             <div class="space-60"></div>
@@ -236,7 +239,7 @@
                         <li><i class="icofont icofont-square"></i></li>
                     </ul>
                     <div class="space-15"></div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultricies eros pellentesque eros interdum, a efficitur tellus malesuada. Nunc non metus quis elit dictum ultricies. Quisque ultricies aliquam arcu.</p>
+                    <p>Thư viện sẽ đem lại điều tuyệt vời cho bạn khi ghé thăm.</p>
                     <div class="space-60"></div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-6 wow fadeIn">
@@ -244,7 +247,7 @@
                                 <li><i class="icofont icofont-id-card"></i></li>
                             </ul>
                             <h3>Thẻ thành viên</h3>
-                            <p>Lorem ipsum dolor sit amet, consecte tur adipiscing elit. Nullam ultricies eros pellentesque
+                            <p>Đăng kí thành viên để tận hưởng thư viện online hiện đại này!
                             </p>
                             <div class="space-30"></div>
                         </div>
@@ -253,16 +256,18 @@
                                 <li><i class="icofont icofont-medal-alt"></i></li>
                             </ul>
                             <h3>Sách chất lượng cao</h3>
-                            <p>Lorem ipsum dolor sit amet, consecte tur adipiscing elit. Nullam ultricies eros pellentesque
+                            <p>Luôn cập nhập, đổi sách mới nhất, hay nhất!
                             </p>
                             <div class="space-30"></div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-xs-12 col-sm-6 wow fadeIn">
                             <ul class="list-unstyled list-inline icon-bar">
                                 <li><i class="icofont icofont-read-book-alt"></i></li>
                             </ul>
                             <h3>Miễn phí tất cả các sách</h3>
-                            <p>Lorem ipsum dolor sit amet, consecte tur adipiscing elit. Nullam ultricies eros pellentesque
+                            <p>Hot Hot đang những ngày dowload sách free!
                             </p>
                             <div class="space-30"></div>
                         </div>
@@ -271,7 +276,7 @@
                                 <li><i class="icofont icofont-book-alt"></i></li>
                             </ul>
                             <h3>Liên tục cập nhật</h3>
-                            <p>Lorem ipsum dolor sit amet, consecte tur adipiscing elit. Nullam ultricies eros pellentesque
+                            <p>Nhiều sách mới nhất đã được nhập về!
                             </p>
                             <div class="space-30"></div>
                         </div>
@@ -295,7 +300,7 @@
                         </ul>
                     </div>
                     <div class="space-30"></div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut gravida, quam vitae est Sed non eros elementum nulla sodales ullamcorper.</p>
+                    <p>Cùng tìm hiểu về sách nhé!!!</p>
                 </div>
             </div>
             <div class="space-60"></div>
@@ -312,7 +317,7 @@
                             </ul>
                         </div>
                         <div class="space-20"></div>
-                        <a href="books.html">Âm nhạc và hội họa</a>
+                        <a href="b_amNhacHoiHoa.jsp">Âm nhạc và hội họa</a>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-3 wow fadeInLeft" data-wow-delay="0.2s">
@@ -327,7 +332,7 @@
                             </ul>
                         </div>
                         <div class="space-20"></div>
-                        <a href="books.html">Marketing</a>
+                        <a href="b_Truyen.jsp">Truyện</a>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-3 wow fadeInLeft" data-wow-delay="0.3s">
@@ -342,10 +347,11 @@
                             </ul>
                         </div>
                         <div class="space-20"></div>
-                        <a href="books.html">Chính trị</a>
+                        <a href="b_ChinhTri.jsp">Chính trị</a>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-3 wow fadeInLeft" data-wow-delay="0.4s">
+
+            <div class="col-xs-12 col-sm-6 col-md-3 wow fadeInLeft" data-wow-delay="0.4s">
                     <div class="category-item well green text-cetnr">
                         <div class="category_icon">
                             <i class="icofont icofont-globe-alt"></i>
@@ -357,14 +363,73 @@
                             </ul>
                         </div>
                         <div class="space-20"></div>
-                        <a href="books.html">Địa lý</a>
+                        <a href="b_tamLyXaHoi.jsp">Tâm lí - Kĩ năng sống </a>
                     </div>
                 </div>
-            </div>
+             <div class="col-xs-12 col-sm-6 col-md-3 wow fadeInLeft" data-wow-delay="0.4s">
+                    <div class="category-item well yellow text-cetnr">
+                        <div class="category_icon">
+                            <i class="icofont icofont-globe-alt"></i>
+                        </div>
+                        <div class="space-20"></div>
+                        <div class="title-bar">
+                            <ul class="list-inline list-unstyled">
+                                <li><i class="icofont icofont-square"></i></li>
+                            </ul>
+                        </div>
+                        <div class="space-20"></div>
+                        <a href="b_ngoaiNgu.jsp">Ngoại ngữ</a>
+                    </div>
+                </div>
+             <div class="col-xs-12 col-sm-6 col-md-3 wow fadeInLeft" data-wow-delay="0.4s">
+                    <div class="category-item well red text-cetnr">
+                        <div class="category_icon">
+                            <i class="icofont icofont-globe-alt"></i>
+                        </div>
+                        <div class="space-20"></div>
+                        <div class="title-bar">
+                            <ul class="list-inline list-unstyled">
+                                <li><i class="icofont icofont-square"></i></li>
+                            </ul>
+                        </div>
+                        <div class="space-20"></div>
+                        <a href="b_khoaHocXaHoi.jsp">Khoa học - xã hội </a>
+                    </div>
+                </div>
+             <div class="col-xs-12 col-sm-6 col-md-3 wow fadeInLeft" data-wow-delay="0.4s">
+                    <div class="category-item well green text-cetnr">
+                        <div class="category_icon">
+                            <i class="icofont icofont-globe-alt"></i>
+                        </div>
+                        <div class="space-20"></div>
+                        <div class="title-bar">
+                            <ul class="list-inline list-unstyled">
+                                <li><i class="icofont icofont-square"></i></li>
+                            </ul>
+                        </div>
+                        <div class="space-20"></div>
+                        <a href="b_GiaoKhoa.jsp">Giáo khoa </a>
+                    </div>
+                </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 wow fadeInLeft" data-wow-delay="0.4s">
+                    <div class="category-item well blue text-cetnr">
+                        <div class="category_icon">
+                            <i class="icofont icofont-globe-alt"></i>
+                        </div>
+                        <div class="space-20"></div>
+                        <div class="title-bar">
+                            <ul class="list-inline list-unstyled">
+                                <li><i class="icofont icofont-square"></i></li>
+                            </ul>
+                        </div>
+                        <div class="space-20"></div>
+                        <a href="b_KinhTe.jsp">Kinh tế </a>
+                    </div>
+                </div>
             <div class="space-60"></div>
             <div class="row">
                 <div class="col-xs-12 text-center">
-                    <a href="books.html" class="btn btn-primary">Xem thêm</a>
+                    <a href="books.jsp" class="btn btn-primary">Xem thêm</a>
                 </div>
             </div>
             <div class="space-80"></div>
@@ -414,7 +479,7 @@
                         <div class="book-details">
                             <div class="book-details-item">
                                 <h4 class="tip-left">Tiêu đề</h4>
-                                <p class="lead">Smothered In Hugs</p>
+                                <p class="lead">Nghĩ khác</p>
                                 <div class="space-10"></div>
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-8">
@@ -424,7 +489,7 @@
                                                 <img src="images/author.jpg" class="media-object author-photo img-thumbnail" alt="library">
                                             </div>
                                             <div class="media-body">
-                                                <h5>Ucly Man</h5>
+                                                <h5>Michael heppell</h5>
                                                 <p>23 Sách được viết</p>
                                             </div>
                                         </div>
@@ -436,7 +501,7 @@
                                 </div>
                                 <div class="space-30"></div>
                                 <h4 class="tip-left">Mô tả</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla libero dui, pretium non tincidunt eget, mattis eu nunc. Aenean egestas nisi vel urna tempus aliquam. Etiam fringilla tempor risus. Nulla vitae elementum felis. Vestibulum ultricies feugiat est id ornare. Morbi non dapibus ante.</p>
+                                <p>Nghĩ khác được chia ra thành một số phần xoay quanh một lĩnh vực của đời sống: công việc, sức khỏe, gia đình, thành công, sáng tạo, văn minh. Đọc cuốn sách này bạn sẽ tự nhủ" Mình không thể làm điều này" hay" Mình không có thứ đó trong đời".</p>
                                 <div class="space-20"></div>
                                 <h4 class="tip-left">Xếp hạng</h4>
                                 <ul class="list-inline list-unstyled rating-star">
@@ -447,12 +512,12 @@
                                     <li><i class="icofont icofont-star"></i></li>
                                 </ul>
                                 <div class="space-20"></div>
-                                <a href="books.html" class="btn btn-primary hover-btn-default">Xem sách</a>
-                                <a href="books.html" class="btn btn-primary hover-btn-default">Đọc sau</a>
+                                <a href="books.jsp" class="btn btn-primary hover-btn-default">Xem sách</a>
+                                <a href="books.jsp" class="btn btn-primary hover-btn-default">Đọc sau</a>
                             </div>
                             <div class="book-details-item">
                                 <h4 class="tip-left">Tiêu đề</h4>
-                                <p class="lead">A Finished Novel Kit</p>
+                                <p class="lead">Nghệ thuật nhìn người đoán tính cách</p>
                                 <div class="space-10"></div>
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-8">
@@ -462,7 +527,7 @@
                                                 <img src="images/client/client1.jpg" class="media-object author-photo img-thumbnail" alt="library">
                                             </div>
                                             <div class="media-body">
-                                                <h5>Drean Bravo</h5>
+                                                <h5>Shozo Shibuya, Pooh chan</h5>
                                                 <p>23 Sách được viết</p>
                                             </div>
                                         </div>
@@ -474,7 +539,11 @@
                                 </div>
                                 <div class="space-30"></div>
                                 <h4 class="tip-left">Mô tả</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla libero dui, pretium non tincidunt eget, mattis eu nunc. Aenean egestas nisi vel urna tempus aliquam. Etiam fringilla tempor risus. Nulla vitae elementum felis. Vestibulum ultricies feugiat est id ornare. Morbi non dapibus ante.</p>
+                                <p>Bạn có tin rằng chúng ta có thể nhìn thấu tính cách một con người qua ngoại hình của họ?
+
+Hay nói cách khác, ta hoàn toàn có thể phán đoán tính cách cũng như suy nghĩ, tâm trạng của người đối diện thông qua việc quan sát ngoại hình của họ, từ cách ăn mặc, sử dụng phụ kiện, đến gương mặt, mái tóc, màu da… Ta cũng có thể hiểu được tâm trạng, thái độ, cảm xúc của ai đó qua giao tiếp, ánh mắt, cử chỉ, hành động, lời nói.
+
+Với góc nhìn thú vị về “ngoại hình” và “tính cách” theo quan niệm của người Nhật Bản, cuốn sách NGHỆ THUẬT NHÌN NGƯỜI ĐOÁN TÍNH CÁCH sẽ giúp bạn nhận diện và thấu hiểu đối phương để có cách ứng xử phù hợp trong mọi hoàn cảnh.</p>
                                 <div class="space-20"></div>
                                 <h4 class="tip-left">Xếp hạng</h4>
                                 <ul class="list-inline list-unstyled rating-star">
@@ -485,8 +554,8 @@
                                     <li><i class="icofont icofont-star"></i></li>
                                 </ul>
                                 <div class="space-20"></div>
-                                <a href="books.html" class="btn btn-primary hover-btn-default">Xem sách</a>
-                                <a href="books.html" class="btn btn-primary hover-btn-default">Đọc sau</a>
+                                <a href="books.jsp" class="btn btn-primary hover-btn-default">Xem sách</a>
+                                <a href="books.jsp" class="btn btn-primary hover-btn-default">Đọc sau</a>
                             </div>
                         </div>
                     </div>
@@ -512,10 +581,10 @@
             </div>
             <div class="space-60"></div>
             <div class="row event-list">
-                <div class="hidden-xs hidden-sm col-md-5 inner-photo wow fadeInLeft">
+<!--                 <div class="hidden-xs hidden-sm col-md-5 inner-photo wow fadeInLeft">
                     <img src="images/inner-image.png" class="img-responsive" alt="library">
-                </div>
-                <div class="col-xs-12 col-md-7 pull-right">
+                </div> -->
+                <div class="col-xs-12 col-md-7 col-md-offset-2">
                     <div class="event-item wow fadeInRight">
                         <h4 class="show tip-left">20-7-2017 <span class="pull-right">14.30</span></h4>
                         <div class="well">
@@ -525,7 +594,7 @@
                                 </div>
                                 <div class="media-body">
                                     <div class="space-10"></div>
-                                    <a href="books.html"><h4 class="media-heading">Tuesday Networking &amp; Lecture</h4></a>
+                                    <a href="books.jsp"><h4 class="media-heading">Tuesday Networking &amp; Lecture</h4></a>
                                     <div class="space-10"></div>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut gravida, quam vitae est Sed non eros elementum nulla sodales ullamcorper.</p>
                                 </div>
@@ -542,7 +611,7 @@
                                 </div>
                                 <div class="media-body">
                                     <div class="space-10"></div>
-                                    <a href="books.html"><h4 class="media-heading">Read Book For 500 People</h4></a>
+                                    <a href="books.jsp"><h4 class="media-heading">Read Book For 500 People</h4></a>
                                     <div class="space-10"></div>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut gravida, quam vitae est Sed non eros elementum nulla sodales ullamcorper.</p>
                                 </div>
@@ -599,7 +668,7 @@
                         <div class="team-member-photo relative">
                             <img src="images/team/team1.jpg" alt="library">
                             <div class="team_overlay_icon">
-                                <a href="books.html" class="btn btn-default">See Prolife</a>
+                                <a href="books.jsp" class="btn btn-default">See Prolife</a>
                             </div>
                         </div>
                     </div>
@@ -609,7 +678,7 @@
                         <div class="team-member-photo relative">
                             <img src="images/team/team-2.jpg" alt="library">
                             <div class="team_overlay_icon">
-                                <a href="books.html" class="btn btn-default">See Prolife</a>
+                                <a href="books.jsp" class="btn btn-default">See Prolife</a>
                             </div>
                         </div>
                         <div class="space-20"></div>
@@ -651,7 +720,7 @@
                         <div class="team-member-photo relative">
                             <img src="images/team/team-3.jpg" alt="library">
                             <div class="team_overlay_icon">
-                                <a href="books.html" class="btn btn-default">See Prolife</a>
+                                <a href="books.jsp" class="btn btn-default">See Prolife</a>
                             </div>
                         </div>
                     </div>
@@ -661,7 +730,7 @@
                         <div class="team-member-photo relative">
                             <img src="images/team/team-3.jpg" alt="library">
                             <div class="team_overlay_icon">
-                                <a href="books.html" class="btn btn-default">See Prolife</a>
+                                <a href="books.jsp" class="btn btn-default">See Prolife</a>
                             </div>
                         </div>
                         <div class="space-20"></div>
@@ -790,7 +859,7 @@
                 <div class="col-xs-12 col-sm-4">
                     <a href="#"><img src="images/logo.png" alt="library"></a>
                     <div class="space-20"></div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut gravida, quam vitae est Sed non eros elementum nulla sodales ullamcorper.</p>
+                    <p>Đến, đọc, tận hưởng.</p>
                     <div class="space-10"></div>
                     <ul class="list-inline list-unstyled social-list">
                         <li><a href="#"><i class="icofont icofont-social-facebook"></i></a></li>
@@ -811,7 +880,7 @@
                     <table class="table border-none addr-dt">
                         <tr>
                             <td><i class="icofont icofont-social-google-map"></i></td>
-                            <td><address>3050 Universal Blvd #190 Fort Lauderdale, FL, 33331, Sydney New York City</address></td>
+                            <td><address>Số 1, Võ Văn Ngân, Thủ Đức, TP. Hồ Chí Minh</address></td>
                         </tr>
                         <tr>
                             <td><i class="icofont icofont-email"></i></td>
@@ -823,7 +892,7 @@
                         </tr>
                         <tr>
                             <td><i class="icofont icofont-globe-alt"></i></td>
-                            <td><a href="www.susislibrary.html" target="_blank">www.susislibrary.com</a></td>
+                            <td><a href="www.susislibrary.com" target="_blank">www.susislibrary.com</a></td>
                         </tr>
                     </table>
                 </div>
@@ -831,11 +900,11 @@
                     <h4 class="text-white">Useful Link</h4>
                     <div class="space-20"></div>
                     <ul class="list-unstyled menu-tip">
-                        <li><a href="books.html">Costumer Service</a></li>
-                        <li><a href="books.html">Help Desk</a></li>
-                        <li><a href="books.html">Forum</a></li>
-                        <li><a href="books.html">Staff Profile</a></li>
-                        <li><a href="books.html">Live Chat</a></li>
+                        <li><a href="books.jsp">Costumer Service</a></li>
+                        <li><a href="books.jsp">Help Desk</a></li>
+                        <li><a href="books.jsp">Forum</a></li>
+                        <li><a href="books.jsp">Staff Profile</a></li>
+                        <li><a href="books.jsp">Live Chat</a></li>
                     </ul>
                 </div> -->
             </div>
@@ -858,7 +927,4 @@
     <script src="js/main.js"></script>
 
 </body>
-
-
-<!-- Mirrored from quomodosoft.com/html/library/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 08 Oct 2018 14:15:47 GMT -->
 </html>

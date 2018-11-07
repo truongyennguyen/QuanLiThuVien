@@ -83,22 +83,22 @@
                     <div class="navbar-right in fade" id="mainmenu">
                         <ul class="nav navbar-nav nav-white text-uppercase">
                             <li>
-                                <a href="index.html">Trang chủ</a>
+                                <a href="index.jsp">Trang chủ</a>
                             </li>
                             <li>
                                 <a href="#">Giới thiệu</a>
                             </li>
                             <li class="active">
-                                <a href="notification.html">Thông báo</a>
+                                <a href="noitification.jsp">Thông báo</a>
                             </li>
                             <li>
-                                <a href="room.html">Phòng đọc</a>
+                                <a href="room.jsp">Phòng đọc</a>
                             </li>
                             <li>
-                                <a href="feedback.html">Phản hồi</a>
+                                <a href="feedback.jsp">Phản hồi</a>
                             </li>
                             <li>
-                                <a href="books.html">Sách</a>
+                                <a href="books.jsp">Sách</a>
                             </li>
                         </ul>
                     </div>
@@ -176,7 +176,7 @@
                                                 </div>
                                                 <div class="media-body">
                                                     <div class="space-10"></div>
-                                                    <a href="books.html"><h4 class="media-heading">Tuesday Networking &amp; Lecture</h4></a>
+                                                    <a href="books.jsp"><h4 class="media-heading">Tuesday Networking &amp; Lecture</h4></a>
                                                     <div class="space-10"></div>
                                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut gravida, quam vitae est Sed non eros elementum nulla sodales ullamcorper.</p>
                                                 </div>
@@ -193,7 +193,7 @@
                                                 </div>
                                                 <div class="media-body">
                                                     <div class="space-10"></div>
-                                                    <a href="books.html"><h4 class="media-heading">Read Book For 500 People</h4></a>
+                                                    <a href="books.jsp"><h4 class="media-heading">Read Book For 500 People</h4></a>
                                                     <div class="space-10"></div>
                                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut gravida, quam vitae est Sed non eros elementum nulla sodales ullamcorper.</p>
                                                 </div>
@@ -236,7 +236,7 @@
                         <div class="col-xs-12 col-sm-4">
                             <a href="#"><img src="images/logo.png" alt="library"></a>
                             <div class="space-20"></div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut gravida, quam vitae est Sed non eros elementum nulla sodales ullamcorper.</p>
+                            <p>Đến, đọc, tận hưởng.</p>
                             <div class="space-10"></div>
                             <ul class="list-inline list-unstyled social-list">
                                 <li><a href="#"><i class="icofont icofont-social-facebook"></i></a></li>
@@ -257,7 +257,7 @@
                             <table class="table border-none addr-dt">
                                 <tr>
                                     <td><i class="icofont icofont-social-google-map"></i></td>
-                                    <td><address>3050 Universal Blvd #190 Fort Lauderdale, FL, 33331, Sydney New York City</address></td>
+                                    <td><address>Số 1, Võ Văn Ngân, Thủ Đức, TP. Hồ Chí Minh</address></td>
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-email"></i></td>
@@ -269,18 +269,18 @@
                                 </tr>
                                 <tr>
                                     <td><i class="icofont icofont-globe-alt"></i></td>
-                                    <td><a href="www.susislibrary.html" target="_blank">www.susislibrary.com</a></td>
+                                    <td><a href="www.susislibrary.jsp" target="_blank">www.susislibrary.com</a></td>
                                 </tr>
                             </table>
                         </div>
                 <!-- <div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1">
                     <h4 class="text-white">Useful Link</h4>    <div class="space-20"></div>
                     <ul class="list-unstyled menu-tip">
-                        <li><a href="books.html">Costumer Service</a></li>
-                        <li><a href="books.html">Help Desk</a></li>
-                        <li><a href="books.html">Forum</a></li>
-                        <li><a href="books.html">Staff Profile</a></li>
-                        <li><a href="books.html">Live Chat</a></li>
+                        <li><a href="books.jsp">Costumer Service</a></li>
+                        <li><a href="books.jsp">Help Desk</a></li>
+                        <li><a href="books.jsp">Forum</a></li>
+                        <li><a href="books.jsp">Staff Profile</a></li>
+                        <li><a href="books.jsp">Live Chat</a></li>
                     </ul>
                 </div> -->
             </div>

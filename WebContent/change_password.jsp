@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Thông báo</title>
+    <title>Đổi mật khẩu</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Place favicon.ico in the root directory -->
@@ -26,13 +26,14 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="js/jQuery.js"></script>
 </head>
 
 <body data-spy="scroll" data-target="#mainmenu" data-offset="50">
     <header class="relative" id="sc1">
         <!-- Header-background-markup -->
         <div class="overlay-bg relative">
-            <img src="images/slide/slide4.jpg" alt="">
+            <img src="images/slide/slide2.jpg" alt="">
         </div>
         <!-- Mainmenu-markup-start -->
         <div class="mainmenu-area navbar-fixed-top" data-spy="affix" data-offset-top="10">
@@ -64,13 +65,13 @@
                             <li>
                                 <a href="room.html">Phòng đọc</a>
                             </li>
-                            <li class="active">
+                            <li>
                                 <a href="feedback.html">Phản hồi</a>
                             </li>
                             <li>
                                 <a href="books.html">Sách</a>
                             </li>
-                            <li>
+                            <li class="active">
                                 <a href="login.html">Đăng nhập</a>
                             </li>
                         </ul>
@@ -87,7 +88,7 @@
                 <div class="row wow fadeInUp">
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1 text-center">
                         <div class="jumbotron">
-                            <h1 class="text-white">Phản hồi</h1>
+                            <h1 class="text-white">Đổi mật khẩu</h1>
                         </div>
                         <div class="title-bar white">
                             <ul class="list-inline list-unstyled">
@@ -95,52 +96,47 @@
                                 <li><i class="icofont icofont-square"></i></li>
                             </ul>
                         </div>
-                        <div class="space-30"></div>
+                        <div class="space-40"></div>
                     </div>
                 </div>
                 <div class="row wow fadeInUp" data-wow-delay="0.5s">
                     <div class="row">
                         <div class="col-xs-12 col-md-8 col-md-offset-4">
-                            <form action="#">
+                            <form action="#" id = "register_form">
+                                <div class="space-20"></div>
                                 <div class="row">
                                     <div class="col-xs-12 col-md-7">
                                         <div class="form-group">
-                                            <label for="name">Họ và tên</label>
-                                            <input type="text" id="name" class="form-control bg-none" placeholder="Họ và tên...">
+                                            <label for="old_password">Nhập mật khẩu cũ</label>
+                                            <input type="password" id="old_password" class="form-control bg-none" placeholder="Old password...">
+                                            <span id="old_password_error" style="color: red"></span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="space-10"></div>
+                                <div class="space-20"></div>
                                 <div class="row">
                                     <div class="col-xs-12 col-md-7">
                                         <div class="form-group">
-                                            <label for="password">Email</label>
-                                            <input type="mail" id="mail" class="form-control bg-none" placeholder="Email...">
+                                            <label for="new_password">Mật khẩu mới</label>
+                                            <input type="password" id="new_password" class="form-control bg-none" placeholder="New password...">
+                                            <span id="new_password_error" style="color: red"></span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="space-10"></div>
+                                <div class="space-20"></div>
                                 <div class="row">
                                     <div class="col-xs-12 col-md-7">
                                         <div class="form-group">
-                                            <label for="password">Tiêu đề</label>
-                                            <input type="text" id="title" class="form-control bg-none" placeholder="Tiêu đề...">
+                                            <label for="confirm_password">Xác nhận mật khẩu mới</label>
+                                            <input type="password" id="confirm_password" class="form-control bg-none" placeholder="Confirm new password...">
+                                            <span id="confirm_password_error" style="color: red"></span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="space-10"></div>
-                                <div class="row">
-                                    <div class="col-xs-12 col-md-7">
-                                        <div class="form-group">
-                                            <label for="password">Nội dung</label>
-                                            <textarea rows="5" id="content" class="form-control bg-none" placeholder="Nội dung..."></textarea>
-                                    </div>
-                                </div>
-
                                 <div class="space-20"></div>
                                 <div class="row">
                                  <div class="col-xs-12 col-sm-6">
-                                    <button type="submit" class="btn btn-default">Gửi<i class="fa fa-long-arrow-right"></i></button>
+                                    <button type="submit" class="btn btn-default">Đổi mật khẩu<i class="fa fa-long-arrow-right"></i></button>
                                 </div>
                             </div>
 
@@ -167,6 +163,7 @@
 <script src="js/plugins.js"></script>
 <!-- Active-JS -->
 <script src="js/main.js"></script>
+<script src="js/validate_chagepassword.js"></script>
 </body>
 
 </html>
