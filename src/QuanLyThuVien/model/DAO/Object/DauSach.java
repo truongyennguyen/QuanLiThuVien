@@ -3,7 +3,7 @@ package QuanLyThuVien.model.DAO.Object;
 import java.sql.Date;
 
 /**
- * Object Đầu sách:
+ * Object �?ầu sách:
  * 
  * @author IT 1006
  * @since 23/11/2018
