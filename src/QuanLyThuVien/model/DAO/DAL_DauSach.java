@@ -1,12 +1,12 @@
 package QuanLyThuVien.model.DAO;
 
-import QuanLyThuVien.model.DAO.Object.*;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import QuanLyThuVien.model.DAO.Object.*;
 
 public class DAL_DauSach extends ConnectDatabase implements I_DAO<DauSach> {
 
@@ -48,7 +48,7 @@ public class DAL_DauSach extends ConnectDatabase implements I_DAO<DauSach> {
 	}
 
 	/**
-	 * record là dòng truyền vào. Chung cho tất cả
+	 * record là dòng truy�?n vào. Chung cho tất cả
 	 * 
 	 * @author IT 1006
 	 */
