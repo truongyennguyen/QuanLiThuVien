@@ -21,10 +21,10 @@ import QuanLyThuVien.model.DAO.Object.DauSach;
  * BLLdal_dauSach.java This servlet acts as a page controller for the
  * application, handling all requests from the user.
  * 
- * @author www.codejava.net
+ * @author IT1006
  */
-@WebServlet(name = "DauSach", urlPatterns = { "/Admin/DauSach" })
-public class BLLDauSach extends HttpServlet {
+@WebServlet(name = "DauSachList", urlPatterns = { "/QuanLyThuVien/DauSachList" })
+public class BLLDauSach extends HttpServlet  {
 	private static final long serialVersionUID = 1L;
 	private DAL_DauSach dal_dauSach;
 
@@ -49,7 +49,6 @@ public class BLLDauSach extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getServletPath();
-
 		try {
 			switch (action) {
 			case "/new":
@@ -79,14 +78,16 @@ public class BLLDauSach extends HttpServlet {
 	private void listDauSach(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		List<DauSach> listDauSach = new ArrayList<DauSach>();
-		try {
-			listDauSach = dal_dauSach.getAllData();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 		
+			try {
+				listDauSach = dal_dauSach.getAllData();
+			} catch (ClassNotFoundException e) {
+			
+				e.printStackTrace();
+			}
+	
 		request.setAttribute("listDauSach", listDauSach);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("XXXXX.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("DauSachList.jsp");
 		dispatcher.forward(request, response);
 	}
 
