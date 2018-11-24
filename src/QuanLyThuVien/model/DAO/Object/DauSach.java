@@ -3,7 +3,7 @@ package QuanLyThuVien.model.DAO.Object;
 import java.sql.Date;
 
 /**
- * Object �?ầu sách:
+ * Object �?ầu sách:
  * 
  * @author IT 1006
  * @since 23/11/2018
@@ -26,6 +26,8 @@ public class DauSach {
 		this.anhBia = null;
 	}
 
+	/**
+	 * Phục vụ cho việc xóa*/
 	public DauSach(int madausach) {
 		this.setMaDauSach(madausach);
 	}
