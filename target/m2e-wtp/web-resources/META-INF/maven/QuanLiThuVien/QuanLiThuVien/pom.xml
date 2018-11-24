@@ -28,6 +28,22 @@
 	</build>
 	<dependencies>
 		<dependency>
+			<groupId>XDoclet.</groupId>
+			<artifactId>xdoclet</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>xdoclet</groupId>
+			<artifactId>xjavadoc</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>xdoclet</groupId>
+			<artifactId>xjavadoc</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
