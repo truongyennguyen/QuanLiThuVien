@@ -10,17 +10,17 @@ import QuanLyThuVien.model.DAO.Object.*;
 
 public class DAL_DauSach extends ConnectDatabase implements I_DAO<DauSach> {
 
-	public DAL_DauSach(String jdbcURL, String jdbcUsername, String jdbcPassword) throws SQLException {
-		super(jdbcURL, jdbcUsername, jdbcPassword);
+	public DAL_DauSach(String jdbcURL) throws SQLException {
+		super(jdbcURL);
 	}
 
 	@Override
 	public List<DauSach> getAllData() throws SQLException, ClassNotFoundException {
 		openConnection();
 		List<DauSach> DauSachs = new ArrayList<>();
-		String sqlExec = "EXEC LayDauSach";
+		String sqlExec = "EXEC spLayDauSach";
 
-		PreparedStatement statement = connection.prepareStatement(sqlExec);
+		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
 		ResultSet res = statement.executeQuery();
@@ -58,8 +58,8 @@ public class DAL_DauSach extends ConnectDatabase implements I_DAO<DauSach> {
 			return 0;
 
 		openConnection();
-		String sqlExec = "EXEC ThemDauSach ?,?,?,?,?, ?,?,?,?,?, ?";// 11 @param
-		PreparedStatement statement = connection.prepareStatement(sqlExec);
+		String sqlExec = "EXEC spThemDauSach ?,?,?,?,?, ?,?,?,?,?, ?";// 11 @param
+		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
 
@@ -84,8 +84,8 @@ public class DAL_DauSach extends ConnectDatabase implements I_DAO<DauSach> {
 	@Override
 	public int Delete(Object... code) throws SQLException, ClassNotFoundException {
 		openConnection();
-		String sqlExec = "EXEC XoaDauSach ?";
-		PreparedStatement statement = connection.prepareStatement(sqlExec);
+		String sqlExec = "EXEC spXoaDauSach ?";
+		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
 
@@ -100,8 +100,8 @@ public class DAL_DauSach extends ConnectDatabase implements I_DAO<DauSach> {
 	@Override
 	public int Update(DauSach record) throws SQLException, ClassNotFoundException {
 		openConnection();
-		String sqlExec = "EXEC SuaDauSach ?,?";
-		PreparedStatement statement = connection.prepareStatement(sqlExec);
+		String sqlExec = "EXEC spSuaDauSach ?,?,?,?,?, ?,?,?,?,?, ?";
+		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
 
@@ -126,8 +126,8 @@ public class DAL_DauSach extends ConnectDatabase implements I_DAO<DauSach> {
 	@Override
 	public DauSach GetOne(Object... code) throws SQLException, ClassNotFoundException {
 		openConnection();
-		String sqlExec = "EXEC LayMotDauSach ?";
-		PreparedStatement statement = connection.prepareStatement(sqlExec);
+		String sqlExec = "EXEC spLayMotDauSach ?";
+		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
 

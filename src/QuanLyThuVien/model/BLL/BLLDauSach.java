@@ -23,18 +23,15 @@ import QuanLyThuVien.model.DAO.Object.DauSach;
  * 
  * @author IT1006
  */
-@WebServlet(name = "DauSachList", urlPatterns = { "/QuanLyThuVien/DauSachList" })
+@WebServlet(name = "DauSachList", urlPatterns = { "/DauSachList" })
 public class BLLDauSach extends HttpServlet  {
 	private static final long serialVersionUID = 1L;
 	private DAL_DauSach dal_dauSach;
 
 	public void init() {
 		String jdbcURL = getServletContext().getInitParameter("jdbcURL");
-		String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
-		String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
-
 		try {
-			dal_dauSach = new DAL_DauSach(jdbcURL, jdbcUsername, jdbcPassword);
+			dal_dauSach = new DAL_DauSach(jdbcURL);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -51,19 +48,19 @@ public class BLLDauSach extends HttpServlet  {
 		String action = request.getServletPath();
 		try {
 			switch (action) {
-			case "/new":
+			case "/DauSachList/new":
 				showNewForm(request, response);
 				break;
-			case "/insert":
+			case "/DauSachList/insert":
 				insertDauSach(request, response);
 				break;
-			case "/delete":
+			case "/DauSachList/delete":
 				deleteDauSach(request, response);
 				break;
-			case "/edit":
+			case "/DauSachList/edit":
 				showEditForm(request, response);
 				break;
-			case "/update":
+			case "/DauSachList/update":
 				updateDauSach(request, response);
 				break;
 			default:

@@ -27,14 +27,14 @@
             </tr>
             <c:forEach var="dauSach" items="${listDauSach}">
                 <tr>
-                    <td><c:out value="${dauSach.MaDauSach}" /></td>
-                    <td><c:out value="${dauSach.MaNxb}" /></td>
-                    <td><c:out value="${dauSach.MaTheLoai}" /></td>
-                    <td><c:out value="${dauSach.TenDauSach}" /></td>
+                    <td><c:out value="${dauSach.getMaDauSach()}" /></td>
+                    <td><c:out value="${dauSach.getMaNxb()}" /></td>
+                    <td><c:out value="${dauSach.getMaTheLoai()}" /></td>
+                    <td><c:out value="${dauSach.getTenSach()}" /></td>
                     <td>
-                    	<a href="edit?id=<c:out value='${dauSach.MaDauSach}' />">Edit</a>
+                    	<a href="edit?id=<c:out value='${dauSach.getMaDauSach()}' />">Edit</a>
                     	&nbsp;&nbsp;&nbsp;&nbsp;
-                    	<a href="delete?id=<c:out value='${dauSach.MaDauSach}' />">Delete</a>                    	
+                    	<a href="delete?id=<c:out value='${dauSach.getMaDauSach()}' />">Delete</a>                    	
                     </td>
                 </tr>
             </c:forEach>
