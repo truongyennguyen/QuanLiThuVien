@@ -6,7 +6,7 @@
 	<display-name>QuanLyThuVien</display-name>
 	<context-param>
 		<param-name>jdbcURL</param-name>
-		<param-value>jdbc:mysql://127.0.0.1:3306/quanlythuvien</param-value>
+		<param-value>jdbc:sqlserver://localhost;databaseName=QuanLyThuVien;user=sa;password=123456;</param-value>
 	</context-param>
 	<context-param>
 		<param-name>jdbcUsername</param-name>
@@ -14,7 +14,7 @@
 	</context-param>
 	<context-param>
 		<param-name>jdbcPassword</param-name>
-		<param-value>T@@V85115578562</param-value>
+		<param-value>123456	</param-value>
 	</context-param>
 	<error-page>
 		<exception-type>java.lang.Exception</exception-type>
@@ -23,20 +23,4 @@
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
-
-	<servlet>
-		<servlet-name>BLLDauSach</servlet-name>
-		<servlet-class>QuanLyThuVien.model.BLL.BLLDauSach</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>BLLDauSach</servlet-name>
-		<url-pattern>/BLLDauSach</url-pattern>
-	</servlet-mapping>
-
-	<error-page>
-		<exception-type>java.lang.Exception</exception-type>
-		<location>/Error.jsp</location>
-	</error-page>
-
 </web-app>
