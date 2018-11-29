@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
+﻿<%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <!-- Title Page-->
     <title>Đầu sách</title>
 
@@ -41,7 +42,7 @@
             <div class="header-mobile__bar">
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
-                        <a class="logo" href="index.jsp">
+                        <a class="logo" href="index.html">
                             <img src="images/icon/logo.png" alt="CoolAdmin" />
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
@@ -60,16 +61,16 @@
                                 <i class="fas fa-tachometer-alt"></i>Mượn-trả sách</a>
                                 <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                                     <li>
-                                        <a href="muonsach.jsp">Mượn sách</a>
+                                        <a href="muonsach.html">Mượn sách</a>
                                     </li>
                                     <li>
-                                        <a href="trasach.jsp">Trả sách</a>
+                                        <a href="trasach.html">Trả sách</a>
                                     </li>
                                     <li>
-                                        <a href="dangki.jsp">Đăng kí thẻ thư viện</a>
+                                        <a href="dangki.html">Đăng kí thẻ thư viện</a>
                                     </li>
                                     <li>
-                                        <a href="phieuphat.jsp">Lập phiếu phạt</a>
+                                        <a href="phieuphat.html">Lập phiếu phạt</a>
                                     </li>
                                 </ul>
                             </li>
@@ -78,30 +79,30 @@
                                     <i class="fas fas fa-table"></i>Quản lí</a>
                                     <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                                         <li>
-                                            <a href="quanlinhanvien.jsp">Nhân viên</a>
+                                            <a href="quanlinhanvien.html">Nhân viên</a>
                                         </li>
                                         <li>
-                                            <a href="docgia.jsp">Đọc giả</a>
+                                            <a href="docgia.html">Đọc giả</a>
                                         </li>
                                         <li>
-                                            <a href="thongbao.jsp">Thông báo</a>
+                                            <a href="thongbao.html">Thông báo</a>
                                         </li>
                                         <li>
-                                            <a href="dausach.jsp">Đầu sách</a>
+                                            <a href="dausach.html">Đầu sách</a>
                                         </li>
                                         <li>
-                                            <a href="nhaxuatban.jsp">Nhà xuất bản</a>
+                                            <a href="nhaxuatban.html">Nhà xuất bản</a>
                                         </li>
                                         <li>
-                                            <a href="taikhoan.jsp">Tài khoản</a>
+                                            <a href="taikhoan.html">Tài khoản</a>
                                         </li>
                                         <li>
-                                           <a href="phongphucvu.jsp">Phòng phục vụ</a>
+                                           <a href="phongphucvu.html">Phòng phục vụ</a>
                                         </li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="table.html">
                                         <i class="fas fa-chart-bar"></i>Thông kê</a>
                                     </li>
                                 </ul>
@@ -125,16 +126,16 @@
                                             <i class="fas fa-tachometer-alt"></i>Nghiệp vụ thư viện</a>
                                             <ul class="list-unstyled navbar__sub-list js-sub-list">
                                                 <li>
-                                                    <a href="muonsach.jsp">Mượn sách</a>
+                                                    <a href="muonsach.html">Mượn sách</a>
                                                 </li>
                                                 <li>
-                                                    <a href="trasach.jsp">Trả sách</a>
+                                                    <a href="trasach.html">Trả sách</a>
                                                 </li>
                                                 <li>
-                                                    <a href="dangki.jsp">Đăng kí thẻ thư viện</a>
+                                                    <a href="dangki.html">Đăng kí thẻ thư viện</a>
                                                 </li>
                                                 <li>
-                                                    <a href="phieuphat.jsp">Lập phiếu phạt</a>
+                                                    <a href="phieuphat.html">Lập phiếu phạt</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -143,30 +144,30 @@
                                                 <i class="fas fas fa-table"></i>Quản lí</a>
                                                 <ul class="list-unstyled navbar__sub-list js-sub-list">
                                                     <li>
-                                            <a href="quanlinhanvien.jsp">Nhân viên</a>
+                                            <a href="quanlinhanvien.html">Nhân viên</a>
                                         </li>
                                         <li>
-                                            <a href="docgia.jsp">Đọc giả</a>
+                                            <a href="docgia.html">Đọc giả</a>
                                         </li>
                                         <li>
-                                            <a href="thongbao.jsp">Thông báo</a>
+                                            <a href="thongbao.html">Thông báo</a>
                                         </li>
                                         <li>
-                                            <a href="dausach.jsp">Đầu sách</a>
+                                            <a href="dausach.html">Đầu sách</a>
                                         </li>
                                         <li>
-                                            <a href="nhaxuatban.jsp">Nhà xuất bản</a>
+                                            <a href="nhaxuatban.html">Nhà xuất bản</a>
                                         </li>
                                         <li>
-                                            <a href="taikhoan.jsp">Tài khoản</a>
+                                            <a href="taikhoan.html">Tài khoản</a>
                                         </li>
                                         <li>
-                                            <a href="phongphucvu.jsp">Phòng phục vụ</a>
+                                            <a href="phongphucvu.html">Phòng phục vụ</a>
                                         </li>
                                                 </ul>
                                             </li>
                                             <li>
-                                                <a href="#">
+                                                <a href="table.html">
                                                     <i class="fas fa-chart-bar"></i>Thống kê</a>
                                                 </li>
                                             </ul>
@@ -177,17 +178,6 @@
 
                                 <!-- PAGE CONTAINER-->
                                 <div class="page-container">
-                                    <!-- HEADER DESKTOP-->
-                                    <header class="header-desktop">
-                                        <div class="section__content section__content--p30">
-                                            <div class="container-fluid">
-                                                <div class="header-wrap">
-                            
-                        </div>
-                    </div>
-                </div>
-            </header>
-            <!-- HEADER DESKTOP-->
 
             <!-- MAIN CONTENT-->
             <div class="main-content">
@@ -254,7 +244,90 @@
                                                 </table>
                                                     
                                             </div>
-                                            <button type="button" class="btn btn-success">Thêm đầu sách</button>
+                                            <div>
+                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+  Thêm
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" style="font-family: 'Roboto';">Thêm đầu sách</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row" style="display: flex;
+    align-items: center;font-family: 'Roboto';">
+                        <div class="col-xs-12 col-md-4">
+                            <h5 class="">Mã đầu sách</h3>
+                        </div>
+                        <div class="col-xs-12 col-md-8">
+                            <input type="text" name="" id="input" class="form-control" value="" required="required" pattern="" title="">
+                        </div>
+                    </div>
+                    <div style="height: 10px"></div>
+                    <div class="row"  style="display: flex;
+    align-items: center;font-family: 'Roboto';">
+                        <div class="col-xs-12 col-md-4">
+                            <h5 class="">Tên đầu sách</h3>
+                        </div>
+                        <div class="col-xs-12 col-md-8">
+                            <input type="text" name="" id="input" class="form-control" value="" required="required" pattern="" title="">
+                        </div>
+                    </div>
+                    <div style="height: 10px"></div>
+                    <div class="row"  style="display: flex;
+    align-items: center;font-family: 'Roboto';">
+                        <div class="col-xs-12 col-md-4">
+                            <h5 class="">Nhà xuất bản</h3>
+                        </div>
+                        <div class="col-xs-12 col-md-8">
+                            <input type="text" name="" id="input" class="form-control" value="" required="required" pattern="" title="">
+                        </div>
+                    </div>
+                    <div style="height: 10px"></div>
+                    <div class="row" style="display: flex;
+    align-items: center;font-family: 'Roboto';">
+                        <div class="col-xs-12 col-md-4">
+                            <h5 style="vertical-align: middle;">Thể loại</h3>
+                        </div>
+                        <div class="col-xs-12 col-md-8">
+                            <input type="text" name="" id="input" class="form-control" value="" required="required" pattern="" title="">
+                        </div>
+                    </div>
+                    <div style="height: 10px"></div>
+                    <div class="row" style="display: flex;
+    align-items: center;font-family: 'Roboto';">
+                        <div class="col-xs-12 col-md-4">
+                            <h5 class="">Tác giả</h3>
+                        </div>
+                        <div class="col-xs-12 col-md-8">
+                            <input type="text" name="" id="input" class="form-control" value="" required="required" pattern="" title="">
+                        </div>
+                    </div>
+                    <div style="height: 10px"></div>
+                    <div class="row" style="display: flex;
+    align-items: center;font-family: 'Roboto';">
+                        <div class="col-xs-12 col-md-4">
+                            <h5 class="">Năm xuất bản</h3>
+                        </div>
+                        <div class="col-xs-12 col-md-8">
+                            <input type="text" name="" id="input" class="form-control" value="" required="required" pattern="" title="">
+                        </div>
+                    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+        <button type="button" class="btn btn-primary">Lưu</button>
+      </div>
+    </div>
+  </div>
+</div>
+                                            </div>
                                         </div>
                                 </div>
                             </div>
@@ -297,3 +370,4 @@
 
 </html>
 <!-- end document-->
+
