@@ -14,7 +14,7 @@ import java.util.List;
  * @author IT 1006:
  * @since 23/11/2018
  * @see package-info.java*/
-public interface I_DAO<TData> {
+public interface I_DAL<TData> {
 	/**Lấy toàn bộ các record của bảng truy�?n vào List_TData*/
     List<TData> getAll() throws SQLException, ClassNotFoundException;
     int Add(TData record) throws SQLException, ClassNotFoundException;

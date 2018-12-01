@@ -8,7 +8,7 @@ import java.util.List;
 
 import QuanLyThuVien.model.DAL.Object.*;
 
-public class DALDauSach extends ConnectDatabase implements I_DAO<DauSach> {
+public class DALDauSach extends ConnectDatabase implements I_DAL<DauSach> {
 
 	public DALDauSach(String jdbcURL) throws SQLException {
 		super(jdbcURL);
@@ -34,13 +34,13 @@ public class DALDauSach extends ConnectDatabase implements I_DAO<DauSach> {
 			dauSach.setTenSach(res.getString(4));
 			dauSach.setMoTa(res.getString(5));
 			dauSach.setTacGia(res.getString(6));
-			dauSach.setAnhTacGia(res.getBytes(7));//AnhTacGia
+			dauSach.setAnhTacGia(res.getString(7));// AnhTacGia
 			dauSach.setNamXuatBan(res.getDate(8));
 			dauSach.setNgonNgu(res.getString(9));
-			dauSach.setAnhBia(res.getBytes(10));//AnhBia
+			dauSach.setAnhBia(res.getString(10));// AnhBia
 			dauSach.setTrangThai(res.getString(11));
 			dauSach.setGia(res.getFloat(12));
-			dauSach.setFilePDF(res.getBlob(13));//filePDF
+			dauSach.setFilePDF(res.getString(13));// filePDF
 
 			DauSachs.add(dauSach);
 		}
@@ -60,7 +60,7 @@ public class DALDauSach extends ConnectDatabase implements I_DAO<DauSach> {
 			return 0;
 
 		openConnection();
-		String sqlExec = "EXEC spThemDauSach ?,?,?,?,?, ?,?,?,?,?, ?";// 11 @param
+		String sqlExec = "EXEC spDauSach ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?";// 14 @param
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
@@ -71,13 +71,14 @@ public class DALDauSach extends ConnectDatabase implements I_DAO<DauSach> {
 		statement.setString(4, record.getTenSach());
 		statement.setString(5, record.getMoTa());
 		statement.setString(6, record.getTacGia());
-		statement.setBytes(7, record.getAnhTacGia());
+		statement.setString(7, record.getAnhTacGia());
 		statement.setDate(8, record.getNamXuatBan());
 		statement.setString(9, record.getNgonNgu());
-		statement.setBytes(10, record.getAnhBia());
+		statement.setString(10, record.getAnhBia());
 		statement.setString(11, record.getTrangThai());
 		statement.setFloat(12, record.getGia());
-		statement.setBlob(13, record.getFilePDF());
+		statement.setString(13, record.getFilePDF());
+		statement.setString(14, "INSERT");
 
 		int rowInsert = statement.executeUpdate();
 
@@ -104,7 +105,7 @@ public class DALDauSach extends ConnectDatabase implements I_DAO<DauSach> {
 	@Override
 	public int Update(DauSach record) throws SQLException, ClassNotFoundException {
 		openConnection();
-		String sqlExec = "EXEC spSuaDauSach ?,?,?,?,?, ?,?,?,?,?, ?";
+		String sqlExec = "EXEC spDauSach ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?";
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
@@ -115,14 +116,15 @@ public class DALDauSach extends ConnectDatabase implements I_DAO<DauSach> {
 		statement.setString(4, record.getTenSach());
 		statement.setString(5, record.getMoTa());
 		statement.setString(6, record.getTacGia());
-		statement.setBytes(7, record.getAnhTacGia());
+		statement.setString(7, record.getAnhTacGia());
 		statement.setDate(8, record.getNamXuatBan());
 		statement.setString(9, record.getNgonNgu());
-		statement.setBytes(10, record.getAnhBia());
+		statement.setString(10, record.getAnhBia());
 		statement.setString(11, record.getTrangThai());
 		statement.setFloat(12, record.getGia());
-		statement.setBlob(13, record.getFilePDF());
-
+		statement.setString(13, record.getFilePDF());
+		statement.setString(14, "UPDATE");
+		
 		int rowUpdate = statement.executeUpdate();
 
 		closeConnection();
@@ -149,13 +151,13 @@ public class DALDauSach extends ConnectDatabase implements I_DAO<DauSach> {
 			dauSach.setTenSach(res.getString(4));
 			dauSach.setMoTa(res.getString(5));
 			dauSach.setTacGia(res.getString(6));
-			dauSach.setAnhTacGia(res.getBytes(7));
+			dauSach.setAnhTacGia(res.getString(7));
 			dauSach.setNamXuatBan(res.getDate(8));
 			dauSach.setNgonNgu(res.getString(9));
-			dauSach.setAnhBia(res.getBytes(10));
+			dauSach.setAnhBia(res.getString(10));
 			dauSach.setTrangThai(res.getString(11));
 			dauSach.setGia(res.getFloat(12));
-			dauSach.setFilePDF(res.getBlob(13));
+			dauSach.setFilePDF(res.getString(13));
 
 		}
 		closeConnection();

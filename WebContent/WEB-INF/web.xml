@@ -6,7 +6,7 @@
 	<display-name>QuanLyThuVien</display-name>
 	<context-param>
 		<param-name>jdbcURL</param-name>
-		<param-value>jdbc:sqlserver://192.168.0.102;databaseName=QuanLyThuVien;user=sa;password=123456;</param-value>
+		<param-value>jdbc:sqlserver://localhost;databaseName=QuanLyThuVien;user=sa;password=123456;</param-value>
 	</context-param>
 	<context-param>
 		<param-name>jdbcUsername</param-name>
