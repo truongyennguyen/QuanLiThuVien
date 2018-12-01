@@ -1,13 +1,9 @@
 package QuanLyThuVien.model.DAL.Object;
 
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.sql.Blob;
 import java.sql.Date;
-import java.sql.SQLException;
 
 /**
- * Object �?ầu sách:
+ * Object ï¿½?áº§u sÃ¡ch:
  * 
  * @author IT 1006
  * @since 23/11/2018
@@ -19,86 +15,27 @@ public class DauSach {
 	private String tenSach;
 	private String moTa;
 	private String tacGia;
-	private byte[] anhTacGia;
+	private String anhTacGia;
 	private Date namXuatBan;
 	private String ngonNgu;
-	private byte[] anhBia;
+	private String anhBia;
 	private String trangThai;
 	private float gia;
-	private Blob filePDF;
+	private String filePDF;
 
 	public DauSach() {
 		this.namXuatBan = new Date(0);
-		this.anhTacGia = new byte[8096];
-		this.anhBia = new byte[8096];
-		this.filePDF = new Blob() {
-			
-			@Override
-			public void truncate(long len) throws SQLException {
-				
-			}
-			
-			@Override
-			public int setBytes(long pos, byte[] bytes, int offset, int len) throws SQLException {
-				return 0;
-			}
-			
-			@Override
-			public int setBytes(long pos, byte[] bytes) throws SQLException {
-				return 0;
-			}
-			
-			@Override
-			public OutputStream setBinaryStream(long pos) throws SQLException {
-				return null;
-			}
-			
-			@Override
-			public long position(Blob pattern, long start) throws SQLException {
-				return 0;
-			}
-			
-			@Override
-			public long position(byte[] pattern, long start) throws SQLException {
-				return 0;
-			}
-			
-			@Override
-			public long length() throws SQLException {
-				return 0;
-			}
-			
-			@Override
-			public byte[] getBytes(long pos, int length) throws SQLException {
-				return null;
-			}
-			
-			@Override
-			public InputStream getBinaryStream(long pos, long length) throws SQLException {
-				return null;
-			}
-			
-			@Override
-			public InputStream getBinaryStream() throws SQLException {
-				return null;
-			}
-			
-			@Override
-			public void free() throws SQLException {
-				
-			}
-		};
 	}
 
 	/**
-	 * Phục vụ cho việc xóa
+	 * Phá»¥c vá»¥ cho viá»‡c xÃ³a
 	 */
 	public DauSach(int madausach) {
 		this.setMaDauSach(madausach);
 	}
 
-	public DauSach(int manxb, int matheloai, String tensach, String mota, String tacgia, byte[] anhtacgia,
-			Date namxuatban, String ngonngu, byte[] anhbia, String trangthai, float gia, Blob filepdf) {
+	public DauSach(int manxb, int matheloai, String tensach, String mota, String tacgia, String anhtacgia,
+			Date namxuatban, String ngonngu, String anhbia, String trangthai, float gia, String filepdf) {
 		this.setMaTheLoai(matheloai);
 		this.setMaNxb(manxb);
 		this.setTenSach(tensach);
@@ -114,8 +51,8 @@ public class DauSach {
 	}
 
 	public DauSach(int madausach, int manxb, int matheloai, String tensach, String mota, String tacgia,
-			byte[] anhtacgia, Date namxuatban, String ngonngu, byte[] anhbia, String trangthai, float gia,
-			Blob filepdf) {
+			String anhtacgia, Date namxuatban, String ngonngu, String anhbia, String trangthai, float gia,
+			String filepdf) {
 		this(manxb, matheloai, tensach, mota, tacgia, anhtacgia, namxuatban, ngonngu, anhbia, trangthai, gia, filepdf);
 		this.setMaDauSach(madausach);
 	}
@@ -168,11 +105,11 @@ public class DauSach {
 		this.tacGia = tacGia;
 	}
 
-	public byte[] getAnhTacGia() {
+	public String getAnhTacGia() {
 		return anhTacGia;
 	}
 
-	public void setAnhTacGia(byte[] anhTacGia) {
+	public void setAnhTacGia(String anhTacGia) {
 		this.anhTacGia = anhTacGia;
 	}
 
@@ -193,16 +130,18 @@ public class DauSach {
 	}
 
 	/**
-	 * Phần xử lý dữ liệu đều được làm ở đây*/
-	public byte[] getAnhBia() {
-		
+	 * Pháº§n xá»­ lÃ½ dá»¯ liá»‡u Ä‘á»�u Ä‘Æ°á»£c lÃ m á»Ÿ Ä‘Ã¢y
+	 */
+	public String getAnhBia() {
+
 		return anhBia;
 	}
 
 	/**
-	 * Phần convert dữ liệu làm ở đây*/
-	public void setAnhBia(byte[] anhBia) {
-		
+	 * Pháº§n convert dá»¯ liá»‡u lÃ m á»Ÿ Ä‘Ã¢y
+	 */
+	public void setAnhBia(String anhBia) {
+
 		this.anhBia = anhBia;
 	}
 
@@ -222,11 +161,11 @@ public class DauSach {
 		this.gia = gia;
 	}
 
-	public Blob getFilePDF() {
+	public String getFilePDF() {
 		return filePDF;
 	}
 
-	public void setFilePDF(Blob filePDF) {
+	public void setFilePDF(String filePDF) {
 		this.filePDF = filePDF;
 	}
 }

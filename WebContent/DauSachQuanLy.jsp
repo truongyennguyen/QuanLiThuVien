@@ -334,7 +334,7 @@
 															<th>Trạng thái</th>
 															<th>Gia</th>
 															<th>PDF</th>
-															<th></th>
+															<th>Thêm và Xóa&nbsp;&nbsp;&nbsp;&nbsp;</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -353,8 +353,8 @@
 																<td><c:out value="${dauSach.getTrangThai()}" /></td>
 																<td><c:out value="${dauSach.getGia()}" /></td>
 																<td><c:out value="${dauSach.getFilePDF()}" /></td>
-																<td><a class="btn btn-warning"
-																	href="DauSachQuanLy/edit?maDauSach=<c:out value='${dauSach.getMaDauSach()}' />">Sửa</a>
+																<td><button class="btn btn-warning pull-left"
+																		data-toggle="modal" data-target="#Update">Sửa</button>
 																	&nbsp;&nbsp;&nbsp;&nbsp; <a class="btn btn-danger"
 																	href="DauSachQuanLy/delete?maDauSach=<c:out value='${dauSach.getMaDauSach()}' />">Xóa</a>
 																</td>
@@ -362,147 +362,385 @@
 														</c:forEach>
 													</tbody>
 												</table>
-
 											</div>
-											<form>
-												<div id="Bieu_mau">
-													<button type="button" class="btn btn-success"
-														data-toggle="modal" data-target="#exampleModal">
-														Thêm</button>
 
-													<!-- Modal -->
-													<div class="modal fade" id="exampleModal" tabindex="-1"
-														role="dialog" aria-labelledby="exampleModalLabel"
-														aria-hidden="true" data-backdrop="false">
-														<div class="modal-lg modal-dialog " role="document">
-															<div class="modal-content ">
-																<div class="modal-header">
-
-																	<h3 class="modal-title" id="exampleModalLabel"
-																		style="font-family: 'Roboto';">Thêm đầu sách</h3>
-																	<button type="button" class="close"
-																		data-dismiss="modal" aria-label="Close">
-																		<span aria-hidden="true">&times;</span>
-																	</button>
-																</div>
-
-																<div class="modal-body">
-																	<div class="row">
-																		<div class="form-group col-md-4">
-																			<label>Mã Đầu Sách</label> <input type="text"
-																				name="txtMaDauSach" id="input" required="required"
-																				class="form-control" value="" pattern="" title="">
-
-																		</div>
-																		<div class="form-group col-md-4">
-																			<label>Mã NXB</label> <input type="text"
-																				name="txtMaNxb" id="input" class="form-control"
-																				value="" required="required" pattern="" title="">
-
-																		</div>
-																		<div class="form-group col-md-4">
-																			<label>Mã Thể Loại</label> <input type="text"
-																				name="txtMaTheLoai" id="input" class="form-control"
-																				value="" required="required" pattern="" title="">
-
-																		</div>
-																	</div>
-																	<div class="row">
-																		<div class="form-group col-md-12">
-																			<label>Tên Sách</label> <input type="text"
-																				name="txtTenSach" id="input" class="form-control"
-																				value="" required="required" pattern="" title="">
-																		</div>
-																	</div>
-																	<div class="row">
-																		<div class="form-group col-md-12">
-																			<label>Mô tả</label>
-																			<textarea rows="5" name="txtMoTa"
-																				class="col-md-12 form-control"
-																				style="border: solid 1px green;"></textarea>
-																		</div>
-																	</div>
-																	<div class="row">
-																		<div class="form-group col-md-6">
-																			<label>Tác Giả</label> <input type="text"
-																				name="txtTacGia" id="input" class="form-control"
-																				value="" required="required" pattern="" title="">
-																		</div>
-																		<div class="form-group col-md-6">
-																			<label>Ảnh Tác Giả</label> <input type="file"
-																				name="imageAnhTacGia" id="input"
-																				class="form-control" value="" required="required"
-																				pattern="" title="" accept="image/*">
-																		</div>
-																	</div>
-																	<div class="row">
-
-																		<div class="form-group col-md-4">
-																			<label>Năm Xuất Bản</label> <input type="date"
-																				name="dateNamXuatBan" id="input"
-																				class="form-control " value="" required="required"
-																				pattern="" title="">
-
-																		</div>
-																		<div class="form-group col-md-4">
-																			<label>Ngôn Ngữ</label> <input type="text"
-																				name="txtNgonNgu" id="input" class="form-control"
-																				value="" required="required" pattern="" title="">
-																		</div>
-																		<div class="form-group col-md-4">
-																			<label>Trạng Thái</label> <input type="text" name=""
-																				id="input" class="form-control" value=""
-																				required="required" pattern="" title="">
-																		</div>
-																	</div>
-																	<div class="row">
-																		<div class="form-group col-md-8">
-																			<label>Ảnh Bìa</label> <input type="file"
-																				name="imageAnhBia" id="input" class="form-control"
-																				value="" required="required" pattern="" title=""
-																				accept="image/*">
-																		</div>
-
-																		<div class="form-group col-md-4">
-																			<label>Giá</label> <input type="number"
-																				name="numberGia" id="input" class="form-control"
-																				value="10000" step="1000" required="required"
-																				pattern="[0-9]" title="" min="1000">
-																		</div>
-																	</div>
-																	<div class="row">
-																		<div class="form-group col-md-12">
-																			<label>File PDF</label> <input type="file"
-																				name="fileFilePDF" id="input" class="form-control"
-																				value="" required="required"
-																				accept="application/pdf">
-
-																		</div>
-																	</div>
-
-
-																	<div class="modal-footer">
-																		<button type="button" class="btn btn-secondary"
-																			data-dismiss="modal">Đóng</button>
-																		<button type="button" class="btn btn-primary">Lưu</button>
-																	</div>
-
-																</div>
-
-
-															</div>
-														</div>
-													</div>
-												</div>
-											</form>
+										</div>
+										<div id="Bieu_mau">
+											<button type="button" class="btn btn-primary"
+												data-toggle="modal" data-target="#Insert">Thêm</button>
 										</div>
 									</div>
 								</div>
+
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			<!-- <c:if test="">
+				<form method="post" action="/QuanLyThuVien/DauSachQuanLy/update">
+			</c:if>
+			<c:if test="">
+				<form method="post" action="/QuanLyThuVien/DauSachQuanLy/insert">
+			</c:if> -->
+
+			<form method="post" action="/QuanLyThuVien/DauSachQuanLy/insert">
+				<!-- Modal -->
+				<div class="modal fade" id="InsertUpdate" tabindex="-1"
+					role="dialog" aria-labelledby="exampleModalLabel"
+					aria-hidden="true" data-backdrop="false">
+					<div class="modal-lg modal-dialog " role="document">
+						<div class="modal-content ">
+							<div class="modal-header">
+								<c:if test="">
+									<h3 class="modal-title" id="InsertUpdateLabel"
+										style="font-family: 'Roboto';">Thêm đầu sách</h3>
+								</c:if>
+								<h3 class="modal-title" id="InsertUpdateLabel"
+									style="font-family: 'Roboto';">Thêm đầu sách</h3>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+
+							<div class="modal-body">
+								<div class="row">
+									<div class="form-group col-md-4">
+										<label>Mã Đầu Sách</label> <input type="text"
+											name="txtMaDauSach" required="required" class="form-control">
+
+									</div>
+									<div class="form-group col-md-4">
+										<label>Mã NXB</label> <input type="text" name="txtMaNxb"
+											class="form-control" required="required">
+
+									</div>
+									<div class="form-group col-md-4">
+										<label>Mã Thể Loại</label> <input type="text"
+											name="txtMaTheLoai" class="form-control" value=""
+											required="required">
+
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label>Tên Sách</label> <input type="text" name="txtTenSach"
+											class="form-control" required="required">
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label>Mô tả</label>
+										<textarea rows="5" name="txtMoTa"
+											class="col-md-12 form-control"
+											style="border: solid 1px green;"></textarea>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-md-6">
+										<label>Tác Giả</label> <input type="text" name="txtTacGia"
+											class="form-control" required="required">
+									</div>
+									<div class="form-group col-md-6">
+										<label>Ảnh Tác Giả</label> <input type="file"
+											name="imageAnhTacGia" class="form-control"
+											required="required" accept="image/*">
+									</div>
+								</div>
+								<div class="row">
+
+									<div class="form-group col-md-4">
+										<label>Năm Xuất Bản</label> <input type="date"
+											name="dateNamXuatBan" class="form-control "
+											required="required">
+
+									</div>
+									<div class="form-group col-md-4">
+										<label>Ngôn Ngữ</label> <input type="text" name="txtNgonNgu"
+											class="form-control" required="required">
+									</div>
+									<div class="form-group col-md-4">
+										<label>Trạng Thái</label> <input type="text"
+											name="txtTrangThai" class="form-control" required="required">
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-md-8">
+										<label>Ảnh Bìa</label> <input type="file" name="imageAnhBia"
+											class="form-control" required="required" accept="image/*">
+									</div>
+
+									<div class="form-group col-md-4">
+										<label>Giá</label> <input type="number" name="numberGia"
+											class="form-control" value="10000" step="1000"
+											required="required" pattern="[0-9]" title="" min="1000">
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label>File PDF</label> <input type="file" name="fileFilePDF"
+											class="form-control" required="required"
+											accept="application/pdf">
+
+									</div>
+								</div>
+								<div class="modal-footer pull-left">
+									<button class="btn btn-secondary pull-left"
+										data-dismiss="modal">Đóng</button>
+								</div>
+								<div class="modal-footer pull-right">
+									<c:if test="">
+										<input class="btn btn-primary" type="submit" value="Sửa">
+									</c:if>
+									<c:if test="">
+										<input class="btn btn-primary" type="submit" value="Thêm">
+									</c:if>
+									<input class="btn btn-primary" type="submit" value="Thêm">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+
+
+
+			<!-- TEST MAXIMUM LUÔN XEM NHƯ NÀO -->
+			<!-- TEST MAXIMUM LUÔN XEM NHƯ NÀO -->
+			<!-- TEST MAXIMUM LUÔN XEM NHƯ NÀO -->
+			<!-- TEST MAXIMUM LUÔN XEM NHƯ NÀO -->
+			<!-- TEST MAXIMUM LUÔN XEM NHƯ NÀO -->
+			<form method="post" action="/QuanLyThuVien/DauSachQuanLy/insert">
+				<!-- Modal -->
+				<div class="modal fade" id="Insert" tabindex="-1" role="dialog"
+					aria-labelledby="exampleModalLabel" aria-hidden="true"
+					data-backdrop="false">
+					<div class="modal-lg modal-dialog " role="document">
+						<div class="modal-content ">
+							<div class="modal-header">
+								<h3 class="modal-title" id="InsertLabel"
+									style="font-family: 'Roboto';">Thêm đầu sách</h3>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+
+							<div class="modal-body">
+								<div class="row">
+									<div class="form-group col-md-4">
+										<label>Mã Đầu Sách</label> <input type="text"
+											name="txtMaDauSach" required="required" class="form-control">
+
+									</div>
+									<div class="form-group col-md-4">
+										<label>Mã NXB</label> <input type="text" name="txtMaNxb"
+											class="form-control" required="required">
+
+									</div>
+									<div class="form-group col-md-4">
+										<label>Mã Thể Loại</label> <input type="text"
+											name="txtMaTheLoai" class="form-control" value=""
+											required="required">
+
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label>Tên Sách</label> <input type="text" name="txtTenSach"
+											class="form-control" required="required">
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label>Mô tả</label>
+										<textarea rows="5" name="txtMoTa"
+											class="col-md-12 form-control"
+											style="border: solid 1px green;"></textarea>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-md-6">
+										<label>Tác Giả</label> <input type="text" name="txtTacGia"
+											class="form-control" required="required">
+									</div>
+									<div class="form-group col-md-6">
+										<label>Ảnh Tác Giả</label> <input type="file"
+											name="imageAnhTacGia" class="form-control"
+											required="required" accept="image/*">
+									</div>
+								</div>
+								<div class="row">
+
+									<div class="form-group col-md-4">
+										<label>Năm Xuất Bản</label> <input type="date"
+											name="dateNamXuatBan" class="form-control "
+											required="required">
+
+									</div>
+									<div class="form-group col-md-4">
+										<label>Ngôn Ngữ</label> <input type="text" name="txtNgonNgu"
+											class="form-control" required="required">
+									</div>
+									<div class="form-group col-md-4">
+										<label>Trạng Thái</label> <input type="text"
+											name="txtTrangThai" class="form-control" required="required">
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-md-8">
+										<label>Ảnh Bìa</label> <input type="file" name="imageAnhBia"
+											class="form-control" required="required" accept="image/*">
+									</div>
+
+									<div class="form-group col-md-4">
+										<label>Giá</label> <input type="number" name="numberGia"
+											class="form-control" value="10000" step="1000"
+											required="required" pattern="[0-9]" title="" min="1000">
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label>File PDF</label> <input type="file" name="fileFilePDF"
+											class="form-control" required="required"
+											accept="application/pdf">
+
+									</div>
+								</div>
+								<div class="modal-footer pull-left">
+									<button class="btn btn-secondary pull-left"
+										data-dismiss="modal">Đóng</button>
+								</div>
+								<div class="modal-footer pull-right">
+									<input class="btn btn-primary" type="submit" value="Thêm">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<form method="post" action="/QuanLyThuVien/DauSachQuanLy/update">
+				<!-- Modal -->
+				<div class="modal fade" id="Update" tabindex="-1" role="dialog"
+					aria-labelledby="UpdateLabel" aria-hidden="true"
+					data-backdrop="false">
+					<div class="modal-lg modal-dialog " role="document">
+						<div class="modal-content ">
+							<div class="modal-header">
+								<h3 class="modal-title" id="InsertUpdateLabel"
+									style="font-family: 'Roboto';">Sửa đầu sách</h3>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+
+							<div class="modal-body">
+								<div class="row">
+									<div class="form-group col-md-4">
+										<label>Mã Đầu Sách</label> <input type="text"
+											name="txtMaDauSach" required="required" class="form-control"
+											value='${dauSach.getMaDauSach()}'>
+									</div>
+									<div class="form-group col-md-4">
+										<label>Mã NXB</label> <input type="text" name="txtMaNxb"
+											class="form-control" required="required"
+											value=${dauSach.getMaNxb() }>
+
+									</div>
+									<div class="form-group col-md-4">
+										<label>Mã Thể Loại</label> <input type="text"
+											name="txtMaTheLoai" class="form-control" value=""
+											required="required" value=${dauSach.getMaTheLoai() }>
+
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label>Tên Sách</label> <input type="text" name="txtTenSach"
+											class="form-control" required="required"
+											value=${dauSach.getTenSach() }>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label>Mô tả</label>
+										<textarea rows="5" name="txtMoTa"
+											class="col-md-12 form-control"
+											style="border: solid 0.5px green;"
+											value=${dauSach.getMoTa() }></textarea>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-md-6">
+										<label>Tác Giả</label> <input type="text" name="txtTacGia"
+											class="form-control" required="required"
+											value=${dauSach.getTacGia() }>
+									</div>
+									<div class="form-group col-md-6">
+										<label>Ảnh Tác Giả</label> <input type="file"
+											name="imageAnhTacGia" class="form-control"
+											required="required" accept="image/*"
+											value=${dauSach.getAnhTacGia() }>
+									</div>
+								</div>
+								<div class="row">
+
+									<div class="form-group col-md-4">
+										<label>Năm Xuất Bản</label> <input type="date"
+											name="dateNamXuatBan" class="form-control "
+											required="required" value=${dauSach.getNamXuatBan() }>
+
+									</div>
+									<div class="form-group col-md-4">
+										<label>Ngôn Ngữ</label> <input type="text" name="txtNgonNgu"
+											class="form-control" required="required">
+									</div>
+									<div class="form-group col-md-4">
+										<label>Trạng Thái</label> <input type="text"
+											name="txtTrangThai" class="form-control" required="required"
+											value=${dauSach.getTrangThai() }>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-md-8">
+										<label>Ảnh Bìa</label> <input type="file" name="imageAnhBia"
+											class="form-control" required="required" accept="image/*"
+											value=${dauSach.getAnhBia() }>
+									</div>
+
+									<div class="form-group col-md-4">
+										<label>Giá</label> <input type="number" name="numberGia"
+											class="form-control" value="10000" step="1000"
+											required="required" pattern="[0-9]" title="" min="1000"
+											value=${dauSach.getGia() }>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-md-12">
+										<label>File PDF</label> <input type="file" name="fileFilePDF"
+											class="form-control" required="required"
+											accept="application/pdf" value=${dauSach.getFilePDF() }>
+
+									</div>
+								</div>
+								<div class="modal-footer pull-left">
+									<button class="btn btn-secondary pull-left"
+										data-dismiss="modal">Đóng</button>
+								</div>
+								<div class="modal-footer pull-right">
+									<input class="btn btn-primary" type="submit" value="Sửa">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<!-- TEST MAXIMUM LUÔN XEM NHƯ NÀO -->
+			<!-- TEST MAXIMUM LUÔN XEM NHƯ NÀO -->
+			<!-- TEST MAXIMUM LUÔN XEM NHƯ NÀO -->
+
 		</div>
 		<!-- END MAIN CONTENT-->
 		<!-- END PAGE CONTAINER-->
