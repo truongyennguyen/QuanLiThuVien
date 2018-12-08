@@ -1,0 +1,10 @@
+2018-12-02 19:04:03,033 [Worker-3: Loading available Gradle versions] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
+2018-12-02 19:20:23,152 [Worker-1: Loading available Gradle versions] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2018-12-02 19:25:03,789 [Worker-18: Updating Maven Dependencies] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.maven.ide.eclipse.wtp.WarLifecycleMapping lifecycle mapping for MavenProject: QuanLiThuVien:QuanLiThuVien:0.0.1-SNAPSHOT @ C:\Users\Admin\Documents\WebSach\QuanLyThuVien\QuanLyThuVien\pom.xml.
+2018-12-02 19:25:04,154 [Worker-18: Updating Maven Dependencies] WARN  o.e.m.c.i.embedder.EclipseLogger - The POM for xdoclet:xdoclet:jar:1.2.3 is missing, no dependency information available
+2018-12-02 19:25:06,905 [Worker-18: Updating Maven Dependencies] WARN  o.e.m.c.i.embedder.EclipseLogger - The POM for xdoclet:xdoclet:jar:1.2.3 is missing, no dependency information available
+2018-12-02 19:26:01,595 [Worker-18: Building workspace] WARN  o.e.m.c.i.embedder.EclipseLogger - The POM for xdoclet:xdoclet:jar:1.2.3 is missing, no dependency information available
+2018-12-02 19:26:03,671 [Worker-18: Building workspace] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2018-12-02 19:26:03,672 [Worker-18: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Admin\Documents\WebSach\QuanLyThuVien\QuanLyThuVien\src\main\resources
+2018-12-02 19:26:03,678 [Worker-18: Building workspace] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2018-12-02 19:26:03,680 [Worker-18: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Admin\Documents\WebSach\QuanLyThuVien\QuanLyThuVien\src\test\resources
