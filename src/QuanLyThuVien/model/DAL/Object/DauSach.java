@@ -1,5 +1,7 @@
 package QuanLyThuVien.model.DAL.Object;
 
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Date;
 
 /**
@@ -15,17 +17,16 @@ public class DauSach {
 	private String tenSach;
 	private String moTa;
 	private String tacGia;
-	private String anhTacGia;
+	private InputStream anhTacGia;
+	private Blob anhTacGiaBlob;
 	private Date namXuatBan;
 	private String ngonNgu;
-	private String anhBia;
+	private InputStream anhBia;
+	private Blob anhBiaBlob;
 	private String trangThai;
-	private float gia;
-	private String filePDF;
-
-	public DauSach() {
-		this.namXuatBan = new Date(0);
-	}
+	private int gia;
+	private InputStream filePDF;
+	private Blob filePDFBlob;
 
 	/**
 	 * Phá»¥c vá»¥ cho viá»‡c xÃ³a
@@ -34,8 +35,8 @@ public class DauSach {
 		this.setMaDauSach(madausach);
 	}
 
-	public DauSach(int manxb, int matheloai, String tensach, String mota, String tacgia, String anhtacgia,
-			Date namxuatban, String ngonngu, String anhbia, String trangthai, float gia, String filepdf) {
+	public DauSach(int manxb, int matheloai, String tensach, String mota, String tacgia, InputStream anhtacgia,
+			Date namxuatban, String ngonngu, InputStream anhbia, String trangthai, int gia, InputStream filepdf) {
 		this.setMaTheLoai(matheloai);
 		this.setMaNxb(manxb);
 		this.setTenSach(tensach);
@@ -51,8 +52,8 @@ public class DauSach {
 	}
 
 	public DauSach(int madausach, int manxb, int matheloai, String tensach, String mota, String tacgia,
-			String anhtacgia, Date namxuatban, String ngonngu, String anhbia, String trangthai, float gia,
-			String filepdf) {
+			InputStream anhtacgia, Date namxuatban, String ngonngu, InputStream anhbia, String trangthai, int gia,
+			InputStream filepdf) {
 		this(manxb, matheloai, tensach, mota, tacgia, anhtacgia, namxuatban, ngonngu, anhbia, trangthai, gia, filepdf);
 		this.setMaDauSach(madausach);
 	}
@@ -105,11 +106,11 @@ public class DauSach {
 		this.tacGia = tacGia;
 	}
 
-	public String getAnhTacGia() {
+	public InputStream getAnhTacGia() {
 		return anhTacGia;
 	}
 
-	public void setAnhTacGia(String anhTacGia) {
+	public void setAnhTacGia(InputStream anhTacGia) {
 		this.anhTacGia = anhTacGia;
 	}
 
@@ -130,9 +131,10 @@ public class DauSach {
 	}
 
 	/**
-	 * Pháº§n xá»­ lÃ½ dá»¯ liá»‡u Ä‘á»�u Ä‘Æ°á»£c lÃ m á»Ÿ Ä‘Ã¢y
+	 * Pháº§n xá»­ lÃ½ dá»¯ liá»‡u Ä‘á»�u Ä‘Æ°á»£c
+	 * lÃ m á»Ÿ Ä‘Ã¢y
 	 */
-	public String getAnhBia() {
+	public InputStream getAnhBia() {
 
 		return anhBia;
 	}
@@ -140,7 +142,7 @@ public class DauSach {
 	/**
 	 * Pháº§n convert dá»¯ liá»‡u lÃ m á»Ÿ Ä‘Ã¢y
 	 */
-	public void setAnhBia(String anhBia) {
+	public void setAnhBia(InputStream anhBia) {
 
 		this.anhBia = anhBia;
 	}
@@ -153,19 +155,47 @@ public class DauSach {
 		this.trangThai = trangThai;
 	}
 
-	public float getGia() {
+	public int getGia() {
 		return gia;
 	}
 
-	public void setGia(float gia) {
+	public void setGia(int gia) {
 		this.gia = gia;
 	}
 
-	public String getFilePDF() {
+	public InputStream getFilePDF() {
 		return filePDF;
 	}
 
-	public void setFilePDF(String filePDF) {
+	public void setFilePDF(InputStream filePDF) {
 		this.filePDF = filePDF;
+	}
+
+	public Blob getAnhTacGiaBlob() {
+		return anhTacGiaBlob;
+	}
+
+	public void setAnhTacGiaBlob(Blob anhTacGiaBlob) {
+		this.anhTacGiaBlob = anhTacGiaBlob;
+	}
+
+	public Blob getAnhBiaBlob() {
+		return anhBiaBlob;
+	}
+
+	public void setAnhBiaBlob(Blob anhBiaBlob) {
+		this.anhBiaBlob = anhBiaBlob;
+	}
+
+	public Blob getFilePDFBlob() {
+		return filePDFBlob;
+	}
+
+	public void setFilePDFBlob(Blob filePDFBlob) {
+		this.filePDFBlob = filePDFBlob;
+	}
+
+	public DauSach() {
+		this.namXuatBan = new Date(0);
 	}
 }

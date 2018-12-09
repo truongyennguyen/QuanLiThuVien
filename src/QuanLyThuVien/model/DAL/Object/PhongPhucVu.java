@@ -9,7 +9,7 @@ public class PhongPhucVu {
 	private Time gioBatDau;
 	private Time gioKetThuc;
 	private int maNhanVien;
-	
+
 	public PhongPhucVu(int idPhong) {
 		super();
 		this.idPhong = idPhong;
@@ -67,5 +67,5 @@ public class PhongPhucVu {
 	public void setMaNhanVien(int maNhanVien) {
 		this.maNhanVien = maNhanVien;
 	}
-	
+
 }

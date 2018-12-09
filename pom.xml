@@ -29,6 +29,11 @@
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/xdoclet/xdoclet -->
 		<dependency>
+			<groupId>xdoclet</groupId>
+			<artifactId>xdoclet</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>

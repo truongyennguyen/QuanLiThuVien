@@ -3,6 +3,7 @@ package QuanLyThuVien.model.DAL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.concurrent.Executors;
 
 /**
  * Class connect xuống dưới MySql. Method: openConnection và
@@ -29,6 +30,7 @@ public class ConnectDatabase {
 				throw new SQLException(e);
 			}
 			jdbcConnection = DriverManager.getConnection(jdbcURL);
+			jdbcConnection.setAutoCommit(true);
 		}
 	}
 
