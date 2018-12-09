@@ -59,7 +59,7 @@ public class BLLThongBao extends HttpServlet {
 		} catch (SQLException ex) {
 			throw new ServletException(ex);
 		}
-}
+	}
 
 	private void listThongBao(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
@@ -74,7 +74,7 @@ public class BLLThongBao extends HttpServlet {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	private void updateThongBao(HttpServletRequest request, HttpServletResponse response)
@@ -86,7 +86,9 @@ public class BLLThongBao extends HttpServlet {
 		record.setiDThongBao(Integer.parseInt(request.getParameter("txtMaThongBao")));
 		record.setTenThongBao(request.getParameter("txtTenThongBao"));
 		record.setNoiDung(request.getParameter("txtNoiDung"));
-		record.setHinhAnh(request.getParameter("txtHinhAnh"));
+
+		// THIẾU CÁI HÌNH ẢNH Ở ĐÂY
+
 		record.setMaTaiKhoan(Integer.parseInt(request.getParameter("txtMaTaiKhoan")));
 		try {
 			dal_thongBao.Update(record);
@@ -108,6 +110,7 @@ public class BLLThongBao extends HttpServlet {
 		}
 
 	}
+
 	private void insertThongBao(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
 
@@ -118,7 +121,9 @@ public class BLLThongBao extends HttpServlet {
 		record.setiDThongBao(Integer.parseInt(request.getParameter("txtMaThongBao")));
 		record.setTenThongBao(request.getParameter("txtTenThongBao"));
 		record.setNoiDung(request.getParameter("txtNoiDung"));
-		record.setHinhAnh(request.getParameter("txtHinhAnh"));
+
+		// THIẾU CÁI HÌNH ẢNH Ở ĐÂY
+
 		record.setMaTaiKhoan(Integer.parseInt(request.getParameter("txtMaTaiKhoan")));
 
 		try {
@@ -128,4 +133,4 @@ public class BLLThongBao extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	}
+}

@@ -29,7 +29,9 @@ public class DALThongBao extends ConnectDatabase implements I_DAL<ThongBao> {
 			thongBao.setiDThongBao(res.getInt(1));
 			thongBao.setTenThongBao(res.getString(2));
 			thongBao.setNoiDung(res.getString(3));
-			thongBao.setHinhAnh(res.getString(4));
+
+			// THIẾU CÁI SET HINH ANH Ở ĐÂY
+
 			thongBao.setMaTaiKhoan(res.getInt(5));
 			ThongBaos.add(thongBao);
 		}
@@ -51,7 +53,9 @@ public class DALThongBao extends ConnectDatabase implements I_DAL<ThongBao> {
 		statement.setInt(1, record.getiDThongBao());
 		statement.setString(2, record.getTenThongBao());
 		statement.setString(3, record.getNoiDung());
-		statement.setString(4, record.getHinhAnh());
+
+		// THIẾU CÁI SET HINH ANH Ở ĐÂY
+
 		statement.setInt(5, record.getMaTaiKhoan());
 		statement.setString(14, "INSERT");
 		int rowInsert = statement.executeUpdate();
@@ -82,7 +86,9 @@ public class DALThongBao extends ConnectDatabase implements I_DAL<ThongBao> {
 		statement.setInt(1, record.getiDThongBao());
 		statement.setString(2, record.getTenThongBao());
 		statement.setString(3, record.getNoiDung());
-		statement.setString(4, record.getHinhAnh());
+
+		// THIẾU CÁI SET HINH ANH Ở ĐÂY
+
 		statement.setInt(5, record.getMaTaiKhoan());
 		statement.setString(14, "UPDATE");
 		int rowUpdate = statement.executeUpdate();
@@ -106,7 +112,9 @@ public class DALThongBao extends ConnectDatabase implements I_DAL<ThongBao> {
 			thongBao.setiDThongBao(res.getInt(1));
 			thongBao.setTenThongBao(res.getString(2));
 			thongBao.setNoiDung(res.getString(3));
-			thongBao.setHinhAnh(res.getString(4));
+
+			// THIẾU CÁI SET HINH ANH Ở ĐẤY
+
 			thongBao.setMaTaiKhoan(res.getInt(5));
 		}
 		closeConnection();

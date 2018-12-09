@@ -1,5 +1,6 @@
 package QuanLyThuVien.model.DAL;
 
+import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,14 +35,13 @@ public class DALDauSach extends ConnectDatabase implements I_DAL<DauSach> {
 			dauSach.setTenSach(res.getString(4));
 			dauSach.setMoTa(res.getString(5));
 			dauSach.setTacGia(res.getString(6));
-			dauSach.setAnhTacGia(res.getString(7));// AnhTacGia
+			dauSach.setAnhTacGiaBlob(res.getBlob(7));// AnhTacGia
 			dauSach.setNamXuatBan(res.getDate(8));
 			dauSach.setNgonNgu(res.getString(9));
-			dauSach.setAnhBia(res.getString(10));// AnhBia
+			dauSach.setAnhBiaBlob(res.getBlob(10));// AnhBia
 			dauSach.setTrangThai(res.getString(11));
-			dauSach.setGia(res.getFloat(12));
-			dauSach.setFilePDF(res.getString(13));// filePDF
-
+			dauSach.setGia(res.getInt(12));
+			dauSach.setFilePDFBlob(res.getBlob(13));// filePDF
 			DauSachs.add(dauSach);
 		}
 
@@ -64,20 +64,20 @@ public class DALDauSach extends ConnectDatabase implements I_DAL<DauSach> {
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
-
 		statement.setInt(1, record.getMaDauSach());
 		statement.setInt(2, record.getMaNxb());
 		statement.setInt(3, record.getMaTheLoai());
 		statement.setString(4, record.getTenSach());
 		statement.setString(5, record.getMoTa());
 		statement.setString(6, record.getTacGia());
-		statement.setString(7, record.getAnhTacGia());
+		statement.setBlob(7, record.getAnhTacGia());
 		statement.setDate(8, record.getNamXuatBan());
 		statement.setString(9, record.getNgonNgu());
-		statement.setString(10, record.getAnhBia());
+		statement.setBlob(10, record.getAnhBia());
 		statement.setString(11, record.getTrangThai());
 		statement.setFloat(12, record.getGia());
-		statement.setString(13, record.getFilePDF());
+		statement.setBlob(13, record.getFilePDF());
+
 		statement.setString(14, "INSERT");
 
 		int rowInsert = statement.executeUpdate();
@@ -116,15 +116,15 @@ public class DALDauSach extends ConnectDatabase implements I_DAL<DauSach> {
 		statement.setString(4, record.getTenSach());
 		statement.setString(5, record.getMoTa());
 		statement.setString(6, record.getTacGia());
-		statement.setString(7, record.getAnhTacGia());
+		statement.setBlob(7, record.getAnhTacGia());
 		statement.setDate(8, record.getNamXuatBan());
 		statement.setString(9, record.getNgonNgu());
-		statement.setString(10, record.getAnhBia());
+		statement.setBlob(10, record.getAnhBia());
 		statement.setString(11, record.getTrangThai());
 		statement.setFloat(12, record.getGia());
-		statement.setString(13, record.getFilePDF());
+		statement.setBlob(13, record.getFilePDF());
 		statement.setString(14, "UPDATE");
-		
+
 		int rowUpdate = statement.executeUpdate();
 
 		closeConnection();
@@ -151,16 +151,17 @@ public class DALDauSach extends ConnectDatabase implements I_DAL<DauSach> {
 			dauSach.setTenSach(res.getString(4));
 			dauSach.setMoTa(res.getString(5));
 			dauSach.setTacGia(res.getString(6));
-			dauSach.setAnhTacGia(res.getString(7));
+			dauSach.setAnhTacGiaBlob(res.getBlob(7));
 			dauSach.setNamXuatBan(res.getDate(8));
 			dauSach.setNgonNgu(res.getString(9));
-			dauSach.setAnhBia(res.getString(10));
+			dauSach.setAnhBiaBlob(res.getBlob(10));
 			dauSach.setTrangThai(res.getString(11));
-			dauSach.setGia(res.getFloat(12));
-			dauSach.setFilePDF(res.getString(13));
+			dauSach.setGia(res.getInt(12));
+			dauSach.setFilePDFBlob(res.getBlob(13));
 
 		}
-		closeConnection();
+		// Because load image very time-consuming --> Don't close connect to DB
+		// closeConnection();
 		return dauSach;
 	}
 }

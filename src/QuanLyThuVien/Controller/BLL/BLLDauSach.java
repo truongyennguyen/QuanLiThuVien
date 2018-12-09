@@ -1,6 +1,9 @@
 package QuanLyThuVien.Controller.BLL;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.sql.Blob;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import QuanLyThuVien.model.DAL.DALDauSach;
 import QuanLyThuVien.model.DAL.Object.DauSach;
@@ -25,7 +29,10 @@ import QuanLyThuVien.model.DAL.Object.DauSach;
  * @author IT1006
  */
 @WebServlet(name = "DauSachQuanLy", urlPatterns = { "/DauSachQuanLy", "/DauSachQuanLy/delete", "/DauSachQuanLy/list",
-		"/DauSachQuanLy/insert", "/DauSachQuanLy/update" })
+		"/DauSachQuanLy/insert", "/DauSachQuanLy/update", "/DauSachQuanLy/edit" })
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+		maxFileSize = 1024 * 1024 * 10, // 10MB
+		maxRequestSize = 1024 * 1024 * 50) // 50MB
 public class BLLDauSach extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DALDauSach dal_dauSach;
@@ -49,7 +56,7 @@ public class BLLDauSach extends HttpServlet {
 			throws ServletException, IOException {
 
 		String action = request.getServletPath();
-		System.out.println(action);
+		// System.out.println(action);
 		try {
 			switch (action) {
 			case "/DauSachQuanLy/insert":
@@ -61,7 +68,10 @@ public class BLLDauSach extends HttpServlet {
 			case "/DauSachQuanLy/update":
 				updateDauSach(request, response);
 				break;
-			default: // list
+			case "/DauSachQuanLy/edit":
+				editDauSach(request, response);
+				break;
+			default:
 				listDauSach(request, response);
 				break;
 			}
@@ -74,12 +84,11 @@ public class BLLDauSach extends HttpServlet {
 			throws SQLException, IOException, ServletException {
 
 		List<DauSach> listDauSach = new ArrayList<DauSach>();
-
 		try {
 			listDauSach = dal_dauSach.getAll();
 			request.setAttribute("listDauSach", listDauSach);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("DauSachQuanLy.jsp");
-			dispatcher.forward(request, response);
+
+			request.getRequestDispatcher("DauSachQuanLy.jsp").forward(request, response);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -99,7 +108,27 @@ public class BLLDauSach extends HttpServlet {
 		record.setTenSach(request.getParameter("txtTenSach"));
 		record.setMoTa(request.getParameter("txtMoTa"));
 		record.setTacGia(request.getParameter("txtTacGia"));
-		record.setAnhTacGia(request.getParameter("imageAnhTacGia"));
+		int i = 0;
+		try {
+			for (Part part : request.getParts()) {
+				String fileName = extractFileName(part);
+				if (fileName != null && fileName.length() > 0) {
+					InputStream is = part.getInputStream();
+					if (i == 0) {
+						record.setAnhTacGia(is);
+						i++;
+					} else if (i == 1) {
+						record.setAnhBia(is);
+						i++;
+					} else if (i == 2) {
+						record.setFilePDF(is);
+						i++;
+					}
+				}
+			}
+		} catch (ServletException e1) {
+			e1.printStackTrace();
+		}
 		if (request.getParameter("dateNamXuatBan") != null) {
 			try {
 				Date namXuatBan = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dateNamXuatBan"));
@@ -108,12 +137,9 @@ public class BLLDauSach extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		record.setNgonNgu(request.getParameter("txtNamXuatBan"));
-		record.setAnhBia(request.getParameter("imageAnhBia"));
+		record.setNgonNgu(request.getParameter("txtNgonNgu"));
 		record.setTrangThai(request.getParameter("txtTrangThai"));
-		record.setGia(Float.parseFloat(request.getParameter("numberGia")));
-		record.setFilePDF(request.getParameter("fileFilePDF"));
-
+		record.setGia(Integer.parseInt(request.getParameter("numberGia")));
 		try {
 			dal_dauSach.Add(record);
 			response.sendRedirect("/QuanLyThuVien/DauSachQuanLy");
@@ -137,11 +163,27 @@ public class BLLDauSach extends HttpServlet {
 		record.setTenSach(request.getParameter("txtTenSach"));
 		record.setMoTa(request.getParameter("txtMoTa"));
 		record.setTacGia(request.getParameter("txtTacGia"));
-//		Part part = (Part) request.getParts();
-//		InputStream is = part.getInputStream();
-//		record.setAnhTacGia(is);
-//		byte[] anhTacGia = new byte[8096];
-		record.setAnhTacGia(request.getParameter("imageAnhTacGia"));
+		int i = 0;
+		try {
+			for (Part part : request.getParts()) {
+				String fileName = extractFileName(part);
+				if (fileName != null && fileName.length() > 0) {
+					InputStream is = part.getInputStream();
+					if (i == 0) {
+						record.setAnhTacGia(is);
+						i++;
+					} else if (i == 1) {
+						record.setAnhBia(is);
+						i++;
+					} else if (i == 2) {
+						record.setFilePDF(is);
+						i++;
+					}
+				}
+			}
+		} catch (ServletException e1) {
+			e1.printStackTrace();
+		}
 		if (request.getParameter("dateNamXuatBan") != null) {
 			try {
 				Date namXuatBan = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dateNamXuatBan"));
@@ -150,13 +192,9 @@ public class BLLDauSach extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		record.setNgonNgu(request.getParameter("txtNamXuatBan"));
-//		byte[] anhBia = new byte[8096];
-		record.setAnhBia(request.getParameter("imageAnhBia"));
+		record.setNgonNgu(request.getParameter("txtNgonNgu"));
 		record.setTrangThai(request.getParameter("txtTrangThai"));
-		record.setGia(Float.parseFloat(request.getParameter("numberGia")));
-		record.setFilePDF(request.getParameter("fileFilePDF"));
-
+		record.setGia(Integer.parseInt(request.getParameter("numberGia")));
 		try {
 			dal_dauSach.Update(record);
 			response.sendRedirect("/QuanLyThuVien/DauSachQuanLy");
@@ -164,6 +202,24 @@ public class BLLDauSach extends HttpServlet {
 			e.printStackTrace();
 		}
 
+	}
+
+	private void editDauSach(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, ServletException, IOException {
+
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+		int code = Integer.parseInt(request.getParameter("maDauSach"));
+
+		try {
+			DauSach dauSach = new DauSach();
+			dauSach = dal_dauSach.GetOne(code);
+			request.setAttribute("dauSachIU", dauSach);
+			request.getRequestDispatcher("/DauSachQuanLy").forward(request, response);
+			;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void deleteDauSach(HttpServletRequest request, HttpServletResponse response)
@@ -179,4 +235,23 @@ public class BLLDauSach extends HttpServlet {
 
 	}
 
+	private String extractFileName(Part part) {
+		// form-data; name="file"; filename="C:\file1.zip"
+		// form-data; name="file"; filename="C:\Note\file2.zip"
+		String contentDisp = part.getHeader("content-disposition");
+		String[] items = contentDisp.split(";");
+		for (String s : items) {
+			if (s.trim().startsWith("filename")) {
+				// C:\file1.zip
+				// C:\Note\file2.zip
+				String clientFileName = s.substring(s.indexOf("=") + 2, s.length() - 1);
+				clientFileName = clientFileName.replace("\\", "/");
+				int i = clientFileName.lastIndexOf('/');
+				// file1.zip
+				// file2.zip
+				return clientFileName.substring(i + 1);
+			}
+		}
+		return null;
+	}
 }
