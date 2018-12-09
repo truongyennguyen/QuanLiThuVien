@@ -1,12 +1,13 @@
 package QuanLyThuVien.model.DAL.Object;
 
 import java.sql.Date;
+import java.sql.Time;
 
 public class PhongPhucVu {
 	private int idPhong;
 	private String tenPhong;
-	private Date gioBatDau;
-	private Date gioKetThuc;
+	private Time gioBatDau;
+	private Time gioKetThuc;
 	private int maNhanVien;
 	
 	public PhongPhucVu(int idPhong) {
@@ -18,7 +19,7 @@ public class PhongPhucVu {
 		super();
 	}
 
-	public PhongPhucVu(int idPhong, String tenPhong, Date gioBatDau, Date gioKetThuc, int maNhanVien) {
+	public PhongPhucVu(int idPhong, String tenPhong, Time gioBatDau, Time gioKetThuc, int maNhanVien) {
 		super();
 		this.idPhong = idPhong;
 		this.tenPhong = tenPhong;
@@ -43,19 +44,19 @@ public class PhongPhucVu {
 		this.tenPhong = tenPhong;
 	}
 
-	public Date getGioBatDau() {
+	public Time getGioBatDau() {
 		return gioBatDau;
 	}
 
-	public void setGioBatDau(Date gioBatDau) {
+	public void setGioBatDau(Time gioBatDau) {
 		this.gioBatDau = gioBatDau;
 	}
 
-	public Date getGioKetThuc() {
+	public Time getGioKetThuc() {
 		return gioKetThuc;
 	}
 
-	public void setGioKetThuc(Date gioKetThuc) {
+	public void setGioKetThuc(Time gioKetThuc) {
 		this.gioKetThuc = gioKetThuc;
 	}
 

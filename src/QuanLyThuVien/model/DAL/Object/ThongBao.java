@@ -4,7 +4,7 @@ public class ThongBao {
 	private int iDThongBao;
 	private String tenThongBao;
 	private String noiDung;
-	private byte[] hinhAnh;
+	private String hinhAnh;
 	private int maTaiKhoan;
 	
 	
@@ -19,7 +19,7 @@ public class ThongBao {
 	}
 
 
-	public ThongBao(int iDThongBao, String tenThongBao, String noiDung, byte[] hinhAnh, int maTaiKhoan) {
+	public ThongBao(int iDThongBao, String tenThongBao, String noiDung, String hinhAnh, int maTaiKhoan) {
 		super();
 		this.iDThongBao = iDThongBao;
 		this.tenThongBao = tenThongBao;
@@ -59,12 +59,12 @@ public class ThongBao {
 	}
 
 
-	public byte[] getHinhAnh() {
+	public String getHinhAnh() {
 		return hinhAnh;
 	}
 
 
-	public void setHinhAnh(byte[] hinhAnh) {
+	public void setHinhAnh(String hinhAnh) {
 		this.hinhAnh = hinhAnh;
 	}
 

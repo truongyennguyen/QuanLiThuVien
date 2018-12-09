@@ -1,13 +1,16 @@
 package QuanLyThuVien.model.DAL.Object;
 
+import java.sql.Date;
+
 public class PhieuPhat {
 	private int idPhieuPhat;
 	private int maNhanVien;
 	private int maThe;
-	private int ngayLap;
+	private Date ngayLap;
 	private int tienPhat;
 	
 	
+
 	public PhieuPhat(int idPhieuPhat) {
 		super();
 		this.idPhieuPhat = idPhieuPhat;
@@ -19,7 +22,7 @@ public class PhieuPhat {
 	}
 
 
-	public PhieuPhat(int idPhieuPhat, int maNhanVien, int maThe, int ngayLap, int tienPhat) {
+	public PhieuPhat(int idPhieuPhat, int maNhanVien, int maThe, Date ngayLap, int tienPhat) {
 		super();
 		this.idPhieuPhat = idPhieuPhat;
 		this.maNhanVien = maNhanVien;
@@ -59,12 +62,12 @@ public class PhieuPhat {
 	}
 
 
-	public int getNgayLap() {
+	public Date getNgayLap() {
 		return ngayLap;
 	}
 
 
-	public void setNgayLap(int ngayLap) {
+	public void setNgayLap(Date ngayLap) {
 		this.ngayLap = ngayLap;
 	}
 
