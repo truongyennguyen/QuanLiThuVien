@@ -1,7 +1,6 @@
 package QuanLyThuVien.Controller.BLL;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,7 +25,7 @@ import QuanLyThuVien.model.DAL.Object.DauSach;
  * @author IT1006
  */
 @WebServlet(name = "DauSachQuanLy", urlPatterns = { "/DauSachQuanLy", "/DauSachQuanLy/delete", "/DauSachQuanLy/list",
-		"/DauSachQuanLy/insert", "/DauSachQuanLy/update", "/DauSachQuanLy/edit"})
+		"/DauSachQuanLy/insert", "/DauSachQuanLy/update" })
 public class BLLDauSach extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DALDauSach dal_dauSach;
@@ -62,10 +61,7 @@ public class BLLDauSach extends HttpServlet {
 			case "/DauSachQuanLy/update":
 				updateDauSach(request, response);
 				break;
-			case "/DauSachQuanLy/edit":
-				editDauSach(request, response);
-				break;
-			default:
+			default: // list
 				listDauSach(request, response);
 				break;
 			}
@@ -82,7 +78,8 @@ public class BLLDauSach extends HttpServlet {
 		try {
 			listDauSach = dal_dauSach.getAll();
 			request.setAttribute("listDauSach", listDauSach);
-			request.getRequestDispatcher("DauSachQuanLy.jsp").forward(request, response);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("DauSachQuanLy.jsp");
+			dispatcher.forward(request, response);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -167,23 +164,6 @@ public class BLLDauSach extends HttpServlet {
 			e.printStackTrace();
 		}
 
-	}
-
-	private void editDauSach(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, ServletException, IOException {
-
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html;charset=UTF-8");
-		int code = Integer.parseInt(request.getParameter("maDauSach"));
-
-		try {
-			DauSach dauSach = new DauSach();
-			dauSach = dal_dauSach.GetOne(code);
-			request.setAttribute("dauSachIU", dauSach);
-			request.getRequestDispatcher("/DauSachQuanLy").forward(request, response);;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 	}
 
 	private void deleteDauSach(HttpServletRequest request, HttpServletResponse response)

@@ -7,6 +7,9 @@ public class TheLoai {
 	
 
 	
+	public TheLoai() {
+		super();
+	}
 	public TheLoai(int maTheLoai) {
 		super();
 		this.maTheLoai = maTheLoai;

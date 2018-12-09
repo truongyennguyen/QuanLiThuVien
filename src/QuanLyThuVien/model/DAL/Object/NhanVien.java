@@ -91,5 +91,8 @@ public class NhanVien {
 	public void setMaTaiKhoan(int maTaiKhoan) {
 		this.maTaiKhoan = maTaiKhoan;
 	}
+
+
+
 	
 }
