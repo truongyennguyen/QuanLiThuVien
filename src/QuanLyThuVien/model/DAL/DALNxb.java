@@ -25,11 +25,11 @@ public class DALNxb extends ConnectDatabase implements I_DAL<Nxb> {
 		statement.setQueryTimeout(15);
 		ResultSet res = statement.executeQuery();
 		while (res.next()) {
-			Nxb nxb = new Nxb();
-			nxb.setMaNXB(res.getInt(1));
-			nxb.setTenNXB(res.getString(2));
-			nxb.setGhiChu(res.getString(3));
-			Nxbs.add(nxb);
+			Nxb Nxb = new Nxb();
+			Nxb.setMaNxb(res.getInt(1));
+			Nxb.setTenNxb(res.getString(2));
+			Nxb.setGhiChu(res.getString(3));
+			Nxbs.add(Nxb);
 		}
 
 		closeConnection();
@@ -46,8 +46,8 @@ public class DALNxb extends ConnectDatabase implements I_DAL<Nxb> {
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
-		statement.setInt(1, record.getMaNXB());
-		statement.setString(2, record.getTenNXB());
+		statement.setInt(1, record.getMaNxb());
+		statement.setString(2, record.getTenNxb());
 		statement.setString(3, record.getGhiChu());
 		statement.setString(14, "INSERT");
 		int rowInsert = statement.executeUpdate();
@@ -74,8 +74,8 @@ public class DALNxb extends ConnectDatabase implements I_DAL<Nxb> {
 		String sqlExec = "EXEC spNxb ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?";
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
-		statement.setInt(1, record.getMaNXB());
-		statement.setString(2, record.getTenNXB());
+		statement.setInt(1, record.getMaNxb());
+		statement.setString(2, record.getTenNxb());
 		statement.setString(3, record.getGhiChu());
 		statement.setString(14, "UPDATE");
 		int rowUpdate = statement.executeUpdate();
@@ -93,15 +93,15 @@ public class DALNxb extends ConnectDatabase implements I_DAL<Nxb> {
 
 		statement.setInt(1, (int) code[0]);
 
-		Nxb nxb = new Nxb();
+		Nxb Nxb = new Nxb();
 		ResultSet res = statement.executeQuery();
 		if (res.next()) {
-			nxb.setMaNXB(res.getInt(1));
-			nxb.setTenNXB(res.getString(2));
-			nxb.setGhiChu(res.getString(3));
+			Nxb.setMaNxb(res.getInt(1));
+			Nxb.setTenNxb(res.getString(2));
+			Nxb.setGhiChu(res.getString(3));
 		}
 		closeConnection();
-		return nxb;
+		return Nxb;
 	}
 
 }

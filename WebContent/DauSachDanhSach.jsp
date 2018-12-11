@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/xml" prefix="x"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -176,32 +181,70 @@
 							</p>
 						</div>
 						<!-- sắp xếp(từ từ tính) -->
-						<!-- <div class="pull-right col-xs-12 col-sm-7 col-md-6">
-                            <form class="form-horizontal">
-                                <div class="form-group">
-                                    <label class="control-label col-xs-4" for="sort">Sắp xếp theo : </label>
-                                    <div class="col-xs-8">
-                                        <div class="form-group">
-                                            <select name="sort" id="sort" class="form-control">
-                                                <option value="">Năm xuất </option>
-                                                <option value="">Best Book</option>
-                                                <option value="">Latest Book</option>
-                                                <option value="">Old Book</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div> -->
+						<div class="pull-right col-xs-12 col-sm-7 col-md-6">
+							<form class="form-horizontal">
+								<div class="form-group">
+									<label class="control-label col-xs-4" for="sort">Sắp
+										xếp theo : </label>
+									<div class="col-xs-8">
+										<div class="form-group">
+											<select name="sort" id="sort" class="form-control">
+												<option value="">Năm xuất</option>
+												<option value="">Best Book</option>
+												<option value="">Latest Book</option>
+												<option value="">Old Book</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
 					</div>
 					<hr>
 					<div class="space-20"></div>
 					<div class="row">
 
-						<div class="col-xs-12 col-md-6">
-							<div class="category-item well yellow">
-								<div class="media">
-									<div class="media-left">
+
+						<c:forEach var="dauSach" items="${listDauSach}">
+							<div class="col-xs-12 col-md-6">
+								<div class="category-item well yellow">
+									<div class="media">
+										<div class="media-left">
+											<img
+												src="http://localhost:8080/QuanLyThuVien/getAnhBia?maDauSach=${dauSach.getMaDauSach() }"
+												class="media-object" alt="Not found image" width="auto"
+												height="290px">
+										</div>
+										<div class="media-body">
+											<h5>
+												<c:out value="${dauSach.getTenSach()}" />
+											</h5>
+											<h6>
+												<c:out value="${dauSach.getTacGia()}" />
+											</h6>
+											<div class="space-10"></div>
+											<ul class="list-inline list-unstyled rating-star">
+												<li class="active"><i class="icofont icofont-star"></i></li>
+												<li class="active"><i class="icofont icofont-star"></i></li>
+												<li class="active"><i class="icofont icofont-star"></i></li>
+												<li class="active"><i class="icofont icofont-star"></i></li>
+												<li class="active"><i class="icofont icofont-star"></i></li>
+												<li><i class="icofont icofont-star"></i></li>
+											</ul>
+											<div class="space-10"></div>
+											<p>
+												<c:out value="${dauSach.getMoTa()}" />
+											</p>
+											<a
+												href="/QuanLyThuVien/DauSachNoiDung?maDauSach=<c:out value='${dauSach.getMaDauSach()}' />"
+												class="text-primary">Xem sách</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</c:forEach>
+
+						<!-- 		<div class="media-left">
 										<img src="images/book/book-xs-1.jpg" class="media-object"
 											alt="">
 									</div>
@@ -220,11 +263,9 @@
 										<p>Lorem ipsum dolor sit amet, consectetur adipisicing
 											elit, sed do eiusmod tempor</p>
 										<a href="books.jsp" class="text-primary">Xem sách</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-xs-12 col-md-6">
+									</div> -->
+
+						<!-- 	<div class="col-xs-12 col-md-6">
 							<div class="category-item well yellow">
 								<div class="media">
 									<div class="media-left">
@@ -354,32 +395,33 @@
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="space-60"></div>
-					<div class="row">
-						<div class="col-xs-12">
-							<div class="shop-pagination pull-right">
-								<ul id="pagination-demo" class="pagination-sm pagination">
-									<li class="page-item first"><a href="#" class="page-link">First</a></li>
-									<li class="page-item prev"><a href="#" class="page-link">Previous</a></li>
-									<li class="page-item"><a href="#" class="page-link">1</a></li>
-									<li class="page-item"><a href="#" class="page-link">2</a></li>
-									<li class="page-item active"><a href="#" class="page-link">3</a></li>
-									<li class="page-item"><a href="#" class="page-link">4</a></li>
-									<li class="page-item"><a href="#" class="page-link">5</a></li>
-									<li class="page-item"><a href="#" class="page-link">6</a></li>
-									<li class="page-item"><a href="#" class="page-link">7</a></li>
-									<li class="page-item next"><a href="#" class="page-link">Next</a></li>
-									<li class="page-item last"><a href="#" class="page-link">Last</a></li>
-								</ul>
+					</div> -->
+						<div class="space-60"></div>
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="shop-pagination pull-right">
+									<ul id="pagination-demo" class="pagination-sm pagination">
+										<li class="page-item first"><a href="#" class="page-link">First</a></li>
+										<li class="page-item prev"><a href="#" class="page-link">Previous</a></li>
+										<li class="page-item"><a href="#" class="page-link">1</a></li>
+										<li class="page-item"><a href="#" class="page-link">2</a></li>
+										<li class="page-item active"><a href="#"
+											class="page-link">3</a></li>
+										<li class="page-item"><a href="#" class="page-link">4</a></li>
+										<li class="page-item"><a href="#" class="page-link">5</a></li>
+										<li class="page-item"><a href="#" class="page-link">6</a></li>
+										<li class="page-item"><a href="#" class="page-link">7</a></li>
+										<li class="page-item next"><a href="#" class="page-link">Next</a></li>
+										<li class="page-item last"><a href="#" class="page-link">Last</a></li>
+									</ul>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 
+				</div>
 			</div>
-		</div>
-		<div class="space-80"></div>
+			<div class="space-80"></div>
 	</section>
 	<!-- Footer-Area -->
 	<footer class="black-bg text-white">

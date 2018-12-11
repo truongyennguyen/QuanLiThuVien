@@ -17,14 +17,14 @@ import javax.servlet.http.HttpServletResponse;
 import QuanLyThuVien.model.DAL.DALNxb;
 import QuanLyThuVien.model.DAL.Object.Nxb;
 
-public class BLLNxb extends HttpServlet  {
+public class BLLNxb extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private DALNxb dal_nxb;
+	private DALNxb dal_Nxb;
 
 	public void init() {
 		String jdbcURL = getServletContext().getInitParameter("jdbcURL");
 		try {
-			dal_nxb = new DALNxb(jdbcURL);
+			dal_Nxb = new DALNxb(jdbcURL);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -61,17 +61,16 @@ public class BLLNxb extends HttpServlet  {
 		}
 	}
 
-	private void updateNxb(HttpServletRequest request, HttpServletResponse response) 
-			throws SQLException, IOException {
+	private void updateNxb(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		Nxb record = new Nxb();
-		record.setMaNXB(Integer.parseInt(request.getParameter("txtMaNXB")));
-		record.setTenNXB(request.getParameter("txtTenNXB"));
+		record.setMaNxb(Integer.parseInt(request.getParameter("txtMaNxb")));
+		record.setTenNxb(request.getParameter("txtTenNxb"));
 		record.setGhiChu(request.getParameter("txtGhiChu"));
 		try {
-			dal_nxb.Update(record);
+			dal_Nxb.Update(record);
 			response.sendRedirect("/QuanLyThuVien/NxbQuanLy");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -79,12 +78,11 @@ public class BLLNxb extends HttpServlet  {
 
 	}
 
-	private void deleteNxb(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException {
+	private void deleteNxb(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		int code = Integer.parseInt(request.getParameter("maNxb"));
 
 		try {
-			dal_nxb.Delete(code);
+			dal_Nxb.Delete(code);
 			response.sendRedirect("/QuanLyThuVien/NxbQuanLy");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -92,17 +90,16 @@ public class BLLNxb extends HttpServlet  {
 
 	}
 
-	private void insertNxb(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException {
+	private void insertNxb(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		Nxb record = new Nxb();
-		record.setMaNXB(Integer.parseInt(request.getParameter("txtMaNXB")));
-		record.setTenNXB(request.getParameter("txtTenNXB"));
+		record.setMaNxb(Integer.parseInt(request.getParameter("txtMaNxb")));
+		record.setTenNxb(request.getParameter("txtTenNxb"));
 		record.setGhiChu(request.getParameter("txtGhiChu"));
 		try {
-			dal_nxb.Add(record);
+			dal_Nxb.Add(record);
 			response.sendRedirect("/QuanLyThuVien/NxbQuanLy");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -116,7 +113,7 @@ public class BLLNxb extends HttpServlet  {
 		List<Nxb> listNxb = new ArrayList<Nxb>();
 
 		try {
-			listNxb = dal_nxb.getAll();
+			listNxb = dal_Nxb.getAll();
 			request.setAttribute("listNxb", listNxb);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("NxbQuanLy.jsp");
 			dispatcher.forward(request, response);

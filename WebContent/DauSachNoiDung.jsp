@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/xml" prefix="x"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -139,23 +144,24 @@
 					<div class="space-30"></div>
 					<div class="row">
 						<!-- sắp xếp(từ từ tính) -->
-						<!-- <div class="pull-right col-xs-12 col-sm-7 col-md-6">
-                            <form class="form-horizontal">
-                                <div class="form-group">
-                                    <label class="control-label col-xs-4" for="sort">Sắp xếp theo : </label>
-                                    <div class="col-xs-8">
-                                        <div class="form-group">
-                                            <select name="sort" id="sort" class="form-control">
-                                                <option value="">Năm xuất </option>
-                                                <option value="">Best Book</option>
-                                                <option value="">Latest Book</option>
-                                                <option value="">Old Book</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div> -->
+						<div class="pull-right col-xs-12 col-sm-7 col-md-6">
+							<form class="form-horizontal">
+								<div class="form-group">
+									<label class="control-label col-xs-4" for="sort">Sắp
+										xếp theo : </label>
+									<div class="col-xs-8">
+										<div class="form-group">
+											<select name="sort" id="sort" class="form-control">
+												<option value="">Năm xuất</option>
+												<option value="">Best Book</option>
+												<option value="">Latest Book</option>
+												<option value="">Old Book</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
 					</div>
 					<hr>
 					<div class="space-20"></div>
@@ -163,13 +169,16 @@
 						<div class="book-details-item">
 							<h4 class="tip-left">Tiêu đề</h4>
 							<div class="media-left">
-								<img src="images/book/book3.jpg"
-									class="media-object author-photo img-thumbnail" alt="library">
+								<img
+									src="http://localhost:8080/QuanLyThuVien/getAnhBia?maDauSach=${dauSachDetail.getMaDauSach() }"
+									class="media-object img-thumbnail" alt="library" width="200px">
 							</div>
 
 							<div class="media-body">
 
-								<p class="lead">Smothered In Hugs</p>
+								<p class="lead">
+									<c:out value="${dauSachDetail.getTenSach()}" />
+								</p>
 							</div>
 							<div class="space-10"></div>
 							<div class="row">
@@ -177,12 +186,15 @@
 									<h4 class="tip-left">Tác giả</h4>
 									<div class="media">
 										<div class="media-left">
-											<img src="images/author.jpg"
+											<img
+												src="http://localhost:8080/QuanLyThuVien/getAnhTacGia?maDauSach=${dauSachDetail.getMaDauSach() }"
 												class="media-object author-photo img-thumbnail"
 												alt="library">
 										</div>
 										<div class="media-body">
-											<h5>Ucly Man</h5>
+											<h5>
+												<c:out value="${dauSachDetail.getTacGia()}" />
+											</h5>
 										</div>
 									</div>
 								</div>
@@ -193,14 +205,14 @@
 							</div>
 							<div class="space-30"></div>
 							<h4 class="tip-left">Mô tả</h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								Nulla libero dui, pretium non tincidunt eget, mattis eu nunc.
-								Aenean egestas nisi vel urna tempus aliquam. Etiam fringilla
-								tempor risus. Nulla vitae elementum felis. Vestibulum ultricies
-								feugiat est id ornare. Morbi non dapibus ante.</p>
+							<p>
+								<c:out value="${dauSachDetail.getMoTa()}" />
+							</p>
 							<div class="space-20"></div>
 							<h4 class="tip-left">Xếp hạng</h4>
 							<ul class="list-inline list-unstyled rating-star">
+								<li class="active"><i class="icofont icofont-star"></i></li>
+								<li class="active"><i class="icofont icofont-star"></i></li>
 								<li class="active"><i class="icofont icofont-star"></i></li>
 								<li class="active"><i class="icofont icofont-star"></i></li>
 								<li class="active"><i class="icofont icofont-star"></i></li>
@@ -208,10 +220,13 @@
 								<li><i class="icofont icofont-star"></i></li>
 							</ul>
 							<div class="space-20"></div>
-							<a href="books.jsp" class="btn btn-primary hover-btn-default">Download</a>
+							<a
+								href="http://localhost:8080/QuanLyThuVien/getFilePDF?maDauSach=${dauSachDetail.getMaDauSach() }"
+								class="btn btn-primary hover-btn-default">Download</a>
 							<div class="space-20"></div>
-							<embed src="pdf/ILAssemblyProg.pdf" type="application/pdf"
-								width="100%" height="700px"></embed>
+							<embed
+								src="http://localhost:8080/QuanLyThuVien/getFilePDF?maDauSach=${dauSachDetail.getMaDauSach() }"
+								type="application/pdf" width="100%" height="700px"></embed>
 						</div>
 					</div>
 					<div class="space-60"></div>
