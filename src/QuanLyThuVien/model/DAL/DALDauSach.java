@@ -164,4 +164,50 @@ public class DALDauSach extends ConnectDatabase implements I_DAL<DauSach> {
 		// closeConnection();
 		return dauSach;
 	}
+
+	public Nxb getMaNxb(String tenNxb) throws SQLException, ClassNotFoundException {
+		openConnection();
+		String sqlExec = "EXEC spLayMaNxbTheoTen ?";
+		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
+		statement.setEscapeProcessing(true);
+		statement.setQueryTimeout(15);
+
+		statement.setString(1, tenNxb);
+
+		Nxb nxb = new Nxb();
+		ResultSet res = statement.executeQuery();
+		if (res.next()) {
+
+			nxb.setMaNxb(res.getInt(1));
+			nxb.setTenNxb(res.getString(2));
+			nxb.setGhiChu(res.getString(3));
+
+		}
+		// Because load image very time-consuming --> Don't close connect to DB
+		// closeConnection();
+		return nxb;
+	}
+
+	public TheLoai getMaTheLoai(String tenTheLoai) throws SQLException, ClassNotFoundException {
+		openConnection();
+		String sqlExec = "EXEC spLayMaTheLoaiTheoTen ?";
+		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
+		statement.setEscapeProcessing(true);
+		statement.setQueryTimeout(15);
+
+		statement.setString(1, tenTheLoai);
+
+		TheLoai theLoai = new TheLoai();
+		ResultSet res = statement.executeQuery();
+		if (res.next()) {
+
+			theLoai.setMaTheLoai(res.getInt(1));
+			theLoai.setTenTheLoai(res.getString(2));
+
+		}
+		// Because load image very time-consuming --> Don't close connect to DB
+		// closeConnection();
+		return theLoai;
+	}
+
 }

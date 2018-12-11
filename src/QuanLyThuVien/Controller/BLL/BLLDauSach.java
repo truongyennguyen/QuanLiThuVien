@@ -20,7 +20,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import QuanLyThuVien.model.DAL.DALDauSach;
+import QuanLyThuVien.model.DAL.DALNxb;
+import QuanLyThuVien.model.DAL.DALTheLoai;
 import QuanLyThuVien.model.DAL.Object.DauSach;
+import QuanLyThuVien.model.DAL.Object.Nxb;
+import QuanLyThuVien.model.DAL.Object.TheLoai;
 
 /**
  * BLLdal_dauSach.java This servlet acts as a page controller for the
@@ -29,18 +33,25 @@ import QuanLyThuVien.model.DAL.Object.DauSach;
  * @author IT1006
  */
 @WebServlet(name = "DauSachQuanLy", urlPatterns = { "/DauSachQuanLy", "/DauSachQuanLy/delete", "/DauSachQuanLy/list",
-		"/DauSachQuanLy/insert", "/DauSachQuanLy/update", "/DauSachQuanLy/edit" })
+		"/DauSachQuanLy/insert", "/DauSachQuanLy/update", "/DauSachQuanLy/edit", "/DauSachDanhSach",
+		"/DauSachNoiDung" })
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
 		maxFileSize = 1024 * 1024 * 10, // 10MB
 		maxRequestSize = 1024 * 1024 * 50) // 50MB
 public class BLLDauSach extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
 	private DALDauSach dal_dauSach;
+	private DALNxb dal_nxb;
+	private DALTheLoai dal_theLoai;
 
 	public void init() {
 		String jdbcURL = getServletContext().getInitParameter("jdbcURL");
 		try {
 			dal_dauSach = new DALDauSach(jdbcURL);
+			dal_nxb = new DALNxb(jdbcURL);
+			dal_theLoai = new DALTheLoai(jdbcURL);
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -56,7 +67,6 @@ public class BLLDauSach extends HttpServlet {
 			throws ServletException, IOException {
 
 		String action = request.getServletPath();
-		// System.out.println(action);
 		try {
 			switch (action) {
 			case "/DauSachQuanLy/insert":
@@ -71,6 +81,12 @@ public class BLLDauSach extends HttpServlet {
 			case "/DauSachQuanLy/edit":
 				editDauSach(request, response);
 				break;
+			case "/DauSachDanhSach":
+				listDauSachDanhSach(request, response);
+				break;
+			case "/DauSachNoiDung":
+				dauSachNoiDung(request, response);
+				break;
 			default:
 				listDauSach(request, response);
 				break;
@@ -83,12 +99,33 @@ public class BLLDauSach extends HttpServlet {
 	private void listDauSach(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 
+		List<Nxb> listNxb = new ArrayList<Nxb>();
+		List<TheLoai> listTheLoai = new ArrayList<TheLoai>();
+		List<DauSach> listDauSach = new ArrayList<DauSach>();
+
+		try {
+			listDauSach = dal_dauSach.getAll();
+			listNxb = dal_nxb.getAll();
+			listTheLoai = dal_theLoai.getAll();
+			request.setAttribute("listDauSach", listDauSach);
+			request.setAttribute("listTheLoai", listTheLoai);
+			request.setAttribute("listNxb", listNxb);
+
+			request.getRequestDispatcher("DauSachQuanLy.jsp").forward(request, response);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void listDauSachDanhSach(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException {
+
 		List<DauSach> listDauSach = new ArrayList<DauSach>();
 		try {
 			listDauSach = dal_dauSach.getAll();
 			request.setAttribute("listDauSach", listDauSach);
 
-			request.getRequestDispatcher("DauSachQuanLy.jsp").forward(request, response);
+			request.getRequestDispatcher("DauSachDanhSach.jsp").forward(request, response);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -103,8 +140,19 @@ public class BLLDauSach extends HttpServlet {
 		DauSach record = new DauSach();
 
 		record.setMaDauSach(Integer.parseInt(request.getParameter("txtMaDauSach")));
-		record.setMaNxb(Integer.parseInt(request.getParameter("txtMaNxb")));
-		record.setMaTheLoai(Integer.parseInt(request.getParameter("txtMaTheLoai")));
+
+		// Chuyển cái tên của NXB và Thể loại từ Parameter txtMaNxb và txtMaTheLoai
+		// thành số tương ứng
+		try {
+			record.setMaNxb((dal_dauSach.getMaNxb(request.getParameter("txtTenNxb"))).getMaNxb());
+		} catch (ClassNotFoundException e2) {
+			e2.printStackTrace();
+		}
+		try {
+			record.setMaTheLoai((dal_dauSach.getMaTheLoai(request.getParameter("txtTenTheLoai"))).getMaTheLoai());
+		} catch (ClassNotFoundException e2) {
+			e2.printStackTrace();
+		}
 		record.setTenSach(request.getParameter("txtTenSach"));
 		record.setMoTa(request.getParameter("txtMoTa"));
 		record.setTacGia(request.getParameter("txtTacGia"));
@@ -115,10 +163,10 @@ public class BLLDauSach extends HttpServlet {
 				if (fileName != null && fileName.length() > 0) {
 					InputStream is = part.getInputStream();
 					if (i == 0) {
-						record.setAnhTacGia(is);
+						record.setAnhBia(is);
 						i++;
 					} else if (i == 1) {
-						record.setAnhBia(is);
+						record.setAnhTacGia(is);
 						i++;
 					} else if (i == 2) {
 						record.setFilePDF(is);
@@ -158,8 +206,18 @@ public class BLLDauSach extends HttpServlet {
 		DauSach record = new DauSach();
 
 		record.setMaDauSach(Integer.parseInt(request.getParameter("txtMaDauSach")));
-		record.setMaNxb(Integer.parseInt(request.getParameter("txtMaNxb")));
-		record.setMaTheLoai(Integer.parseInt(request.getParameter("txtMaTheLoai")));
+		// Chuyển cái tên của NXB và Thể loại từ Parameter txtMaNxb và txtMaTheLoai
+		// thành số tương ứng
+		try {
+			record.setMaNxb((dal_dauSach.getMaNxb(request.getParameter("txtTenNxb"))).getMaNxb());
+		} catch (ClassNotFoundException e2) {
+			e2.printStackTrace();
+		}
+		try {
+			record.setMaTheLoai((dal_dauSach.getMaTheLoai(request.getParameter("txtTenTheLoai"))).getMaTheLoai());
+		} catch (ClassNotFoundException e2) {
+			e2.printStackTrace();
+		}
 		record.setTenSach(request.getParameter("txtTenSach"));
 		record.setMoTa(request.getParameter("txtMoTa"));
 		record.setTacGia(request.getParameter("txtTacGia"));
@@ -170,10 +228,10 @@ public class BLLDauSach extends HttpServlet {
 				if (fileName != null && fileName.length() > 0) {
 					InputStream is = part.getInputStream();
 					if (i == 0) {
-						record.setAnhTacGia(is);
+						record.setAnhBia(is);
 						i++;
 					} else if (i == 1) {
-						record.setAnhBia(is);
+						record.setAnhTacGia(is);
 						i++;
 					} else if (i == 2) {
 						record.setFilePDF(is);
@@ -211,12 +269,42 @@ public class BLLDauSach extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		int code = Integer.parseInt(request.getParameter("maDauSach"));
 
+		List<Nxb> listNxb = new ArrayList<Nxb>();
+		List<TheLoai> listTheLoai = new ArrayList<TheLoai>();
+		try {
+			listNxb = dal_nxb.getAll();
+			listTheLoai = dal_theLoai.getAll();
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		request.setAttribute("listTheLoai", listTheLoai);
+		request.setAttribute("listNxb", listNxb);
+
 		try {
 			DauSach dauSach = new DauSach();
 			dauSach = dal_dauSach.GetOne(code);
 			request.setAttribute("dauSachIU", dauSach);
 			request.getRequestDispatcher("/DauSachQuanLy").forward(request, response);
 			;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private void dauSachNoiDung(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, ServletException, IOException {
+
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+		int code = Integer.parseInt(request.getParameter("maDauSach"));
+
+		try {
+			DauSach dauSach = new DauSach();
+			dauSach = dal_dauSach.GetOne(code);
+			request.setAttribute("dauSachDetail", dauSach);
+			request.getRequestDispatcher("DauSachNoiDung.jsp").forward(request, response);
+
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}

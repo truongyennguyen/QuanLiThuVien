@@ -1,59 +1,49 @@
 package QuanLyThuVien.model.DAL.Object;
 
 public class Nxb {
-	private int maNXB;
-	private String tenNXB;
+	private int maNxb;
+	private String tenNxb;
 	private String ghiChu;
-	
-	
-	public Nxb(int maNXB) {
-		super();
-		this.maNXB = maNXB;
-	}
 
+	public Nxb(int maNxb) {
+		super();
+		this.maNxb = maNxb;
+	}
 
 	public Nxb() {
 		super();
 
 	}
 
-
-	public Nxb(int maNXB, String tenNXB, String ghiChu) {
+	public Nxb(int maNxb, String tenNxb, String ghiChu) {
 		super();
-		this.maNXB = maNXB;
-		this.tenNXB = tenNXB;
+		this.maNxb = maNxb;
+		this.tenNxb = tenNxb;
 		this.ghiChu = ghiChu;
 	}
 
-
-	public int getMaNXB() {
-		return maNXB;
+	public int getMaNxb() {
+		return maNxb;
 	}
 
-
-	public void setMaNXB(int maNXB) {
-		this.maNXB = maNXB;
+	public void setMaNxb(int maNxb) {
+		this.maNxb = maNxb;
 	}
 
-
-	public String getTenNXB() {
-		return tenNXB;
+	public String getTenNxb() {
+		return tenNxb;
 	}
 
-
-	public void setTenNXB(String tenNXB) {
-		this.tenNXB = tenNXB;
+	public void setTenNxb(String tenNxb) {
+		this.tenNxb = tenNxb;
 	}
-
 
 	public String getGhiChu() {
 		return ghiChu;
 	}
 
-
 	public void setGhiChu(String ghiChu) {
 		this.ghiChu = ghiChu;
 	}
-	
-	
+
 }

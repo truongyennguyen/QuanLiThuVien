@@ -229,15 +229,46 @@
 
 							</div>
 							<div class="form-group col-md-4">
-								<label>Mã NXB</label> <input type="text" name="txtMaNxb"
-									class="form-control" required="required"
-									value="${dauSachIU.getMaNxb() }">
+								<label>Mã NXB</label> <input type="hidden" name="txtMaNxb"
+									id="txtMaNxb" class="form-control" required="required"
+									value="${dauSachIU.getMaNxb() }"> <select
+									name="txtTenNxb" id="txtTenNxb"
+									class="selectpicker show-tick form-control">
+									<c:forEach var="nxb" items="${listNxb}">
+										<option>
+											<c:out value="${nxb.getTenNxb()}" />
+										</option>
+										<c:if test="${nxb.getMaNxb() == dauSachIU.getMaNxb()}">
+											<script type="text/javascript">
+												document
+														.getElementById("txtTenNxb").value = "${nxb.getTenNxb()}";
+											</script>
+										</c:if>
+									</c:forEach>
+								</select>
+
 
 							</div>
 							<div class="form-group col-md-4">
-								<label>Mã Thể Loại</label> <input type="text"
-									name="txtMaTheLoai" class="form-control" required="required"
-									value="${dauSachIU.getMaTheLoai() }">
+								<label>Mã Thể Loại</label> <input type="hidden"
+									name="txtMaTheLoai" id="txtMaTheLoai" class="form-control"
+									required="required" value="${dauSachIU.getMaTheLoai() }">
+
+								<select name="txtTenTheLoai" id="txtTenTheLoai"
+									class="selectpicker show-tick form-control">
+									<c:forEach var="theLoai" items="${listTheLoai}">
+										<option>
+											<c:out value="${theLoai.getTenTheLoai()}" />
+										</option>
+										<c:if
+											test="${theLoai.getMaTheLoai() == dauSachIU.getMaTheLoai()}">
+											<script type="text/javascript">
+												document
+														.getElementById("txtTenTheLoai").value = "${theLoai.getTenTheLoai() }";
+											</script>
+										</c:if>
+									</c:forEach>
+								</select>
 
 							</div>
 						</div>
@@ -251,22 +282,11 @@
 						<div class="row">
 							<div class="form-group col-md-12">
 								<label>Mô tả</label>
-								<textarea rows="5" name="txtMoTa" class="col-md-12 form-control"
-									style="border: solid 1px green;"
-									contextmenu="${dauSachIU.getMoTa() }"></textarea>
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group col-md-6">
-								<label>Tác Giả</label> <input type="text" name="txtTacGia"
-									class="form-control" required="required"
-									value="${dauSachIU.getTacGia() }">
-							</div>
-							<div class="form-group col-md-6">
-								<label>Ảnh Tác Giả</label> <input type="file"
-									name="imageAnhTacGia" class="form-control" accept="image/*"
-									value="${dauSachIU.getAnhTacGiaBlob() }"
-									enctype="multipart/form-data">
+								<textarea rows="5" id="txtMoTa" name="txtMoTa"
+									class="col-md-12 form-control" style="border: solid 1px green;"></textarea>
+								<script type="text/javascript">
+									document.getElementById("txtMoTa").value = "${dauSachIU.getMoTa()}";
+								</script>
 							</div>
 						</div>
 						<div class="row">
@@ -290,19 +310,51 @@
 						</div>
 						<div class="row">
 							<div class="form-group col-md-8">
-								<label>Ảnh Bìa</label> <input type="file" name="imageAnhBia"
-									class="form-control" accept="image/*"
-									value="${dauSachIU.getAnhBiaBlob() }"
-									enctype="multipart/form-data">
+								<label>Tác Giả</label> <input type="text" name="txtTacGia"
+									class="form-control" required="required"
+									value="${dauSachIU.getTacGia() }">
 							</div>
-
 							<div class="form-group col-md-4">
 								<label>Giá</label> <input type="number" name="numberGia"
 									class="form-control" step="1000" required="required"
 									pattern="[0-9]" title="" min="1000"
 									value="${dauSachIU.getGia() }">
 							</div>
+
 						</div>
+
+						<div class="row">
+							<div class="form-group col-md-6">
+								<label>Ảnh Bìa</label> <input type="file" name="imageAnhBia"
+									class="form-control" accept="image/*"
+									value="${dauSachIU.getAnhBiaBlob() }"
+									enctype="multipart/form-data">
+							</div>
+							<div class="form-group col-md-6">
+								<label>Ảnh Tác Giả</label> <input type="file"
+									name="imageAnhTacGia" class="form-control" accept="image/*"
+									value="${dauSachIU.getAnhTacGiaBlob() }"
+									enctype="multipart/form-data">
+							</div>
+
+						</div>
+						<c:if test="${dauSachIU != null }">
+							<div class="row">
+								<div class="form-group col-md-6">
+									<img alt="Not found"
+										src="http://localhost:8080/QuanLyThuVien/getAnhBia?maDauSach=${dauSachIU.getMaDauSach() }"
+										width="200px" height="200px">
+								</div>
+								<div class="form-group col-md-6">
+									<img alt="Not found"
+										src="http://localhost:8080/QuanLyThuVien/getAnhTacGia?maDauSach=${dauSachIU.getMaDauSach() }"
+										width="150px" height="100px">
+								</div>
+							</div>
+						</c:if>
+
+
+
 						<div class="row">
 							<div class="form-group col-md-12">
 								<label>File PDF</label> <input type="file" name="fileFilePDF"
@@ -329,6 +381,7 @@
 		</div>
 	</div>
 	</form>
+
 
 
 
@@ -549,15 +602,17 @@
 
 									<div class="col-12 col-md-12">
 										<div class="table-responsive table--no-card m-b-30">
-											<table
+											<table style="width: 100%"
 												class="table  table-borderless table-striped table-earning">
 												<thead>
-													<tr>
+													<tr class="col-sm-12">
 														<th>Mã Đầu Sách</th>
-														<th>Mã Nhà Xuất Bản</th>
-														<th>Mã Thể Loại</th>
+														<th>Nhà Xuất Bản</th>
+														<th>Thể Loại</th>
 														<th>Tên Đầu Sách</th>
-														<th>Mô Tả</th>
+														<th class="col-sm-4">Mô Tả &nbsp; &nbsp; &nbsp;
+															&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+															&nbsp;</th>
 														<th>Tác Giả</th>
 														<th>Ảnh Tác Giả</th>
 														<th>Năm Xuất Bản</th>
@@ -573,10 +628,22 @@
 													<c:forEach var="dauSach" items="${listDauSach}">
 														<tr>
 															<td><c:out value="${dauSach.getMaDauSach()}" /></td>
-															<td><c:out value="${dauSach.getMaNxb()}" /></td>
-															<td><c:out value="${dauSach.getMaTheLoai()}" /></td>
+															<%-- <td><c:out value="${dauSach.getMaNxb()}" /></td> --%>
+															<c:forEach var="nxb" items="${listNxb}">
+																<c:if test="${nxb.getMaNxb() == dauSach.getMaNxb()}">
+																	<td><c:out value="${nxb.getTenNxb()}" /></td>
+																</c:if>
+															</c:forEach>
+															<%-- <td><c:out value="${dauSach.getMaTheLoai()}" /></td> --%>
+															<c:forEach var="theLoai" items="${listTheLoai}">
+																<c:if
+																	test="${theLoai.getMaTheLoai() == dauSach.getMaTheLoai()}">
+																	<td><c:out value="${theLoai.getTenTheLoai()}" /></td>
+																</c:if>
+															</c:forEach>
 															<td><c:out value="${dauSach.getTenSach()}" /></td>
-															<td><c:out value="${dauSach.getMoTa()}" /></td>
+															<td style="word-wrap: break-word;"><c:out
+																	value="${dauSach.getMoTa()}" /></td>
 															<td><c:out value="${dauSach.getTacGia()}" /></td>
 															<%-- <td><c:out value="${dauSach.getAnhTacGiaBlob()}" /></td> --%>
 															<td><img alt="Not found"
@@ -684,6 +751,7 @@
 			$('#InsertUpdate').modal('show');
 		</script>
 	</c:if>
+
 </body>
 
 </html>
