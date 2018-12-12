@@ -36,7 +36,7 @@ public class DALTheLoai extends ConnectDatabase implements I_DAL<TheLoai> {
 			TheLoais.add(theLoai);
 		}
 
-		closeConnection();
+		// closeConnection();
 		return TheLoais;
 	}
 

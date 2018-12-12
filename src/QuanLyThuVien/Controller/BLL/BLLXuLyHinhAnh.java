@@ -23,8 +23,8 @@ import QuanLyThuVien.model.DAL.Object.DauSach;
 
 /**
  * @author IT 1006
- * @since 3:55PM 9/12/2018
- * LoadImage from Database for all Website */
+ * @since 3:55PM 9/12/2018 LoadImage from Database for all Website
+ */
 @WebServlet(urlPatterns = { "/getAnhTacGia", "/getAnhBia", "/getFilePDF" })
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
 		maxFileSize = 1024 * 1024 * 10, // 10MB
@@ -47,7 +47,6 @@ public class BLLXuLyHinhAnh extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getServletPath();
-		System.out.println(action);
 		switch (action) {
 		case "/getAnhTacGia":
 			getAnhTacGia(request, response);

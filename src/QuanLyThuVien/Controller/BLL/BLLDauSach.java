@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.print.attribute.standard.PagesPerMinute;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -82,7 +84,7 @@ public class BLLDauSach extends HttpServlet {
 				editDauSach(request, response);
 				break;
 			case "/DauSachDanhSach":
-				listDauSachDanhSach(request, response);
+				listDauSachDanhSachPhanTrang(request, response);
 				break;
 			case "/DauSachNoiDung":
 				dauSachNoiDung(request, response);
@@ -103,15 +105,97 @@ public class BLLDauSach extends HttpServlet {
 		List<TheLoai> listTheLoai = new ArrayList<TheLoai>();
 		List<DauSach> listDauSach = new ArrayList<DauSach>();
 
+		int pages = 0, minRes = 0, maxRes = 0, total = 0;
+		if (request.getParameter("pages") != null) {
+			pages = (int) Integer.parseInt(request.getParameter("pages"));
+		} else {
+			pages = 1;
+		}
+
 		try {
-			listDauSach = dal_dauSach.getAll();
+			total = dal_dauSach.getSoLuongPhanTu(0, "default");
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		if (total <= 5) {
+			minRes = 1;
+			maxRes = total;
+		} else {
+			minRes = (pages - 1) * 5 + 1;
+			maxRes = minRes + 5 - 1;
+		}
+
+		int soTrang = (int) (total / 5) + 1;
+
+		try {
+			listDauSach = dal_dauSach.getAllPhanTrang(minRes, maxRes, 0, "default", "default");
 			listNxb = dal_nxb.getAll();
 			listTheLoai = dal_theLoai.getAll();
+			request.setAttribute("soTrang", soTrang);
+			request.setAttribute("soTrangHienTai", pages);
 			request.setAttribute("listDauSach", listDauSach);
 			request.setAttribute("listTheLoai", listTheLoai);
 			request.setAttribute("listNxb", listNxb);
 
 			request.getRequestDispatcher("DauSachQuanLy.jsp").forward(request, response);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void listDauSachDanhSachPhanTrang(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException {
+
+		List<Nxb> listNxb = new ArrayList<Nxb>();
+		List<TheLoai> listTheLoai = new ArrayList<TheLoai>();
+		List<DauSach> listDauSach = new ArrayList<DauSach>();
+
+		int pages = 0, minRes = 0, maxRes = 0, total = 0;
+		if (request.getParameter("pages") != null) {
+			pages = (int) Integer.parseInt(request.getParameter("pages"));
+		} else {
+			pages = 1;
+		}
+		int maTheLoai = 0;
+		if (request.getParameter("maTheLoai") != null) {
+			maTheLoai = (int) Integer.parseInt(request.getParameter("maTheLoai"));
+		}
+		String search = "default";
+		if (request.getParameter("txtSearch") != null) {
+			search = request.getParameter("txtSearch");
+		}
+		String sort = "default";
+		if (request.getParameter("selectSort") != null) {
+			sort = request.getParameter("selectSort");
+		}
+		try {
+			total = dal_dauSach.getSoLuongPhanTu(maTheLoai, search);
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		if (total <= 6) {
+			minRes = 1;
+			maxRes = total;
+		} else {
+			minRes = (pages - 1) * 6 + 1;
+			maxRes = minRes + 6 - 1;
+		}
+
+		int soTrang = (int) (total / 6) + 1;
+
+		try {
+			listDauSach = dal_dauSach.getAllPhanTrang(minRes, maxRes, maTheLoai, sort, search);
+			listNxb = dal_nxb.getAll();
+			listTheLoai = dal_theLoai.getAll();
+			request.setAttribute("txtSearch", search);
+			request.setAttribute("selectSort", sort);
+			request.setAttribute("soTrang", soTrang);
+			request.setAttribute("soTrangHienTai", pages);
+			request.setAttribute("listDauSach", listDauSach);
+			request.setAttribute("listTheLoai", listTheLoai);
+			request.setAttribute("listNxb", listNxb);
+
+			request.getRequestDispatcher("DauSachDanhSach.jsp").forward(request, response);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -140,7 +224,6 @@ public class BLLDauSach extends HttpServlet {
 		DauSach record = new DauSach();
 
 		record.setMaDauSach(Integer.parseInt(request.getParameter("txtMaDauSach")));
-
 		// Chuyển cái tên của NXB và Thể loại từ Parameter txtMaNxb và txtMaTheLoai
 		// thành số tương ứng
 		try {
