@@ -596,7 +596,7 @@
 						<div class="col-sm-12 col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<strong>Đầu sách</strong>
+									<h3>Đầu sách</h3>
 								</div>
 								<div class="card-body card-block">
 
@@ -671,11 +671,49 @@
 										</div>
 
 									</div>
+									<div class="pull-right">
+										<div class="col-xs-12">
+											<div class="shop-pagination pull-right">
+												<ul id="" class="pagination-sm pagination">
+													<li class="page-item first"><a
+														href="/QuanLyThuVien/DauSachQuanLy?pages=1"
+														class="page-link">First</a></li>
+													<c:if test="${soTrangHienTai >=2 }">
+														<li class="page-item prev"><a
+															href="/QuanLyThuVien/DauSachQuanLy?pages=<c:out value='${soTrangHienTai-1}'/>"
+															class="page-link">Previous</a></li>
+													</c:if>
+													<c:forEach var="i" begin="1" end="${soTrang}" step="1">
+														<c:if test="${soTrangHienTai == i }">
+															<li class="page-item active"><a
+																href="/QuanLyThuVien/DauSachQuanLy?pages=<c:out value='${i}'/>"
+																class="page-link"><c:out value="${i}"></c:out></a></li>
+														</c:if>
+														<c:if test="${soTrangHienTai != i }">
+															<li class="page-item "><a
+																href="/QuanLyThuVien/DauSachQuanLy?pages=<c:out value='${i}'/>"
+																class="page-link"><c:out value="${i}"></c:out></a></li>
+														</c:if>
+													</c:forEach>
+													<c:if test="${soTrangHienTai < soTrang }">
+														<li class="page-item next"><a
+															href="/QuanLyThuVien/DauSachQuanLy?pages=<c:out value='${soTrangHienTai+1}'/>"
+															class="page-link">Next</a></li>
+													</c:if>
+													<li class="page-item last"><a
+														href="/QuanLyThuVien/DauSachQuanLy?pages=<c:out value='${soTrang}'/>"
+														class="page-link">Last</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
 									<div id="Bieu_mau">
 										<button type="button" class="btn btn-primary"
 											data-toggle="modal" data-target="#InsertUpdate">Thêm</button>
 									</div>
+
 								</div>
+
 							</div>
 
 						</div>
@@ -751,7 +789,6 @@
 			$('#InsertUpdate').modal('show');
 		</script>
 	</c:if>
-
 </body>
 
 </html>

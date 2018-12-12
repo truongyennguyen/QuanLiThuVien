@@ -49,6 +49,46 @@ public class DALDauSach extends ConnectDatabase implements I_DAL<DauSach> {
 		return DauSachs;
 	}
 
+	public List<DauSach> getAllPhanTrang(int minRes, int maxRes, int maTheLoai, String sort, String search)
+			throws SQLException, ClassNotFoundException {
+		openConnection();
+		List<DauSach> DauSachs = new ArrayList<>();
+		String sqlExec = "EXEC spLayDauSachPhanTrang ?,?,?,?,?";
+
+		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
+		statement.setInt(1, minRes);
+		statement.setInt(2, maxRes);
+		statement.setInt(3, maTheLoai);
+		statement.setString(4, sort);
+		statement.setString(5, search);
+
+		statement.setEscapeProcessing(true);
+		statement.setQueryTimeout(15);
+		ResultSet res = statement.executeQuery();
+
+		while (res.next()) {
+			DauSach dauSach = new DauSach();
+
+			dauSach.setMaDauSach(res.getInt(1));
+			dauSach.setMaNxb(res.getInt(2));
+			dauSach.setMaTheLoai(res.getInt(3));
+			dauSach.setTenSach(res.getString(4));
+			dauSach.setMoTa(res.getString(5));
+			dauSach.setTacGia(res.getString(6));
+			dauSach.setAnhTacGiaBlob(res.getBlob(7));// AnhTacGia
+			dauSach.setNamXuatBan(res.getDate(8));
+			dauSach.setNgonNgu(res.getString(9));
+			dauSach.setAnhBiaBlob(res.getBlob(10));// AnhBia
+			dauSach.setTrangThai(res.getString(11));
+			dauSach.setGia(res.getInt(12));
+			dauSach.setFilePDFBlob(res.getBlob(13));// filePDF DauSachs.add(dauSach); }
+
+			DauSachs.add(dauSach);
+		}
+//		closeConnection();
+		return DauSachs;
+	}
+
 	/**
 	 * record là dòng truy�?n vào. Chung cho tất cả
 	 * 
@@ -208,6 +248,28 @@ public class DALDauSach extends ConnectDatabase implements I_DAL<DauSach> {
 		// Because load image very time-consuming --> Don't close connect to DB
 		// closeConnection();
 		return theLoai;
+	}
+
+	public int getSoLuongPhanTu(int maTheLoai, String search) throws SQLException, ClassNotFoundException {
+		openConnection();
+		String sqlExec = "EXEC spLayDauSachPhanTrangCount ?,?";
+
+		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
+		statement.setEscapeProcessing(true);
+		statement.setQueryTimeout(15);
+
+		statement.setInt(1, maTheLoai);
+		statement.setString(2, search);
+
+		int kq = 0;
+		ResultSet res = statement.executeQuery();
+		if (res.next()) {
+
+			kq = res.getInt(1);
+		}
+		// Because load image very time-consuming --> Don't close connect to DB
+		// closeConnection();
+		return kq;
 	}
 
 }
