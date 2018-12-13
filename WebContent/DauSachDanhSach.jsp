@@ -158,11 +158,14 @@
 				<div class="col-xs-12 col-md-10 pull-right">
 					<h4>Tìm kiếm</h4>
 					<div class="space-5"></div>
-					<form method="get" action="/QuanLyThuVien/DauSachDanhSach">
+					<form method="post" action="/QuanLyThuVien/DauSachDanhSach">
 						<div class="input-group">
 							<input type="text" class="form-control" id="txtSearch"
-								name="txtSearch" placeholder="Nhập tên sách hoặc tên tác giả"
-								value="${txtSearch}">
+								name="txtSearch"
+								placeholder="Nhập tên sách hoặc tên tác giả, ngôn ngữ,..."
+								value="${txtSearch}"> <input type="hidden"
+								class="form-control" id="pages" name="pages"
+								value="${soTrangHienTai}">
 							<div class="input-group-btn">
 								<input type="submit" value="Tìm Kiếm"
 									class="btn btn-primary icofont icofont-search-alt-2">
@@ -173,8 +176,9 @@
 							<div class="pull-left col-xs-12 col-sm-5 col-md-6">
 								<!-- <p>Kết quả <a href="#" class="text-primary">"How To Be a Designer"</a></p> -->
 								<p>
-									<strong>7</strong> of <strong>7</strong> cuốn sách được tìm
-									thấy
+									<strong><c:out value="${listDauSach.size() }"></c:out></strong>
+									of <strong><c:out value="${total }"></c:out></strong> cuốn sách
+									được tìm thấy
 								</p>
 							</div>
 							<!-- sắp xếp(từ từ tính) -->

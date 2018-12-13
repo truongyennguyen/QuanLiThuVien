@@ -101,6 +101,9 @@ public class BLLDauSach extends HttpServlet {
 	private void listDauSach(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+
 		List<Nxb> listNxb = new ArrayList<Nxb>();
 		List<TheLoai> listTheLoai = new ArrayList<TheLoai>();
 		List<DauSach> listDauSach = new ArrayList<DauSach>();
@@ -111,27 +114,46 @@ public class BLLDauSach extends HttpServlet {
 		} else {
 			pages = 1;
 		}
-
+		String search = "default";
+		if (request.getParameter("txtSearch") != null) {
+			search = request.getParameter("txtSearch");
+		}
+		String sort = "default";
+		if (request.getParameter("selectSort") != null) {
+			sort = request.getParameter("selectSort");
+		}
 		try {
-			total = dal_dauSach.getSoLuongPhanTu(0, "default");
+			total = dal_dauSach.getSoLuongPhanTu(0, search);
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		}
-		if (total <= 5) {
+		if (total <= 6) {
 			minRes = 1;
 			maxRes = total;
 		} else {
-			minRes = (pages - 1) * 5 + 1;
-			maxRes = minRes + 5 - 1;
+			minRes = (pages - 1) * 6 + 1;
+			maxRes = minRes + 6 - 1;
 		}
 
-		int soTrang = (int) (total / 5) + 1;
+		int soTrang = 0;
+		if (total % 6 == 0) {
+			soTrang = (int) (total / 6);
+		} else {
+			soTrang = (int) (total / 6) + 1;
+		}
+
+		int maxCode = 0;
 
 		try {
-			listDauSach = dal_dauSach.getAllPhanTrang(minRes, maxRes, 0, "default", "default");
+			maxCode = dal_dauSach.maxCode("DauSach");
+			listDauSach = dal_dauSach.getAllPhanTrang(minRes, maxRes, 0, sort, search);
 			listNxb = dal_nxb.getAll();
 			listTheLoai = dal_theLoai.getAll();
+			request.setAttribute("maxCode", maxCode);
+			request.setAttribute("txtSearch", search);
+			request.setAttribute("selectSort", sort);
 			request.setAttribute("soTrang", soTrang);
+			request.setAttribute("total", total);
 			request.setAttribute("soTrangHienTai", pages);
 			request.setAttribute("listDauSach", listDauSach);
 			request.setAttribute("listTheLoai", listTheLoai);
@@ -141,11 +163,13 @@ public class BLLDauSach extends HttpServlet {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	private void listDauSachDanhSachPhanTrang(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
 		List<Nxb> listNxb = new ArrayList<Nxb>();
 		List<TheLoai> listTheLoai = new ArrayList<TheLoai>();
 		List<DauSach> listDauSach = new ArrayList<DauSach>();
@@ -183,19 +207,24 @@ public class BLLDauSach extends HttpServlet {
 
 		int soTrang = (int) (total / 6) + 1;
 
+		int maxCode = 0;
+
 		try {
+			maxCode = dal_dauSach.maxCode("DauSach");
 			listDauSach = dal_dauSach.getAllPhanTrang(minRes, maxRes, maTheLoai, sort, search);
 			listNxb = dal_nxb.getAll();
 			listTheLoai = dal_theLoai.getAll();
+			request.setAttribute("maxCode", maxCode);
 			request.setAttribute("txtSearch", search);
 			request.setAttribute("selectSort", sort);
 			request.setAttribute("soTrang", soTrang);
+			request.setAttribute("total", total);
 			request.setAttribute("soTrangHienTai", pages);
 			request.setAttribute("listDauSach", listDauSach);
 			request.setAttribute("listTheLoai", listTheLoai);
 			request.setAttribute("listNxb", listNxb);
 
-			request.getRequestDispatcher("DauSachDanhSach.jsp").forward(request, response);
+			request.getRequestDispatcher("DauSachDanhSach.jsp").include(request, response);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -204,6 +233,8 @@ public class BLLDauSach extends HttpServlet {
 	private void listDauSachDanhSach(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
 		List<DauSach> listDauSach = new ArrayList<DauSach>();
 		try {
 			listDauSach = dal_dauSach.getAll();

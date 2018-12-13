@@ -297,7 +297,7 @@
 						</tr>
 						<tr>
 							<td><i class="icofont icofont-phone"></i></td>
-							<td>+62 582 528 527 21</td>
+							<td>+84 983 982 933</td>
 						</tr>
 						<tr>
 							<td><i class="icofont icofont-globe-alt"></i></td>

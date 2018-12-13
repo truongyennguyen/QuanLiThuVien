@@ -42,6 +42,7 @@ public class DALDauSach extends ConnectDatabase implements I_DAL<DauSach> {
 			dauSach.setTrangThai(res.getString(11));
 			dauSach.setGia(res.getInt(12));
 			dauSach.setFilePDFBlob(res.getBlob(13));// filePDF
+			
 			DauSachs.add(dauSach);
 		}
 
@@ -260,6 +261,28 @@ public class DALDauSach extends ConnectDatabase implements I_DAL<DauSach> {
 
 		statement.setInt(1, maTheLoai);
 		statement.setString(2, search);
+
+		int kq = 0;
+		ResultSet res = statement.executeQuery();
+		if (res.next()) {
+
+			kq = res.getInt(1);
+		}
+		// Because load image very time-consuming --> Don't close connect to DB
+		// closeConnection();
+		return kq;
+	}
+
+	@Override
+	public int maxCode(String tenBang) throws SQLException, ClassNotFoundException {
+		openConnection();
+		String sqlExec = "EXEC spMaxCode ?";
+
+		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
+		statement.setEscapeProcessing(true);
+		statement.setQueryTimeout(15);
+
+		statement.setString(1, tenBang);
 
 		int kq = 0;
 		ResultSet res = statement.executeQuery();

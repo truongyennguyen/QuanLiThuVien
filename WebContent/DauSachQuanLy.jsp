@@ -223,9 +223,17 @@
 					<div class="modal-body">
 						<div class="row">
 							<div class="form-group col-md-4">
-								<label>Mã Đầu Sách</label> <input type="text"
-									name="txtMaDauSach" required="required" class="form-control"
-									value="${dauSachIU.getMaDauSach() }">
+								<label>Mã Đầu Sách</label>
+								<c:if test="${dauSachIU != null }">
+									<input type="text" name="txtMaDauSach" required="required"
+										readonly="readonly" class="form-control"
+										value="${dauSachIU.getMaDauSach() }">
+								</c:if>
+								<c:if test="${dauSachIU == null }">
+									<input type="text" name="txtMaDauSach" required="required"
+										readonly="readonly" class="form-control" value="${maxCode +1}">
+								</c:if>
+
 
 							</div>
 							<div class="form-group col-md-4">
@@ -587,12 +595,64 @@
 		</header>
 
 
-
 		<!-- MAIN CONTENT-->
 		<div class="main-content">
+
 			<div class="section__content section__content--p30">
+
 				<div class="container-fluid">
 					<div class="row">
+						<form method="post" action="/QuanLyThuVien/DauSachQuanLy"
+							class="col-12 pull-left">
+							<div class="col-12 pull-left">
+								<h4>Tìm kiếm</h4>
+								<div class="space-5"></div>
+								<div class="input-group">
+									<input type="text" class="form-control" id="txtSearch"
+										name="txtSearch"
+										placeholder="Nhập tên sách hoặc tên tác giả, ngôn ngữ,..."
+										value="${txtSearch}"> <input type="hidden"
+										class="form-control" id="pages" name="pages"
+										value="${soTrangHienTai}">
+									<div class="input-group-btn">
+										<input type="submit" value="Tìm Kiếm"
+											class="btn btn-primary icofont icofont-search-alt-2">
+									</div>
+								</div>
+								<div class="space-200"></div>
+								<div class="pull-left col-6">
+									<p>
+										<strong><c:out value="${listDauSach.size() }"></c:out></strong>
+										of <strong><c:out value="${total }"></c:out></strong> cuốn
+										sách được tìm thấy
+									</p>
+								</div>
+								<!-- sắp xếp(từ từ tính) -->
+								<div class="pull-right col-6">
+
+									<div class="form-group">
+										<label class="control-label col-xs-12" for="sort">Sắp
+											xếp theo : </label>
+										<div class="col-xs-4">
+											<div class="form-group">
+												<select name="selectSort" id="selectSort"
+													class="form-control" onchange="this.form.submit()">
+													<option value="AZ">A-Z</option>
+													<option value="ZA">Z-A</option>
+													<option value="TacGia">Tác Giả</option>
+													<option value="NamXuatBan">Năm Xuất Bản</option>
+												</select>
+											</div>
+										</div>
+										<script type="text/javascript">
+											document
+													.getElementById("selectSort").value = "${selectSort}";
+										</script>
+									</div>
+
+								</div>
+							</div>
+						</form>
 						<div class="col-sm-12 col-md-12">
 							<div class="card">
 								<div class="card-header">
@@ -602,9 +662,11 @@
 
 									<div class="col-12 col-md-12">
 										<div class="table-responsive table--no-card m-b-30">
+
 											<table style="width: 100%"
 												class="table  table-borderless table-striped table-earning">
 												<thead>
+
 													<tr class="col-sm-12">
 														<th>Mã Đầu Sách</th>
 														<th>Nhà Xuất Bản</th>
@@ -680,28 +742,34 @@
 														class="page-link">First</a></li>
 													<c:if test="${soTrangHienTai >=2 }">
 														<li class="page-item prev"><a
-															href="/QuanLyThuVien/DauSachQuanLy?pages=<c:out value='${soTrangHienTai-1}'/>"
+															href="/QuanLyThuVien/DauSachQuanLy?pages=<c:out value='${soTrangHienTai-1}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 															class="page-link">Previous</a></li>
 													</c:if>
 													<c:forEach var="i" begin="1" end="${soTrang}" step="1">
 														<c:if test="${soTrangHienTai == i }">
 															<li class="page-item active"><a
 																href="/QuanLyThuVien/DauSachQuanLy?pages=<c:out value='${i}'/>"
-																class="page-link"><c:out value="${i}"></c:out></a></li>
+																"
+																class="page-link"><c:out
+																		value="${i}"></c:out></a></li>
 														</c:if>
 														<c:if test="${soTrangHienTai != i }">
-															<li class="page-item "><a
+															<li class="page-item  "><a
 																href="/QuanLyThuVien/DauSachQuanLy?pages=<c:out value='${i}'/>"
-																class="page-link"><c:out value="${i}"></c:out></a></li>
+																"
+																class="page-link"><c:out
+																		value="${i}"></c:out></a></li>
 														</c:if>
 													</c:forEach>
 													<c:if test="${soTrangHienTai < soTrang }">
 														<li class="page-item next"><a
 															href="/QuanLyThuVien/DauSachQuanLy?pages=<c:out value='${soTrangHienTai+1}'/>"
+															"
 															class="page-link">Next</a></li>
 													</c:if>
 													<li class="page-item last"><a
 														href="/QuanLyThuVien/DauSachQuanLy?pages=<c:out value='${soTrang}'/>"
+														"
 														class="page-link">Last</a></li>
 												</ul>
 											</div>
