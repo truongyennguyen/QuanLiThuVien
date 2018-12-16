@@ -10,13 +10,20 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import QuanLyThuVien.model.DAL.DALThongBao;
 import QuanLyThuVien.model.DAL.Object.ThongBao;
-
+@WebServlet(name = "ThongBaoQuanLy", urlPatterns = { "/ThongBaoQuanLy", "/ThongBaoQuanLy/delete", "/ThongBaoQuanLy/list",
+		"/ThongBaoQuanLy/insert", "/ThongBaoQuanLy/update", "/ThongBaoQuanLy/edit", "/ThongBaoDanhSach",
+		"/ThongBaoNoiDung" })
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+		maxFileSize = 1024 * 1024 * 10, // 10MB
+		maxRequestSize = 1024 * 1024 * 50) // 50MB
 public class BLLThongBao extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DALThongBao dal_thongBao;

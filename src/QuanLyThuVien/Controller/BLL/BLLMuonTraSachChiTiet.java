@@ -10,14 +10,18 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import QuanLyThuVien.model.DAL.DALMuonTraSachChiTiet;
+import QuanLyThuVien.model.DAL.Object.MuonTraSach;
 import QuanLyThuVien.model.DAL.Object.MuonTraSachChiTiet;
 import QuanLyThuVien.model.DAL.Object.MuonTraSachChiTiet;
-
+@WebServlet(name = "MuonTraSachChiTiet", urlPatterns = { "/MuonTraSachChiTiet", "/MuonTraSachChiTiet/delete",
+		"/MuonTraSachChiTiet/list", "/MuonTraSachChiTiet/insert", "/MuonTraSachChiTiet/update",
+		"/MuonTraSachChiTiet/edit" })
 public class BLLMuonTraSachChiTiet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DALMuonTraSachChiTiet dal_muonTraSachChiTiet;
@@ -44,13 +48,16 @@ public class BLLMuonTraSachChiTiet extends HttpServlet {
 		System.out.println(action);
 		try {
 			switch (action) {
-			case "/MuonTraSachChiTietQuanLy/insert":
+			case "/MuonTraSachChiTiet/insert":
 				insertMuonTraSachChiTiet(request, response);
 				break;
-			case "/MuonTraSachChiTietQuanLy/delete":
+			case "/MuonTraSachChiTiet/delete":
 				deleteMuonTraSachChiTiet(request, response);
 				break;
-			case "/MuonTraSachChiTietQuanLy/update":
+			case "/MuonTraSachChiTiet/edit":
+				editMuonTraSachChiTiet(request, response);
+				break;
+			case "/MuonTraSachChiTiet/update":
 				updateMuonTraSachChiTiet(request, response);
 				break;
 			default: // list
@@ -60,22 +67,81 @@ public class BLLMuonTraSachChiTiet extends HttpServlet {
 		} catch (SQLException ex) {
 			throw new ServletException(ex);
 		}
-}
+	}
 
-	private void listMuonTraSachChiTiet(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException, ServletException {
+	private void editMuonTraSachChiTiet(HttpServletRequest request, HttpServletResponse response) 	
+			throws SQLException, ServletException, IOException {
 
-		List<MuonTraSachChiTiet> listMuonTraSachChiTiet = new ArrayList<MuonTraSachChiTiet>();
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+		int code = Integer.parseInt(request.getParameter("maMuonSach"));
 
 		try {
-			listMuonTraSachChiTiet = dal_muonTraSachChiTiet.getAll();
+			MuonTraSachChiTiet muonTraSachChiTiet = new MuonTraSachChiTiet();
+			muonTraSachChiTiet = dal_muonTraSachChiTiet.GetOne(code);
+			request.setAttribute("muonTraSachChiTietIU", muonTraSachChiTiet);
+			request.getRequestDispatcher("/MuonTraSachChiTiet").forward(request, response);
+			;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+	}
+	private void listMuonTraSachChiTiet(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+		List<MuonTraSachChiTiet> listMuonTraSachChiTiet = new ArrayList<MuonTraSachChiTiet>();
+		int pages = 0, minRes = 0, maxRes = 0, total = 0;
+		if (request.getParameter("pages") != null) {
+			pages = (int) Integer.parseInt(request.getParameter("pages"));
+		} else {
+			pages = 1;
+		}
+		String search = "default";
+		if (request.getParameter("txtSearch") != null) {
+			search = request.getParameter("txtSearch");
+		}
+		String sort = "default";
+		if (request.getParameter("selectSort") != null) {
+			sort = request.getParameter("selectSort");
+		}
+		try {
+			total = dal_muonTraSachChiTiet.getSoLuongPhanTu(0, search);
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		if (total <= 6) {
+			minRes = 1;
+			maxRes = total;
+		} else {
+			minRes = (pages - 1) * 6 + 1;
+			maxRes = minRes + 6 - 1;
+		}
+
+		int soTrang = 0;
+		if (total % 6 == 0) {
+			soTrang = (int) (total / 6);
+		} else {
+			soTrang = (int) (total / 6) + 1;
+		}
+
+		int maxCode = 0;
+		try {
+			maxCode = dal_muonTraSachChiTiet.maxCode("muonTraSachChiTiet");
+			listMuonTraSachChiTiet = dal_muonTraSachChiTiet.getAllPhanTrang(minRes, maxRes, 0, sort, search);
+			request.setAttribute("maxCode", maxCode);
+			request.setAttribute("txtSearch", search);
+			request.setAttribute("selectSort", sort);
+			request.setAttribute("soTrang", soTrang);
+			request.setAttribute("total", total);
+			request.setAttribute("soTrangHienTai", pages);
 			request.setAttribute("listMuonTraSachChiTiet", listMuonTraSachChiTiet);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("MuonTraSachChiTietQuanLy.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("MuonTraSachChiTiet.jsp");
 			dispatcher.forward(request, response);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	private void updateMuonTraSachChiTiet(HttpServletRequest request, HttpServletResponse response)
@@ -86,20 +152,43 @@ public class BLLMuonTraSachChiTiet extends HttpServlet {
 		MuonTraSachChiTiet record = new MuonTraSachChiTiet();
 		record.setMaMuonSach(Integer.parseInt(request.getParameter("txtMaMuonTra")));
 		record.setMaCuonSach(Integer.parseInt(request.getParameter("txtMaCuonSach")));
+		if (request.getParameter("dateNgayMuon") != null) {
+			try {
+				Date ngayMuon = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dateNgayMuon"));
+				record.setNgayMuon(new java.sql.Date(ngayMuon.getTime()));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		if (request.getParameter("dateNgayHenTra") != null) {
+			try {
+				Date ngayHenTra = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dateNgayHenTra"));
+				record.setNgayHenTra(new java.sql.Date(ngayHenTra.getTime()));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		if (request.getParameter("dateNgayTra") != null) {
+			try {
+				Date ngayTra = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dateNgayTra"));
+				record.setNgayTra(new java.sql.Date(ngayTra.getTime()));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
 		record.setTrangThai(request.getParameter("txtTrangThai"));
 		record.setSoLuong(Integer.parseInt(request.getParameter("txtSoLuong")));
 
 		try {
 			dal_muonTraSachChiTiet.Update(record);
-			response.sendRedirect("/QuanLyThuVien/MuonTraSachChiTietQuanLy");
+			response.sendRedirect("/QuanLyThuVien/MuonTraSachChiTiet");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 
-		
 	}
 
-	private void deleteMuonTraSachChiTiet(HttpServletRequest request, HttpServletResponse response) 
+	private void deleteMuonTraSachChiTiet(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
 		int code = Integer.parseInt(request.getParameter("maMuonSach"));
 
@@ -120,14 +209,40 @@ public class BLLMuonTraSachChiTiet extends HttpServlet {
 		MuonTraSachChiTiet record = new MuonTraSachChiTiet();
 		record.setMaMuonSach(Integer.parseInt(request.getParameter("txtMaMuonTra")));
 		record.setMaCuonSach(Integer.parseInt(request.getParameter("txtMaCuonSach")));
+		if (request.getParameter("dateNgayMuon") != null) {
+			try {
+				Date ngayMuon = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dateNgayMuon"));
+				record.setNgayMuon(new java.sql.Date(ngayMuon.getTime()));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		if (request.getParameter("dateNgayHenTra") != null) {
+			try {
+				Date ngayHenTra = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dateNgayHenTra"));
+				record.setNgayHenTra(new java.sql.Date(ngayHenTra.getTime()));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+
+		if (request.getParameter("dateNgayTra") != null) {
+			try {
+				Date ngayTra = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dateNgayTra"));
+				record.setNgayTra(new java.sql.Date(ngayTra.getTime()));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+
 		record.setTrangThai(request.getParameter("txtTrangThai"));
 		record.setSoLuong(Integer.parseInt(request.getParameter("txtSoLuong")));
 
 		try {
 			dal_muonTraSachChiTiet.Add(record);
-			response.sendRedirect("/QuanLyThuVien/MuonTraSachChiTietQuanLy");
+			response.sendRedirect("/QuanLyThuVien/MuonTraSachChiTiet");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
-	}
+}
