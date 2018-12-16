@@ -8,6 +8,7 @@ import java.util.List;
 
 import QuanLyThuVien.model.DAL.Object.TaiKhoan;
 import QuanLyThuVien.model.DAL.Object.TaiKhoan;
+import QuanLyThuVien.model.DAL.Object.TaiKhoan;
 
 public class DALTaiKhoan extends ConnectDatabase implements I_DAL<TaiKhoan>{
 
@@ -46,18 +47,18 @@ public class DALTaiKhoan extends ConnectDatabase implements I_DAL<TaiKhoan>{
 			return 0;
 
 		openConnection();
-		String sqlExec = "EXEC spTaiKhoan ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?";// 14 @param
+		String sqlExec = "EXEC spTaiKhoan ?,?,?,?,?, ?,?,?";// 8 @param
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
 		statement.setInt(1, record.getMaTaiKhoan());
 		statement.setString(2, record.geteMail());
 		statement.setInt(3, record.getSoDienThoai());
-		statement.setString(5, record.getMatKhau());
-		statement.setString(6, record.getAvartar());
-		statement.setInt(7, record.getIdQuyen());
-		statement.setInt(8, record.getMaThe());
-		statement.setString(14, "INSERT");
+		statement.setString(4, record.getMatKhau());
+		statement.setString(5, record.getAvartar());
+		statement.setInt(6, record.getIdQuyen());
+		statement.setInt(7, record.getMaThe());
+		statement.setString(8, "INSERT");
 		int rowInsert = statement.executeUpdate();
 		closeConnection();
 		return rowInsert;
@@ -79,18 +80,18 @@ public class DALTaiKhoan extends ConnectDatabase implements I_DAL<TaiKhoan>{
 	@Override
 	public int Update(TaiKhoan record) throws SQLException, ClassNotFoundException {
 		openConnection();
-		String sqlExec = "EXEC spTaiKhoan ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?";
+		String sqlExec = "EXEC spTaiKhoan ?,?,?,?,?, ?,?,?";
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
 		statement.setInt(1, record.getMaTaiKhoan());
 		statement.setString(2, record.geteMail());
 		statement.setInt(3, record.getSoDienThoai());
-		statement.setString(5, record.getMatKhau());
-		statement.setString(6, record.getAvartar());
-		statement.setInt(7, record.getIdQuyen());
-		statement.setInt(8, record.getMaThe());
-		statement.setString(14, "UPDATE");
+		statement.setString(4, record.getMatKhau());
+		statement.setString(5, record.getAvartar());
+		statement.setInt(6, record.getIdQuyen());
+		statement.setInt(7, record.getMaThe());
+		statement.setString(8, "UPDATE");
 		int rowUpdate = statement.executeUpdate();
 		closeConnection();
 		return rowUpdate;
@@ -119,6 +120,81 @@ public class DALTaiKhoan extends ConnectDatabase implements I_DAL<TaiKhoan>{
 		}
 		closeConnection();
 		return taiKhoan;
+	}
+	public List<TaiKhoan> getAllPhanTrang(int minRes, int maxRes, int maTaiKhoan, String sort, String search)
+			throws SQLException, ClassNotFoundException {
+		openConnection();
+		List<TaiKhoan> TaiKhoans = new ArrayList<>();
+		String sqlExec = "EXEC spLayDauSachPhanTrang ?,?,?,?,?";
+
+		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
+		statement.setInt(1, minRes);
+		statement.setInt(2, maxRes);
+		statement.setInt(3, maTaiKhoan);
+		statement.setString(4, sort);
+		statement.setString(5, search);
+
+		statement.setEscapeProcessing(true);
+		statement.setQueryTimeout(15);
+		ResultSet res = statement.executeQuery();
+
+		while (res.next()) {
+			TaiKhoan taiKhoan = new TaiKhoan();
+			taiKhoan.setMaTaiKhoan(res.getInt(1));
+			taiKhoan.seteMail(res.getString(2));
+			taiKhoan.setSoDienThoai(res.getInt(3));
+			taiKhoan.setMatKhau(res.getString(4));
+			taiKhoan.setAvartar(res.getString(5));
+			taiKhoan.setIdQuyen(res.getInt(6));
+			taiKhoan.setMaThe(res.getInt(7));
+			TaiKhoans.add(taiKhoan);
+		}
+//		closeConnection();
+		return TaiKhoans;
+	}
+	public int getSoLuongPhanTu(int maTaiKhoan, String search) throws SQLException, ClassNotFoundException {
+		openConnection();
+		String sqlExec = "EXEC spLayTaiKhoanPhanTrangCount ?,?";
+
+		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
+		statement.setEscapeProcessing(true);
+		statement.setQueryTimeout(15);
+
+		statement.setInt(1, maTaiKhoan);
+		statement.setString(2, search);
+
+		int kq = 0;
+		ResultSet res = statement.executeQuery();
+		if (res.next()) {
+
+			kq = res.getInt(1);
+		}
+		// Because load image very time-consuming --> Don't close connect to DB
+		// closeConnection();
+		return kq;
+	}
+
+	@Override
+	public int maxCode(String tenBang) throws SQLException, ClassNotFoundException {
+		openConnection();
+		String sqlExec = "EXEC spMaxCode ?";
+
+		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
+		statement.setEscapeProcessing(true);
+		statement.setQueryTimeout(15);
+
+		statement.setString(1, tenBang);
+
+		int kq = 0;
+		ResultSet res = statement.executeQuery();
+		if (res.next()) {
+
+			kq = res.getInt(1);
+		}
+		// Because load image very time-consuming --> Don't close connect to DB
+		// closeConnection();
+		return kq;
+
 	}
 
 }
