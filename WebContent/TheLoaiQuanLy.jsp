@@ -16,10 +16,10 @@
 <link href='https://fonts.googleapis.com/css?family=Roboto'
 	rel='stylesheet'>
 <!-- Title Page-->
-<title>QUẢN LÝ ĐỘC GIẢ</title>
+<title>QUẢN LÝ THỂ LOẠI</title>
 
 <!-- Fontfaces CSS-->
-<c:if test="${docGiaIU != null }">
+<c:if test="${theLoaiIU != null }">
 	<link href="../css/font-face.css" rel="stylesheet" media="all">
 	<link href="../vendor/font-awesome-4.7/css/font-awesome.min.css"
 		rel="stylesheet" media="all">
@@ -49,7 +49,7 @@
 	<!-- Main CSS-->
 	<link href="../css/theme_1.css" rel="stylesheet" media="all">
 </c:if>
-<c:if test="${docGiaIU == null }">
+<c:if test="${theLoaiIU == null }">
 	<link href="./css/font-face.css" rel="stylesheet" media="all">
 	<link href="./vendor/font-awesome-4.7/css/font-awesome.min.css"
 		rel="stylesheet" media="all">
@@ -89,9 +89,9 @@
 				<div class="container-fluid">
 					<div class="header-mobile-inner">
 						<a class="logo" href="index.html"> <c:if
-								test="${docGiaIU != null }">
+								test="${theLoaiIU != null }">
 								<img src="../images/icon/logo.png" alt="CoolAdmin" />
-							</c:if> <c:if test="${docGiaIU == null }">
+							</c:if> <c:if test="${theLoaiIU == null }">
 								<img src="./images/icon/logo.png" alt="CoolAdmin" />
 							</c:if>
 						</a>
@@ -119,9 +119,9 @@
 						</a>
 							<ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
 								<li><a href="quanlinhanvien.html">Nhân viên</a></li>
-								<li><a href="docgia.html">Đọc giả</a></li>
+								<li><a href="theLoai.html">Đọc giả</a></li>
 								<li><a href="thongbao.html">Thông báo</a></li>
-								<li><a href="docGia.html">Đầu sách</a></li>
+								<li><a href="theLoai.html">Đầu sách</a></li>
 								<li><a href="nhaxuatban.html">Nhà xuất bản</a></li>
 								<li><a href="taikhoan.html">Tài khoản</a></li>
 								<li><a href="phongphucvu.html">Phòng phục vụ</a></li>
@@ -137,9 +137,9 @@
 		<!-- MENU SIDEBAR-->
 		<aside class="menu-sidebar d-none d-lg-block">
 			<div class="logo">
-				<a href="#"> <c:if test="${docGiaIU != null }">
+				<a href="#"> <c:if test="${theLoaiIU != null }">
 						<img src="../images/icon/logo.png" alt="Cool Admin" />
-					</c:if> <c:if test="${docGiaIU == null }">
+					</c:if> <c:if test="${theLoaiIU == null }">
 						<img src="./images/icon/logo.png" alt="Cool Admin" />
 					</c:if>
 				</a>
@@ -161,9 +161,9 @@
 						</a>
 							<ul class="list-unstyled navbar__sub-list js-sub-list">
 								<li><a href="quanlinhanvien.html">Nhân viên</a></li>
-								<li><a href="docgia.html">Đọc giả</a></li>
+								<li><a href="theLoai.html">Đọc giả</a></li>
 								<li><a href="thongbao.html">Thông báo</a></li>
-								<li><a href="docGia.html">Đầu sách</a></li>
+								<li><a href="theLoai.html">Đầu sách</a></li>
 								<li><a href="nhaxuatban.html">Nhà xuất bản</a></li>
 								<li><a href="taikhoan.html">Tài khoản</a></li>
 								<li><a href="phongphucvu.html">Phòng phục vụ</a></li>
@@ -176,12 +176,12 @@
 			</div>
 		</aside>
 		<!-- END MENU SIDEBAR-->
-		<c:if test="${docGiaIU != null }">
-			<form method="post" action="/QuanLyThuVien/DocGiaQuanLy/update"
+		<c:if test="${theLoaiIU != null }">
+			<form method="post" action="/QuanLyThuVien/TheLoaiQuanLy/update"
 				enctype="multipart/form-data">
 		</c:if>
-		<c:if test="${docGiaIU == null }">
-			<form method="post" action="/QuanLyThuVien/DocGiaQuanLy/insert"
+		<c:if test="${theLoaiIU == null }">
+			<form method="post" action="/QuanLyThuVien/TheLoaiQuanLy/insert"
 				enctype="multipart/form-data">
 		</c:if>
 		<!-- Modal -->
@@ -191,13 +191,13 @@
 			<div class="modal-lg modal-dialog " role="document">
 				<div class="modal-content ">
 					<div class="modal-header">
-						<c:if test="${docGiaIU != null }">
+						<c:if test="${theLoaiIU != null }">
 							<h3 class="modal-title" id="InsertLabel"
-								style="font-family: 'Roboto';">Sửa độc giả</h3>
+								style="font-family: 'Roboto';">Sửa Thể Loại</h3>
 						</c:if>
-						<c:if test="${docGiaIU == null }">
+						<c:if test="${theLoaiIU == null }">
 							<h3 class="modal-title" id="InsertLabel"
-								style="font-family: 'Roboto';">Thêm độc giả</h3>
+								style="font-family: 'Roboto';">Thêm Thể Loại</h3>
 						</c:if>
 
 						<button type="button" class="close" data-dismiss="modal"
@@ -209,74 +209,33 @@
 					<div class="modal-body">
 						<div class="row">
 							<div class="form-group col-md-4">
-								<label>Mã Độc Giả</label>
-								<c:if test="${docGiaIU != null }">
-									<input type="text" name="txtMaDocGia" required="required"
+								<label>Mã Thể Loại</label>
+								<c:if test="${theLoaiIU != null }">
+									<input type="text" name="txtMaTheLoai" required="required"
 										readonly="readonly" class="form-control"
-										value="${docGiaIU.getMaDocGia() }">
+										value="${theLoaiIU.getMaTheLoai() }">
 								</c:if>
-								<c:if test="${docGiaIU == null }">
-									<input type="text" name="txtMaDocGia" required="required"
+								<c:if test="${theLoaiIU == null }">
+									<input type="text" name="txtMaTheLoai" required="required"
 										readonly="readonly" class="form-control" value="${maxCode +1}">
 								</c:if>
 							</div>
 						</div>
 						<div class="row">
 							<div class="form-group col-md-4">
-								<label>Tên Độc Giả</label> <input type="text"
-									name="txtTenDocGia" class="form-control" required="required"
-									value="${docGiaIU.getTenDocGia() }">
-							</div>
-							<div class="form-group col-md-4">
-								<label>Giới Tính</label> <input type="hidden" name="txtGioiTinh"
-									id="txtGioiTinh" class="form-control" required="required"
-									value="${docGiaIU.getGioiTinh() }"> <select
-									onchange="onchangetxt()" name="selectGioiTinh"
-									id="selectGioiTinh" class="form-control">
-									<option value="Nam">Nam</option>
-									<option value="Nữ">Nữ</option>
-								</select>
-								<script type="text/javascript">
-									function onchangetxt() {
-										document.getElementById("txtGioiTinh").value = document
-												.getElementById("selectGioiTinh").value;
-									}
-								</script>
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group col-md-4">
-								<label>Ngày Sinh</label> <input type="date" name="dateNgaySinh"
-									class="form-control " required="required"
-									value="${docGiaIU.getNgaySinh() }">
-							</div>
-							<div class="form-group col-md-4">
-								<label>Địa Chỉ</label> <input type="text" name="txtDiaChi"
-									class="form-control" required="required"
-									value="${docGiaIU.getDiaChi() }">
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group col-md-4">
-								<label>Email</label> <input type="txt" name="txtEmail"
-									class="form-control" required="required"
-									value="${docGiaIU.getEmail() }">
-							</div>
-
-							<div class="form-group col-md-4">
-								<label>Số Điện Thoại</label> <input type="text"
-									name="txtSoDienThoai" class="form-control" required="required"
-									value="${docGiaIU.getSoDienThoai() }">
+								<label>Tên Thể Loại</label> <input type="text"
+									name="txtTenTheLoai" class="form-control" required="required"
+									value="${theLoaiIU.getTenTheLoai() }">
 							</div>
 						</div>
 						<div class="modal-footer pull-left">
 							<button class="btn btn-secondary pull-left" data-dismiss="modal">Đóng</button>
 						</div>
-						<c:if test="${docGiaIU != null }">
+						<c:if test="${theLoaiIU != null }">
 							<div class="modal-footer pull-right">
 								<input class="btn btn-primary" type="submit" value="Sửa">
 						</c:if>
-						<c:if test="${docGiaIU == null }">
+						<c:if test="${theLoaiIU == null }">
 							<div class="modal-footer pull-right">
 								<input class="btn btn-primary" type="submit" value="Thêm">
 						</c:if>
@@ -303,10 +262,10 @@
 								</div>
 								<div class="mess__item">
 									<div class="image img-cir img-40">
-										<c:if test="${docGiaIU != null }">
+										<c:if test="${theLoaiIU != null }">
 											<img src="../images/icon/avatar-06.jpg" alt="Michelle Moreno" />
 										</c:if>
-										<c:if test="${docGiaIU == null }">
+										<c:if test="${theLoaiIU == null }">
 											<img src="./images/icon/avatar-06.jpg" alt="Michelle Moreno" />
 										</c:if>
 
@@ -319,10 +278,10 @@
 								</div>
 								<div class="mess__item">
 									<div class="image img-cir img-40">
-										<c:if test="${docGiaIU != null }">
+										<c:if test="${theLoaiIU != null }">
 											<img src="../images/icon/avatar-04.jpg" alt="Diane Myers" />
 										</c:if>
-										<c:if test="${docGiaIU != null }">
+										<c:if test="${theLoaiIU != null }">
 											<img src="./images/icon/avatar-04.jpg" alt="Diane Myers" />
 										</c:if>
 									</div>
@@ -345,10 +304,10 @@
 								</div>
 								<div class="email__item">
 									<div class="image img-cir img-40">
-										<c:if test="${docGiaIU != null }">
+										<c:if test="${theLoaiIU != null }">
 											<img src="../images/icon/avatar-06.jpg" alt="Cynthia Harvey" />
 										</c:if>
-										<c:if test="${docGiaIU == null }">
+										<c:if test="${theLoaiIU == null }">
 											<img src="./images/icon/avatar-06.jpg" alt="Cynthia Harvey" />
 										</c:if>
 									</div>
@@ -359,10 +318,10 @@
 								</div>
 								<div class="email__item">
 									<div class="image img-cir img-40">
-										<c:if test="${docGiaIU != null }">
+										<c:if test="${theLoaiIU != null }">
 											<img src="../images/icon/avatar-05.jpg" alt="Cynthia Harvey" />
 										</c:if>
-										<c:if test="${docGiaIU == null }">
+										<c:if test="${theLoaiIU == null }">
 											<img src="./images/icon/avatar-05.jpg" alt="Cynthia Harvey" />
 										</c:if>
 									</div>
@@ -373,10 +332,10 @@
 								</div>
 								<div class="email__item">
 									<div class="image img-cir img-40">
-										<c:if test="${docGiaIU != null }">
+										<c:if test="${theLoaiIU != null }">
 											<img src="../images/icon/avatar-04.jpg" alt="Cynthia Harvey" />
 										</c:if>
-										<c:if test="${docGiaIU == null }">
+										<c:if test="${theLoaiIU == null }">
 											<img src="../images/icon/avatar-04.jpg" alt="Cynthia Harvey" />
 										</c:if>
 
@@ -433,10 +392,10 @@
 					<div class="account-wrap">
 						<div class="account-item clearfix js-item-menu">
 							<div class="image">
-								<c:if test="${docGiaIU != null }">
+								<c:if test="${theLoaiIU != null }">
 									<img src="../images/icon/avatar-01.jpg" alt="John Doe" />
 								</c:if>
-								<c:if test="${docGiaIU == null }">
+								<c:if test="${theLoaiIU == null }">
 									<img src="./images/icon/avatar-01.jpg" alt="John Doe" />
 								</c:if>
 
@@ -447,9 +406,9 @@
 							<div class="account-dropdown js-dropdown">
 								<div class="info clearfix">
 									<div class="image">
-										<a href="#"> <c:if test="${docGiaIU != null }">
+										<a href="#"> <c:if test="${theLoaiIU != null }">
 												<img src="../images/icon/avatar-01.jpg" alt="John Doe" />
-											</c:if> <c:if test="${docGiaIU == null }">
+											</c:if> <c:if test="${theLoaiIU == null }">
 												<img src="./images/icon/avatar-01.jpg" alt="John Doe" />
 											</c:if>
 										</a>
@@ -490,14 +449,14 @@
 			<div class="section__content section__content--p30">
 				<div class="container-fluid">
 					<div class="row">
-						<form method="post" action="/QuanLyThuVien/DocGiaQuanLy"
+						<form method="post" action="/QuanLyThuVien/TheLoaiQuanLy"
 							class="col-12 pull-left">
 							<div class="col-12 pull-left">
 								<h4>Tìm kiếm</h4>
 								<div class="space-5"></div>
 								<div class="input-group">
 									<input type="text" class="form-control" id="txtSearch"
-										name="txtSearch" placeholder="Nhập tên độc giả,..."
+										name="txtSearch" placeholder="Nhập tên Thể Loại,..."
 										value="${txtSearch}"> <input type="hidden"
 										class="form-control" id="pages" name="pages"
 										value="${soTrangHienTai}">
@@ -509,8 +468,8 @@
 								<div class="space-200"></div>
 								<div class="pull-left col-6">
 									<p>
-										<strong><c:out value="${listDocGia.size() }"></c:out></strong>
-										of <strong><c:out value="${total }"></c:out></strong> độc giả
+										<strong><c:out value="${listtheLoai.size() }"></c:out></strong>
+										of <strong><c:out value="${total }"></c:out></strong> thể loại
 										được tìm thấy
 									</p>
 								</div>
@@ -526,8 +485,7 @@
 													class="form-control" onchange="this.form.submit()">
 													<option value="AZ">A-Z</option>
 													<option value="ZA">Z-A</option>
-													<option value="SoDienThoai">Số Điện Thoại</option>
-													<option value="Email">Email</option>
+													<option value="SoDienThoai">Tên Thể Loại</option>
 												</select>
 											</div>
 										</div>
@@ -543,7 +501,7 @@
 						<div class="col-sm-12 col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<h3>Độc Giả</h3>
+									<h3>Thể Loại</h3>
 								</div>
 								<div class="card-body card-block">
 
@@ -554,30 +512,20 @@
 												class="table  table-borderless table-striped table-earning">
 												<thead>
 													<tr class="col-sm-12">
-														<th>Mã Độc Giả</th>
-														<th>Tên Độc Giả</th>
-														<th>Giới Tính</th>
-														<th>Ngày Sinh</th>
-														<th>Địa Chỉ</th>
-														<th>Email</th>
-														<th>Số Điện Thoại</th>
+														<th>Mã Thể Loại</th>
+														<th>Tên Thể Loại</th>
 														<th>Sửa Và Xóa</th>
 													</tr>
 												</thead>
 												<tbody>
-													<c:forEach var="docGia" items="${listDocGia}">
+													<c:forEach var="theLoai" items="${listtheLoai}">
 														<tr>
-															<td><c:out value="${docGia.getMaDocGia()}" /></td>
-															<td><c:out value="${docGia.getTenDocGia()}" /></td>
-															<td><c:out value="${docGia.getGioiTinh()}" /></td>
-															<td><c:out value="${docGia.getNgaySinh()}" /></td>
-															<td><c:out value="${docGia.getDiaChi()}" /></td>
-															<td><c:out value="${docGia.getEmail()}" /></td>
-															<td><c:out value="${docGia.getSoDienThoai()}" /></td>
+															<td><c:out value="${theLoai.getMaTheLoai()}" /></td>
+															<td><c:out value="${theLoai.getTentheLoai()}" /></td>
 															<td><a class="btn btn-warning pull-left"
-																href="/QuanLyThuVien/DocGiaQuanLy/edit?MaDocGia=<c:out value='${docGia.getMaDocGia()}' />">Sửa</a>
+																href="/QuanLyThuVien/TheLoaiQuanLy/edit?MaTheLoai=<c:out value='${theLoai.getMaTheLoai()}' />">Sửa</a>
 																&nbsp;&nbsp;&nbsp;&nbsp; <a class="btn btn-danger"
-																href="/QuanLyThuVien/DocGiaQuanLy/delete?MaDocGia=<c:out value='${docGia.getMaDocGia()}' />">Xóa</a>
+																href="/QuanLyThuVien/TheLoaiQuanLy/delete?MaTheLoai=<c:out value='${theLoai.getMaTheLoai()}' />">Xóa</a>
 															</td>
 														</tr>
 													</c:forEach>
@@ -591,24 +539,24 @@
 											<div class="shop-pagination pull-right">
 												<ul id="" class="pagination-sm pagination">
 													<li class="page-item first"><a
-														href="/QuanLyThuVien/DocGiaQuanLy?pages=1"
+														href="/QuanLyThuVien/TheLoaiQuanLy?pages=1"
 														class="page-link">First</a></li>
 													<c:if test="${soTrangHienTai >=2 }">
 														<li class="page-item prev"><a
-															href="/QuanLyThuVien/DocGiaQuanLy?pages=<c:out value='${soTrangHienTai-1}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
+															href="/QuanLyThuVien/TheLoaiQuanLy?pages=<c:out value='${soTrangHienTai-1}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 															class="page-link">Previous</a></li>
 													</c:if>
 													<c:forEach var="i" begin="1" end="${soTrang}" step="1">
 														<c:if test="${soTrangHienTai == i }">
 															<li class="page-item active"><a
-																href="/QuanLyThuVien/DocGiaQuanLy?pages=<c:out value='${i}'/>"
+																href="/QuanLyThuVien/TheLoaiQuanLy?pages=<c:out value='${i}'/>"
 																"
 																class="page-link"><c:out
 																		value="${i}"></c:out></a></li>
 														</c:if>
 														<c:if test="${soTrangHienTai != i }">
 															<li class="page-item  "><a
-																href="/QuanLyThuVien/DocGiaQuanLy?pages=<c:out value='${i}'/>"
+																href="/QuanLyThuVien/TheLoaiQuanLy?pages=<c:out value='${i}'/>"
 																"
 																class="page-link"><c:out
 																		value="${i}"></c:out></a></li>
@@ -616,12 +564,12 @@
 													</c:forEach>
 													<c:if test="${soTrangHienTai < soTrang }">
 														<li class="page-item next"><a
-															href="/QuanLyThuVien/DocGiaQuanLy?pages=<c:out value='${soTrangHienTai+1}'/>"
+															href="/QuanLyThuVien/TheLoaiQuanLy?pages=<c:out value='${soTrangHienTai+1}'/>"
 															"
 															class="page-link">Next</a></li>
 													</c:if>
 													<li class="page-item last"><a
-														href="/QuanLyThuVien/DocGiaQuanLy?pages=<c:out value='${soTrang}'/>"
+														href="/QuanLyThuVien/TheLoaiQuanLy?pages=<c:out value='${soTrang}'/>"
 														"
 														class="page-link">Last</a></li>
 												</ul>
@@ -649,7 +597,7 @@
 
 
 	<!-- Jquery JS-->
-	<c:if test="${docGiaIU != null }">
+	<c:if test="${theLoaiIU != null }">
 		<script src="../vendor/jquery-3.2.1.min.js"></script>
 		<!-- Bootstrap JS-->
 		<script src="../vendor/bootstrap-4.1/popper.min.js"></script>
@@ -677,7 +625,7 @@
 		<!-- Main JS-->
 		<script src="../js/main_admin.js"></script>
 	</c:if>
-	<c:if test="${docGiaIU == null }">
+	<c:if test="${theLoaiIU == null }">
 		<script src="./vendor/jquery-3.2.1.min.js"></script>
 		<!-- Bootstrap JS-->
 		<script src="./vendor/bootstrap-4.1/popper.min.js"></script>
@@ -705,7 +653,7 @@
 		<!-- Main JS-->
 		<script src="./js/main_admin.js"></script>
 	</c:if>
-	<c:if test="${docGiaIU != null }">
+	<c:if test="${theLoaiIU != null }">
 		<script type="text/javascript">
 			$('#InsertUpdate').modal('show');
 		</script>

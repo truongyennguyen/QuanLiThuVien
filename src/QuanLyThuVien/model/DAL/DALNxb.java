@@ -103,5 +103,75 @@ public class DALNxb extends ConnectDatabase implements I_DAL<Nxb> {
 		closeConnection();
 		return Nxb;
 	}
+	public List<Nxb> getAllPhanTrang(int minRes, int maxRes, int maNxb, String sort, String search)
+			throws SQLException, ClassNotFoundException {
+		openConnection();
+		List<Nxb> Nxbs = new ArrayList<>();
+		String sqlExec = "EXEC spLayDauSachPhanTrang ?,?,?,?,?";
+
+		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
+		statement.setInt(1, minRes);
+		statement.setInt(2, maxRes);
+		statement.setInt(3, maNxb);
+		statement.setString(4, sort);
+		statement.setString(5, search);
+
+		statement.setEscapeProcessing(true);
+		statement.setQueryTimeout(15);
+		ResultSet res = statement.executeQuery();
+
+		while (res.next()) {
+			Nxb Nxb = new Nxb();
+			Nxb.setMaNxb(res.getInt(1));
+			Nxb.setTenNxb(res.getString(2));
+			Nxb.setGhiChu(res.getString(3));
+			Nxbs.add(Nxb);
+		}
+//		closeConnection();
+		return Nxbs;
+	}
+	public int getSoLuongPhanTu(int maNxb, String search) throws SQLException, ClassNotFoundException {
+		openConnection();
+		String sqlExec = "EXEC spLayNxbPhanTrangCount ?,?";
+
+		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
+		statement.setEscapeProcessing(true);
+		statement.setQueryTimeout(15);
+
+		statement.setInt(1, maNxb);
+		statement.setString(2, search);
+
+		int kq = 0;
+		ResultSet res = statement.executeQuery();
+		if (res.next()) {
+
+			kq = res.getInt(1);
+		}
+		// Because load image very time-consuming --> Don't close connect to DB
+		// closeConnection();
+		return kq;
+	}
+	@Override
+	public int maxCode(String tenBang) throws SQLException, ClassNotFoundException {
+		openConnection();
+		String sqlExec = "EXEC spMaxCode ?";
+
+		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
+		statement.setEscapeProcessing(true);
+		statement.setQueryTimeout(15);
+
+		statement.setString(1, tenBang);
+
+		int kq = 0;
+		ResultSet res = statement.executeQuery();
+		if (res.next()) {
+
+			kq = res.getInt(1);
+		}
+		// Because load image very time-consuming --> Don't close connect to DB
+		// closeConnection();
+		return kq;
+
+	}
 
 }

@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import QuanLyThuVien.model.DAL.Object.ThongBao;
 import QuanLyThuVien.model.DAL.Object.PhieuPhat;
 import QuanLyThuVien.model.DAL.Object.ThongBao;
 
@@ -79,18 +80,18 @@ public class DALThongBao extends ConnectDatabase implements I_DAL<ThongBao> {
 	@Override
 	public int Update(ThongBao record) throws SQLException, ClassNotFoundException {
 		openConnection();
-		String sqlExec = "EXEC spThongBao ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?";
+		String sqlExec = "EXEC spThongBao ?,?,?,?,?, ?";
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
 		statement.setInt(1, record.getiDThongBao());
 		statement.setString(2, record.getTenThongBao());
 		statement.setString(3, record.getNoiDung());
-
+		statement.setBlob(4, record.getHinhAnh());
 		// THIẾU CÁI SET HINH ANH Ở ĐÂY
 
 		statement.setInt(5, record.getMaTaiKhoan());
-		statement.setString(14, "UPDATE");
+		statement.setString(6, "UPDATE");
 		int rowUpdate = statement.executeUpdate();
 		closeConnection();
 		return rowUpdate;
@@ -119,6 +120,76 @@ public class DALThongBao extends ConnectDatabase implements I_DAL<ThongBao> {
 		}
 		closeConnection();
 		return thongBao;
+	}
+	public List<ThongBao> getAllPhanTrang(int minRes, int maxRes, int maThongBao, String sort, String search)
+			throws SQLException, ClassNotFoundException {
+		openConnection();
+		List<ThongBao> ThongBaos = new ArrayList<>();
+		String sqlExec = "EXEC spLayDauSachPhanTrang ?,?,?,?,?";
+
+		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
+		statement.setInt(1, minRes);
+		statement.setInt(2, maxRes);
+		statement.setInt(3, maThongBao);
+		statement.setString(4, sort);
+		statement.setString(5, search);
+
+		statement.setEscapeProcessing(true);
+		statement.setQueryTimeout(15);
+		ResultSet res = statement.executeQuery();
+
+		while (res.next()) {
+			ThongBao thongBao = new ThongBao();
+			thongBao.setiDThongBao(res.getInt(1));
+			thongBao.setTenThongBao(res.getString(2));
+			thongBao.setNoiDung(res.getString(3));
+			ThongBaos.add(thongBao);
+		}
+//		closeConnection();
+		return ThongBaos;
+	}
+	public int getSoLuongPhanTu(int maThongBao, String search) throws SQLException, ClassNotFoundException {
+		openConnection();
+		String sqlExec = "EXEC spLayThongBaoPhanTrangCount ?,?";
+
+		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
+		statement.setEscapeProcessing(true);
+		statement.setQueryTimeout(15);
+
+		statement.setInt(1, maThongBao);
+		statement.setString(2, search);
+
+		int kq = 0;
+		ResultSet res = statement.executeQuery();
+		if (res.next()) {
+
+			kq = res.getInt(1);
+		}
+		// Because load image very time-consuming --> Don't close connect to DB
+		// closeConnection();
+		return kq;
+	}
+	@Override
+	public int maxCode(String tenBang) throws SQLException, ClassNotFoundException {
+		openConnection();
+		String sqlExec = "EXEC spMaxCode ?";
+
+		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
+		statement.setEscapeProcessing(true);
+		statement.setQueryTimeout(15);
+
+		statement.setString(1, tenBang);
+
+		int kq = 0;
+		ResultSet res = statement.executeQuery();
+		if (res.next()) {
+
+			kq = res.getInt(1);
+		}
+		// Because load image very time-consuming --> Don't close connect to DB
+		// closeConnection();
+		return kq;
+
 	}
 
 }

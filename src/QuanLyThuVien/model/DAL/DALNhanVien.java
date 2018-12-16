@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import QuanLyThuVien.model.DAL.Object.NhanVien;
+import QuanLyThuVien.model.DAL.Object.NhanVien;
 import QuanLyThuVien.model.DAL.Object.PhieuPhat;
 
 public class DALNhanVien extends ConnectDatabase implements I_DAL<NhanVien>{
@@ -44,7 +45,7 @@ public class DALNhanVien extends ConnectDatabase implements I_DAL<NhanVien>{
 			return 0;
 
 		openConnection();
-		String sqlExec = "EXEC spNhanVien ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?";// 14 @param
+		String sqlExec = "EXEC spNhanVien ?,?,?,?,?, ?,?";// 14 @param
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
@@ -54,7 +55,7 @@ public class DALNhanVien extends ConnectDatabase implements I_DAL<NhanVien>{
 		statement.setString(4, record.getSoDienThoai());
 		statement.setDate(5, record.getNgaySinh());
 		statement.setInt(6, record.getMaTaiKhoan());
-		statement.setString(14, "INSERT");
+		statement.setString(7, "INSERT");
 		int rowInsert = statement.executeUpdate();
 		closeConnection();
 		return rowInsert;
@@ -76,7 +77,7 @@ public class DALNhanVien extends ConnectDatabase implements I_DAL<NhanVien>{
 	@Override
 	public int Update(NhanVien record) throws SQLException, ClassNotFoundException {
 		openConnection();
-		String sqlExec = "EXEC spNhanVien ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?";
+		String sqlExec = "EXEC spNhanVien ?,?,?,?,?, ?,?";
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
@@ -86,7 +87,7 @@ public class DALNhanVien extends ConnectDatabase implements I_DAL<NhanVien>{
 		statement.setString(4, record.getSoDienThoai());
 		statement.setDate(5, record.getNgaySinh());
 		statement.setInt(6, record.getMaTaiKhoan());
-		statement.setString(14, "UPDATE");
+		statement.setString(7, "UPDATE");
 		int rowUpdate = statement.executeUpdate();
 		closeConnection();
 		return rowUpdate;
@@ -114,6 +115,80 @@ public class DALNhanVien extends ConnectDatabase implements I_DAL<NhanVien>{
 		}
 		closeConnection();
 		return nhanVien;
+	}
+	public List<NhanVien> getAllPhanTrang(int minRes, int maxRes, int maNhanVien, String sort, String search)
+			throws SQLException, ClassNotFoundException {
+		openConnection();
+		List<NhanVien> NhanViens = new ArrayList<>();
+		String sqlExec = "EXEC spLayDauSachPhanTrang ?,?,?,?,?";
+
+		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
+		statement.setInt(1, minRes);
+		statement.setInt(2, maxRes);
+		statement.setInt(3, maNhanVien);
+		statement.setString(4, sort);
+		statement.setString(5, search);
+
+		statement.setEscapeProcessing(true);
+		statement.setQueryTimeout(15);
+		ResultSet res = statement.executeQuery();
+
+		while (res.next()) {
+			NhanVien nhanVien = new NhanVien();
+			nhanVien.setMaNhanVien(res.getInt(1));
+			nhanVien.setHoVaTen(res.getString(2));
+			nhanVien.setEmail(res.getString(3));
+			nhanVien.setSoDienThoai(res.getString(4));
+			nhanVien.setNgaySinh(res.getDate(5));
+			nhanVien.setMaTaiKhoan(res.getInt(6));
+			NhanViens.add(nhanVien);
+		}
+//		closeConnection();
+		return NhanViens;
+	}
+	public int getSoLuongPhanTu(int maNhanVien, String search) throws SQLException, ClassNotFoundException {
+		openConnection();
+		String sqlExec = "EXEC spLayNhanVienPhanTrangCount ?,?";
+
+		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
+		statement.setEscapeProcessing(true);
+		statement.setQueryTimeout(15);
+
+		statement.setInt(1, maNhanVien);
+		statement.setString(2, search);
+
+		int kq = 0;
+		ResultSet res = statement.executeQuery();
+		if (res.next()) {
+
+			kq = res.getInt(1);
+		}
+		// Because load image very time-consuming --> Don't close connect to DB
+		// closeConnection();
+		return kq;
+	}
+
+	@Override
+	public int maxCode(String tenBang) throws SQLException, ClassNotFoundException {
+		openConnection();
+		String sqlExec = "EXEC spMaxCode ?";
+
+		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
+		statement.setEscapeProcessing(true);
+		statement.setQueryTimeout(15);
+
+		statement.setString(1, tenBang);
+
+		int kq = 0;
+		ResultSet res = statement.executeQuery();
+		if (res.next()) {
+
+			kq = res.getInt(1);
+		}
+		// Because load image very time-consuming --> Don't close connect to DB
+		// closeConnection();
+		return kq;
+
 	}
 
 }
