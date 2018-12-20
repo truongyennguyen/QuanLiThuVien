@@ -15,7 +15,43 @@ public class DALTaiKhoan extends ConnectDatabase implements I_DAL<TaiKhoan>{
 	public DALTaiKhoan(String jdbcURL) throws SQLException {
 		super(jdbcURL);
 	}
-
+	
+	public int changePassword(String mk, int id) throws ClassNotFoundException, SQLException{
+		openConnection();
+		String sql = "Update TaiKhoan Set MatKhau=? Where MaTaiKhoan=?";
+		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+		statement.setEscapeProcessing(true);
+		statement.setQueryTimeout(15);
+		statement.setString(1, mk);
+		statement.setInt(2, id);
+		int rowUpdate = statement.executeUpdate();
+		closeConnection();
+		return rowUpdate;
+	}
+	
+	public TaiKhoan getTaiKhoanTheoEmail(String email) throws ClassNotFoundException, SQLException{
+		openConnection();
+		String sql = "Select * From TaiKhoan Where Email=?";
+		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+		statement.setEscapeProcessing(true);
+		statement.setQueryTimeout(15);
+		statement.setString(1, email);
+		ResultSet res = statement.executeQuery();
+		TaiKhoan taiKhoan = null;
+		if(res.next()){
+			taiKhoan = new TaiKhoan();
+			taiKhoan.setMaTaiKhoan(res.getInt(1));
+			taiKhoan.seteMail(res.getString(2));
+			taiKhoan.setSoDienThoai(res.getString(3));
+			taiKhoan.setMatKhau(res.getString(4));
+			taiKhoan.setAvartar(res.getString(5));
+			taiKhoan.setIdQuyen(res.getInt(6));
+			taiKhoan.setMaThe(res.getInt(7));
+		}
+		return taiKhoan;
+	}
+	
+	
 	@Override
 	public List<TaiKhoan> getAll() throws SQLException, ClassNotFoundException {
 		openConnection();
@@ -29,7 +65,7 @@ public class DALTaiKhoan extends ConnectDatabase implements I_DAL<TaiKhoan>{
 			TaiKhoan taiKhoan = new TaiKhoan();
 			taiKhoan.setMaTaiKhoan(res.getInt(1));
 			taiKhoan.seteMail(res.getString(2));
-			taiKhoan.setSoDienThoai(res.getInt(3));
+			taiKhoan.setSoDienThoai(res.getString(3));
 			taiKhoan.setMatKhau(res.getString(4));
 			taiKhoan.setAvartar(res.getString(5));
 			taiKhoan.setIdQuyen(res.getInt(6));
@@ -53,7 +89,7 @@ public class DALTaiKhoan extends ConnectDatabase implements I_DAL<TaiKhoan>{
 		statement.setQueryTimeout(15);
 		statement.setInt(1, record.getMaTaiKhoan());
 		statement.setString(2, record.geteMail());
-		statement.setInt(3, record.getSoDienThoai());
+		statement.setString(3, record.getSoDienThoai());
 		statement.setString(4, record.getMatKhau());
 		statement.setString(5, record.getAvartar());
 		statement.setInt(6, record.getIdQuyen());
@@ -86,7 +122,7 @@ public class DALTaiKhoan extends ConnectDatabase implements I_DAL<TaiKhoan>{
 		statement.setQueryTimeout(15);
 		statement.setInt(1, record.getMaTaiKhoan());
 		statement.setString(2, record.geteMail());
-		statement.setInt(3, record.getSoDienThoai());
+		statement.setString(3, record.getSoDienThoai());
 		statement.setString(4, record.getMatKhau());
 		statement.setString(5, record.getAvartar());
 		statement.setInt(6, record.getIdQuyen());
@@ -112,7 +148,7 @@ public class DALTaiKhoan extends ConnectDatabase implements I_DAL<TaiKhoan>{
 		if (res.next()) {
 			taiKhoan.setMaTaiKhoan(res.getInt(1));
 			taiKhoan.seteMail(res.getString(2));
-			taiKhoan.setSoDienThoai(res.getInt(3));
+			taiKhoan.setSoDienThoai(res.getString(3));
 			taiKhoan.setMatKhau(res.getString(4));
 			taiKhoan.setAvartar(res.getString(5));
 			taiKhoan.setIdQuyen(res.getInt(6));
@@ -142,7 +178,7 @@ public class DALTaiKhoan extends ConnectDatabase implements I_DAL<TaiKhoan>{
 			TaiKhoan taiKhoan = new TaiKhoan();
 			taiKhoan.setMaTaiKhoan(res.getInt(1));
 			taiKhoan.seteMail(res.getString(2));
-			taiKhoan.setSoDienThoai(res.getInt(3));
+			taiKhoan.setSoDienThoai(res.getString(3));
 			taiKhoan.setMatKhau(res.getString(4));
 			taiKhoan.setAvartar(res.getString(5));
 			taiKhoan.setIdQuyen(res.getInt(6));
