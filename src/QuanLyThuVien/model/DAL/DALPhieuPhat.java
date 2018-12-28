@@ -10,11 +10,12 @@ import QuanLyThuVien.model.DAL.Object.DauSach;
 import QuanLyThuVien.model.DAL.Object.PhieuPhat;
 import QuanLyThuVien.model.DAL.Object.PhieuPhat;
 
-public class DALPhieuPhat extends ConnectDatabase implements I_DAL<PhieuPhat>{
+public class DALPhieuPhat extends ConnectDatabase implements I_DAL<PhieuPhat> {
 
 	public DALPhieuPhat(String jdbcURL) throws SQLException {
 		super(jdbcURL);
 	}
+
 	@Override
 	public List<PhieuPhat> getAll() throws SQLException, ClassNotFoundException {
 		openConnection();
@@ -114,11 +115,12 @@ public class DALPhieuPhat extends ConnectDatabase implements I_DAL<PhieuPhat>{
 		closeConnection();
 		return phieuPhat;
 	}
-	public List<PhieuPhat> getAllPhanTrang(int minRes, int maxRes, int maThe, String sort, String search)
+
+	public List<PhieuPhat> getAllPhanTrang(int minRes, int maxRes, String sort, String search)
 			throws SQLException, ClassNotFoundException {
 		openConnection();
 		List<PhieuPhat> PhieuPhats = new ArrayList<>();
-		String sqlExec = "EXEC spLayPhieuPhatPhanTrang ?,?,?,?,?";
+		String sqlExec = "EXEC spLayPhieuPhatPhanTrang ?,?,?,?";
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
@@ -126,9 +128,8 @@ public class DALPhieuPhat extends ConnectDatabase implements I_DAL<PhieuPhat>{
 
 		statement.setInt(1, minRes);
 		statement.setInt(2, maxRes);
-		statement.setInt(3, maThe);
-		statement.setString(4, sort);
-		statement.setString(5, search);
+		statement.setString(3, sort);
+		statement.setString(4, search);
 
 		ResultSet res = statement.executeQuery();
 		while (res.next()) {
@@ -139,22 +140,23 @@ public class DALPhieuPhat extends ConnectDatabase implements I_DAL<PhieuPhat>{
 			phieuPhat.setMaThe(res.getInt(3));
 			phieuPhat.setNgayLap(res.getDate(4));
 			phieuPhat.setTienPhat(res.getInt(5));
+
 			PhieuPhats.add(phieuPhat);
 		}
 
 		closeConnection();
 		return PhieuPhats;
 	}
-	public int getSoLuongPhanTu(int maThe, String search) throws SQLException, ClassNotFoundException {
+
+	public int getSoLuongPhanTu(String search) throws SQLException, ClassNotFoundException {
 		openConnection();
-		String sqlExec = "EXEC spLayPhieuPhatPhanTrangCount ?,?";
+		String sqlExec = "EXEC spLayPhieuPhatPhanTrangCount ?";
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
 
-		statement.setInt(1, maThe);
-		statement.setString(2, search);
+		statement.setString(1, search);
 
 		int kq = 0;
 		ResultSet res = statement.executeQuery();
@@ -162,8 +164,7 @@ public class DALPhieuPhat extends ConnectDatabase implements I_DAL<PhieuPhat>{
 
 			kq = res.getInt(1);
 		}
-		// Because load image very time-consuming --> Don't close connect to DB
-		// closeConnection();
+		closeConnection();
 		return kq;
 	}
 
@@ -184,8 +185,7 @@ public class DALPhieuPhat extends ConnectDatabase implements I_DAL<PhieuPhat>{
 
 			kq = res.getInt(1);
 		}
-		// Because load image very time-consuming --> Don't close connect to DB
-		// closeConnection();
+		closeConnection();
 		return kq;
 	}
 

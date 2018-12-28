@@ -109,4 +109,10 @@ public class DALLog_TaiSach extends ConnectDatabase implements I_DAL<Log_TaiSach
 		return log_TaiSach;
 	}
 
+	@Override
+	public int maxCode(String tenBang) throws SQLException, ClassNotFoundException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

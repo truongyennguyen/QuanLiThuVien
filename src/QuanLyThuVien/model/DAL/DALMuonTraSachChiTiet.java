@@ -19,7 +19,7 @@ public class DALMuonTraSachChiTiet extends ConnectDatabase implements I_DAL<Muon
 	@Override
 	public List<MuonTraSachChiTiet> getAll() throws SQLException, ClassNotFoundException {
 		openConnection();
-		List<MuonTraSachChiTiet> MuonTraSachChiTiets= new ArrayList<>();
+		List<MuonTraSachChiTiet> MuonTraSachChiTiets = new ArrayList<>();
 		String sqlExec = "EXEC spLayMuonTraSachChiTiet";
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
@@ -39,6 +39,7 @@ public class DALMuonTraSachChiTiet extends ConnectDatabase implements I_DAL<Muon
 		closeConnection();
 		return MuonTraSachChiTiets;
 	}
+
 	public List<MuonTraSachChiTiet> getAllPhanTrang(int minRes, int maxRes, int maCuonSach, String sort, String search)
 			throws SQLException, ClassNotFoundException {
 		openConnection();
@@ -71,16 +72,19 @@ public class DALMuonTraSachChiTiet extends ConnectDatabase implements I_DAL<Muon
 		closeConnection();
 		return MuonTraSachChiTiets;
 	}
+
 	@Override
 	public int Add(MuonTraSachChiTiet record) throws SQLException, ClassNotFoundException {
 		if (record == null)
 			return 0;
 
 		openConnection();
-		String sqlExec = "EXEC spMuonTraSachChiTiet ?,?,?,?,?, ?,?,?";// 14 @param
+		String sqlExec = "EXEC spMuonTraSachChiTiet ?,?,?,?,?, ?,?,?";// 8 @param
+
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
+
 		statement.setInt(1, record.getMaMuonSach());
 		statement.setInt(2, record.getMaCuonSach());
 		statement.setDate(3, record.getNgayMuon());
@@ -89,7 +93,9 @@ public class DALMuonTraSachChiTiet extends ConnectDatabase implements I_DAL<Muon
 		statement.setString(6, record.getTrangThai());
 		statement.setInt(7, record.getSoLuong());
 		statement.setString(8, "INSERT");
+
 		int rowInsert = statement.executeUpdate();
+
 		closeConnection();
 		return rowInsert;
 	}
@@ -97,7 +103,7 @@ public class DALMuonTraSachChiTiet extends ConnectDatabase implements I_DAL<Muon
 	@Override
 	public int Delete(Object... code) throws SQLException, ClassNotFoundException {
 		openConnection();
-		String sqlExec = "EXEC spXoaMuonTraSachChiTiet?";
+		String sqlExec = "EXEC spXoaMuonTraSachChiTiet ?";
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
@@ -114,6 +120,7 @@ public class DALMuonTraSachChiTiet extends ConnectDatabase implements I_DAL<Muon
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
+
 		statement.setInt(1, record.getMaMuonSach());
 		statement.setInt(2, record.getMaCuonSach());
 		statement.setDate(3, record.getNgayMuon());
@@ -122,6 +129,7 @@ public class DALMuonTraSachChiTiet extends ConnectDatabase implements I_DAL<Muon
 		statement.setString(6, record.getTrangThai());
 		statement.setInt(7, record.getSoLuong());
 		statement.setString(8, "UPDATE");
+
 		int rowUpdate = statement.executeUpdate();
 		closeConnection();
 		return rowUpdate;
@@ -151,6 +159,7 @@ public class DALMuonTraSachChiTiet extends ConnectDatabase implements I_DAL<Muon
 		closeConnection();
 		return muonTraSachChiTiet;
 	}
+
 	public int getSoLuongPhanTu(int maCuonSach, String search) throws SQLException, ClassNotFoundException {
 		openConnection();
 		String sqlExec = "EXEC spLayMuonTraSachChiTietPhanTrangCount ?,?";
@@ -172,6 +181,7 @@ public class DALMuonTraSachChiTiet extends ConnectDatabase implements I_DAL<Muon
 		// closeConnection();
 		return kq;
 	}
+
 	@Override
 	public int maxCode(String tenBang) throws SQLException, ClassNotFoundException {
 		openConnection();

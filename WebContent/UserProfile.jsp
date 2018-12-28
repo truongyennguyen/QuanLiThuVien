@@ -1,226 +1,260 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-<!doctype html>
-<html class="no-js" lang="zxx">
-
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-<meta charset="utf-8">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Thông tin cá nhân</title>
-<meta name="description" content="">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="./assets/img/apple-touch-icon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    QUẢN LÝ THÔNG TIN USER</title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <!-- CSS Files -->
+  <link href="./assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
 
-<!-- Place favicon.ico in the root directory -->
-<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-<link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
-
-<!-- Plugin-CSS -->
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-<link rel="stylesheet" href="css/icofont.css">
-<link rel="stylesheet" href="css/animate.css">
-<link rel="stylesheet" href="css/cardslider.css">
-<link rel="stylesheet" href="css/responsiveslides.css">
-
-<!-- Main-Stylesheets -->
-<link rel="stylesheet" href="css/normalize.css">
-<link rel="stylesheet" href="css/overright.css">
-<link rel="stylesheet" href="css/theme.css">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="css/responsive.css">
-<script src="js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
-<body data-spy="scroll" data-target="#mainmenu" data-offset="50">
-	<header class="relative" id="sc1">
-		<!-- Header-background-markup -->
-		<div class="overlay-bg relative">
-			<img src="images/slide/slide1.jpg" alt="">
-		</div>
-		<!-- Mainmenu-markup-start -->
-		<div class="mainmenu-area navbar-fixed-top" data-spy="affix"
-			data-offset-top="10">
-			<nav class="navbar">
-				<div class="container">
-					<div class="navbar-header">
-						<div class="space-10"></div>
-						<button type="button" class="navbar-toggle" data-toggle="collapse"
-							data-target="#mainmenu">
-							<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-								class="icon-bar"></span>
-						</button>
-						<!--Logo-->
-						<!-- <a href="#sc1" class="navbar-left show"><img src="images/logo.png" alt="library"></a> -->
-						<div class="space-10"></div>
-					</div>
-					<!--Toggle-button-->
+<body class="">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
-					<!--Active User-->
-					<div class="nav navbar-right">
-						<div class="active-user navbar-left active">
-							<ul class="list-unstyled">
-								<li><a href="#" class="dropdown-toggle"
-									data-toggle="dropdown"> <img src="images/active_user.png"
-										class="img-circle img-thumbnail" alt="library" />
-								</a>
-									<ul class="dropdown-menu">
-										<li><a href="#"> <span><i
-													class="icofont icofont-user"></i></span> Thông tin cá nhân
-										</a></li>
-										<!-- <li>
-                                            <a href="#"> <span><i class="icofont icofont-notification"></i></span> Notifications</a>
-                                        </li> -->
-										<li><a href="#"> <span><i
-													class="icofont icofont-ui-password"></i></span> Đổi mật khẩu
-										</a></li>
-										<li><a href="#"> <span><i
-													class="icofont icofont-read-book"></i></span> Sách của tôi
-										</a></li>
-										<li><a href="#"> <span><i
-													class="icofont icofont-logout"></i></span> Đăng xuất
-										</a></li>
-									</ul></li>
-							</ul>
-						</div>
-					</div>
-					<!--Mainmenu list-->
-					<div class="navbar-right in fade" id="mainmenu">
-						<ul class="nav navbar-nav nav-white text-uppercase">
-							<li><a href="index.jsp">Trang chủ</a></li>
-							<li><a href="#">Giới thiệu</a></li>
-							<li><a href="noitification.jsp">Thông báo</a></li>
-							<li><a href="room.jsp">Phòng đọc</a></li>
-							<li><a href="feedback.jsp">Phản hồi</a></li>
-							<li><a href="books.jsp">Sách</a></li>
-						</ul>
-					</div>
-				</div>
-			</nav>
-		</div>
-		<div class="space-100"></div>
-		<!-- Mainmenu-markup-end -->
-		<!-- Header-jumbotron -->
-		<div class="space-100"></div>
-		<div class="header-text">
-			<div class="container">
-				<div class="row wow fadeInUp">
-					<div class="col-xs-12 col-sm-10 col-sm-offset-1 text-center">
-						<div class="jumbotron">
-							<h1 class="text-white">Thông tin cá nhân</h1>
-						</div>
-						<div class="title-bar white">
-							<ul class="list-inline list-unstyled">
-								<li><i class="icofont icofont-square"></i></li>
-								<li><i class="icofont icofont-square"></i></li>
-							</ul>
-						</div>
-						<div class="space-40"></div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="space-100"></div>
-		<!-- Header-jumbotron-end -->
-	</header>
-	<section>
-		<div class="space-80"></div>
-		<div class="container">
-			<div class="row">
-				<!-- Sidebar-Start -->
-				<div class="col-xs-12 col-md-2">
-					<aside>
-						<div class="sigle-sidebar">
-							<h4>
-								<i class="icofont icofont-listine-dots"></i> Danh mục
-							</h4>
-							<hr>
-							<ul class="list-unstyled menu-tip">
-								<li><a class="active" href="profile.jsp">Thông tin cá
-										nhân</a></li>
-								<li><a href="change_password.jsp">Đổi mật khẩu</a></li>
-								<li><a href="#">Sách của tôi</a></li>
-							</ul>
-						</div>
-						<div class="space-20"></div>
-					</aside>
-				</div>
-				<!-- Sidebar-End -->
-				<div class="col-xs-12 col-md-10 pull-right">
-					<h4>Thông tin cá nhân</h4>
-					<div class="space-5"></div>
-				</div>
-			</div>
-		</div>
-		<div class="space-80"></div>
-	</section>
-	<!-- Footer-Area -->
-	<footer class="black-bg text-white">
-		<div class="space-60"></div>
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-12 col-sm-4">
-					<a href="#"><img src="images/logo.png" alt="library"></a>
-					<div class="space-20"></div>
-					<p>Đến, đọc, tận hưởng.</p>
-					<div class="space-10"></div>
-					<ul class="list-inline list-unstyled social-list">
-						<li><a href="#"><i
-								class="icofont icofont-social-facebook"></i></a></li>
-						<li><a href="#"><i class="icofont icofont-social-twitter"></i></a></li>
-						<li><a href="#"><i class="icofont icofont-social-behance"></i></a></li>
-						<li><a href="#"><i class="icofont icofont-brand-linkedin"></i></a></li>
-					</ul>
-					<div class="space-10"></div>
-					<ul class="list-unstyled list-inline tip yellow">
-						<li><i class="icofont icofont-square"></i></li>
-						<li><i class="icofont icofont-square"></i></li>
-						<li><i class="icofont icofont-square"></i></li>
-					</ul>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1">
-					<h4 class="text-white">Liên hệ</h4>
-					<div class="space-20"></div>
-					<table class="table border-none addr-dt">
-						<tr>
-							<td><i class="icofont icofont-social-google-map"></i></td>
-							<td><address>Số 1, Võ Văn Ngân, Thủ Đức, TP. Hồ
-									Chí Minh</address></td>
-						</tr>
-						<tr>
-							<td><i class="icofont icofont-email"></i></td>
-							<td>susislibrary@domain.com</td>
-						</tr>
-						<tr>
-							<td><i class="icofont icofont-phone"></i></td>
-							<td>+62 582 528 527 21</td>
-						</tr>
-						<tr>
-							<td><i class="icofont icofont-globe-alt"></i></td>
-							<td><a href="www.susislibrary.jsp" target="_blank">www.susislibrary.com</a></td>
-						</tr>
-					</table>
-				</div>
-			</div>
-		</div>
-		<div class="space-60"></div>
-	</footer>
-	<!-- Footer-Area-End -->
+        Tip 2: you can also add an image using data-image tag
+    -->
+      <div class="logo">
+        <a class="logo" href="index.html">
+                            <img src="./assets/img/logo.png" alt="CoolAdmin" />
+                        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="nav-item  ">
+            <a class="nav-link" href="./dashboard.html">
+              <i class="material-icons"></i>
+              <p>Thống Kê</p>
+            </a>
+          </li>
+          <li class="nav-item active ">
+            <a class="nav-link" href="./user.html">
+              <i class="material-icons"></i>
+              <p>User Profile</p>
+            </a>
+			</li>
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <a class="navbar-brand" href="#pablo">User Profile</a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end">
+            <form class="navbar-form">
+              <div class="input-group no-border">
+                <input type="text" value="" class="form-control" placeholder="Search...">
+                <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                  <i class="material-icons">search</i>
+                  <div class="ripple-container"></div>
+                </button>
+              </div>
+            </form>
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="#pablo">
+                  <i class="material-icons">dashboard</i>
+                  <p class="d-lg-none d-md-block">
+                    Stats
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="material-icons">notifications</i>
+                  <span class="notification">5</span>
+                  <p class="d-lg-none d-md-block">
+                    Some Actions
+                  </p>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="#">Mike John responded to your email</a>
+                  <a class="dropdown-item" href="#">You have 5 new tasks</a>
+                  <a class="dropdown-item" href="#">You're now friend with Andrew</a>
+                  <a class="dropdown-item" href="#">Another Notification</a>
+                  <a class="dropdown-item" href="#">Another One</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="material-icons">person</i>
+                  <p class="d-lg-none d-md-block">
+                    Account
+                  </p>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                  <a class="dropdown-item" href="#">Profile</a>
+                  <a class="dropdown-item" href="#">Settings</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Log out</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Edit Profile</h4>
+                  <p class="card-category">Complete your profile</p>
+                </div>
+                <div class="card-body">
+                  <form>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Mã số độc giả</label>
+                          <input type="text" class="form-control" disabled>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Username</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                     </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Email address</label>
+                          <input type="email" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Fist Name</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                          </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Last Name</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Adress</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                     </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">City</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Country</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                     </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Số điện thoại</label>
+                          <input type="text" class="form-control">
+                        </div>
+                     </div>
+						<div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Email</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                    </div>	
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>About Me</label>
+                          <div class="form-group">
+                            <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
+                            <textarea class="form-control" rows="5"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-right">Update Profile</button>
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card card-profile">
+                <div class="card-avatar">
+                  <a href="#pablo">
+                    <img class="img" src="./assets/img/faces/marc.jpg" />
+                  </a>
+                </div>
+                <div class="card-body">
+                  <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+                  <h4 class="card-title">Alec Thompson</h4>
+                  <p class="card-description">
+                    Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                  </p>
+                  <a href="#pablo" class="btn btn-primary btn-round">Follow</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <!--   Core JS Files   -->
+  <script src="./assets/js/core/jquery.min.js"></script>
+  <script src="./assets/js/core/popper.min.js"></script>
+  <script src="./assets/js/core/bootstrap-material-design.min.js"></script>
+  -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+  <!-- Library for adding dinamically elements -->
+  <script src="./assets/js/plugins/arrive.min.js"></script>
+  <!--  Google Maps Plugin    -->
+ 
+  <script src="./assets/js/plugins/chartist.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="./assets/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="./assets/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
+  <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 
-	<!-- Vandor-JS -->
-	<script src="js/vendor/jquery-1.12.4.min.js"></script>
-	<script src="js/vendor/bootstrap.min.js"></script>
-	<!-- Plugin-JS -->
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/responsiveslides.min.js"></script>
-	<script src="js/jquery.cardslider.min.js"></script>
-	<script src="js/pagination.js"></script>
-	<script src="js/scrollUp.min.js"></script>
-	<script src="js/wow.min.js"></script>
-	<script src="js/plugins.js"></script>
-	<!-- Active-JS -->
-	<script src="js/main.js"></script>
-
+ <script src="./assets/js/core/ThongKe.js"></script>
 </body>
 
 </html>

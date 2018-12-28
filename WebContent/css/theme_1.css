@@ -4228,13 +4228,13 @@ section {
 
 .table-earning thead th {
     background: #333;
-    font-size: 20px;
+    font-size: 16px;
     color: #fff;
     vertical-align: middle;
-    font-weight: 500;
+    font-weight: 400;
     text-transform: capitalize;
     line-height: 1;
-    padding: 10px 30px;
+    padding: 22px 40px;
     white-space: nowrap;
 }
 
@@ -4245,9 +4245,8 @@ section {
 
 .table-earning tbody td {
     color: #808080;
-    padding: 12px 20px;
-    white-space:inherit;
-    vertical-align: middle;
+    padding: 12px 40px;
+    white-space: nowrap;
 }
 
 .table-earning tbody td.text-right {

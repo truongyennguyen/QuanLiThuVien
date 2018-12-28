@@ -177,12 +177,10 @@
 		</aside>
 		<!-- END MENU SIDEBAR-->
 		<c:if test="${theLoaiIU != null }">
-			<form method="post" action="/QuanLyThuVien/TheLoaiQuanLy/update"
-				enctype="multipart/form-data">
+			<form method="post" action="/QuanLyThuVien/TheLoaiQuanLy/update">
 		</c:if>
 		<c:if test="${theLoaiIU == null }">
-			<form method="post" action="/QuanLyThuVien/TheLoaiQuanLy/insert"
-				enctype="multipart/form-data">
+			<form method="post" action="/QuanLyThuVien/TheLoaiQuanLy/insert">
 		</c:if>
 		<!-- Modal -->
 		<div class="modal fade" id="InsertUpdate" tabindex="-1" role="dialog"
@@ -209,7 +207,9 @@
 					<div class="modal-body">
 						<div class="row">
 							<div class="form-group col-md-4">
-								<label>Mã Thể Loại</label>
+								<label>Mã Thể Loại</label> <input type="hidden"
+									class="form-control" id="pages" name="pages"
+									value="${soTrangHienTai}">
 								<c:if test="${theLoaiIU != null }">
 									<input type="text" name="txtMaTheLoai" required="required"
 										readonly="readonly" class="form-control"
@@ -468,7 +468,7 @@
 								<div class="space-200"></div>
 								<div class="pull-left col-6">
 									<p>
-										<strong><c:out value="${listtheLoai.size() }"></c:out></strong>
+										<strong><c:out value="${listTheLoai.size() }"></c:out></strong>
 										of <strong><c:out value="${total }"></c:out></strong> thể loại
 										được tìm thấy
 									</p>
@@ -485,7 +485,6 @@
 													class="form-control" onchange="this.form.submit()">
 													<option value="AZ">A-Z</option>
 													<option value="ZA">Z-A</option>
-													<option value="SoDienThoai">Tên Thể Loại</option>
 												</select>
 											</div>
 										</div>
@@ -518,14 +517,14 @@
 													</tr>
 												</thead>
 												<tbody>
-													<c:forEach var="theLoai" items="${listtheLoai}">
+													<c:forEach var="theLoai" items="${listTheLoai}">
 														<tr>
 															<td><c:out value="${theLoai.getMaTheLoai()}" /></td>
-															<td><c:out value="${theLoai.getTentheLoai()}" /></td>
+															<td><c:out value="${theLoai.getTenTheLoai()}" /></td>
 															<td><a class="btn btn-warning pull-left"
-																href="/QuanLyThuVien/TheLoaiQuanLy/edit?MaTheLoai=<c:out value='${theLoai.getMaTheLoai()}' />">Sửa</a>
+																href="/QuanLyThuVien/TheLoaiQuanLy/edit?maTheLoai=<c:out value='${theLoai.getMaTheLoai()}' />&pages=<c:out value="${soTrangHienTai}" />">Sửa</a>
 																&nbsp;&nbsp;&nbsp;&nbsp; <a class="btn btn-danger"
-																href="/QuanLyThuVien/TheLoaiQuanLy/delete?MaTheLoai=<c:out value='${theLoai.getMaTheLoai()}' />">Xóa</a>
+																href="/QuanLyThuVien/TheLoaiQuanLy/delete?maTheLoai=<c:out value='${theLoai.getMaTheLoai()}' />&pages=<c:out value="${soTrangHienTai}" />">Xóa</a>
 															</td>
 														</tr>
 													</c:forEach>
@@ -539,7 +538,7 @@
 											<div class="shop-pagination pull-right">
 												<ul id="" class="pagination-sm pagination">
 													<li class="page-item first"><a
-														href="/QuanLyThuVien/TheLoaiQuanLy?pages=1"
+														href="/QuanLyThuVien/TheLoaiQuanLy?pages=1&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 														class="page-link">First</a></li>
 													<c:if test="${soTrangHienTai >=2 }">
 														<li class="page-item prev"><a
@@ -549,14 +548,14 @@
 													<c:forEach var="i" begin="1" end="${soTrang}" step="1">
 														<c:if test="${soTrangHienTai == i }">
 															<li class="page-item active"><a
-																href="/QuanLyThuVien/TheLoaiQuanLy?pages=<c:out value='${i}'/>"
+																href="/QuanLyThuVien/TheLoaiQuanLy?pages=<c:out value='${i}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 																"
 																class="page-link"><c:out
 																		value="${i}"></c:out></a></li>
 														</c:if>
 														<c:if test="${soTrangHienTai != i }">
 															<li class="page-item  "><a
-																href="/QuanLyThuVien/TheLoaiQuanLy?pages=<c:out value='${i}'/>"
+																href="/QuanLyThuVien/TheLoaiQuanLy?pages=<c:out value='${i}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 																"
 																class="page-link"><c:out
 																		value="${i}"></c:out></a></li>
@@ -564,12 +563,12 @@
 													</c:forEach>
 													<c:if test="${soTrangHienTai < soTrang }">
 														<li class="page-item next"><a
-															href="/QuanLyThuVien/TheLoaiQuanLy?pages=<c:out value='${soTrangHienTai+1}'/>"
+															href="/QuanLyThuVien/TheLoaiQuanLy?pages=<c:out value='${soTrangHienTai+1}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 															"
 															class="page-link">Next</a></li>
 													</c:if>
 													<li class="page-item last"><a
-														href="/QuanLyThuVien/TheLoaiQuanLy?pages=<c:out value='${soTrang}'/>"
+														href="/QuanLyThuVien/TheLoaiQuanLy?pages=<c:out value='${soTrang}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 														"
 														class="page-link">Last</a></li>
 												</ul>

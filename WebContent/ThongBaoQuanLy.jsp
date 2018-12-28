@@ -223,14 +223,16 @@
 					<div class="modal-body">
 						<div class="row">
 							<div class="form-group col-md-12">
-								<label>ID Thông Báo</label>
+								<label>ID Thông Báo</label> <input type="hidden"
+									class="form-control" id="pages" name="pages"
+									value="${soTrangHienTai}">
 								<c:if test="${thongBaoIU != null }">
-									<input type="text" name="txtIDThongBao" required="required"
+									<input type="text" name="txtIdThongBao" required="required"
 										readonly="readonly" class="form-control"
-										value="${thongBaoIU.getIDThongBao() }">
+										value="${thongBaoIU.getIdThongBao() }">
 								</c:if>
 								<c:if test="${thongBaoIU == null }">
-									<input type="text" name="txtIDThongBao" required="required"
+									<input type="text" name="txtIdThongBao" required="required"
 										readonly="readonly" class="form-control" value="${maxCode +1}">
 								</c:if>
 
@@ -239,8 +241,8 @@
 						</div>
 						<div class="row">
 							<div class="form-group col-md-12">
-								<label>TênThông Báo</label> <input type="text" name="txtTenThongBao"
-									class="form-control" required="required"
+								<label>TênThông Báo</label> <input type="text"
+									name="txtTenThongBao" class="form-control" required="required"
 									value="${thongBaoIU.getTenThongBao() }">
 							</div>
 						</div>
@@ -259,7 +261,7 @@
 							<div class="form-group col-md-12">
 								<label>Hình Ảnh</label> <input type="file" name="imageHinhAnh"
 									class="form-control" accept="image/*"
-									value="${thongBaoIU.getHinhAnhBlob() }"
+									value="${thongBaoIU.getHinhAnh() }"
 									enctype="multipart/form-data">
 							</div>
 						</div>
@@ -267,29 +269,25 @@
 							<div class="row">
 								<div class="form-group col-md-12">
 									<img alt="Not found"
-										src="http://localhost:8080/QuanLyThuVien/getHinhAnh?MaThongBao=${thongBaoIU.getMaThongBao() }"
+										src="http://localhost:8080/QuanLyThuVien/getHinhAnh?maThongBao=${thongBaoIU.getIdThongBao() }"
 										width="200px" height="200px">
 								</div>
-								<div class="form-group col-md-10">
-									<img alt="Not found"
-										src="http://localhost:8080/QuanLyThuVien/getHinhAnh?MaThongBao=${thongBaoIU.getMaThongBao() }"
-										width="150px" height="100px">
-								</div>
+
 							</div>
 						</c:if>
 						<div class="form-group col-md-12">
-								<label>Mã Nhân Viên</label>
-								<c:if test="${thongBaoIU != null }">
-									<input type="text" name="txtMaNhanVien" required="required"
-										readonly="readonly" class="form-control"
-										value="${thongBaoIU.getMaNhanVien() }">
-								</c:if>
-								<c:if test="${thongBaoIU == null }">
-									<input type="text" name="txtMaNhanVien" required="required"
-										readonly="readonly" class="form-control" value="${maxCode +1}">
-								</c:if>
-							</div>
-							
+							<label>Mã Tài Khoản</label>
+							<c:if test="${thongBaoIU != null }">
+								<input type="text" name="txtMaTaiKhoan" required="required"
+									readonly="readonly" class="form-control"
+									value="${thongBaoIU.getMaTaiKhoan() }">
+							</c:if>
+							<c:if test="${thongBaoIU == null }">
+								<input type="text" name="txtMaTaiKhoan" required="required"
+									class="form-control" value="${maxCode +1}">
+							</c:if>
+						</div>
+
 						<div class="modal-footer pull-left">
 							<button class="btn btn-secondary pull-left" data-dismiss="modal">Đóng</button>
 						</div>
@@ -541,9 +539,9 @@
 								<div class="space-200"></div>
 								<div class="pull-left col-6">
 									<p>
-										<strong><c:out value="${listthongBao.size() }"></c:out></strong>
-										of <strong><c:out value="${total }"></c:out></strong> thông báo
-										 được tìm thấy
+										<strong><c:out value="${listThongBao.size() }"></c:out></strong>
+										of <strong><c:out value="${total }"></c:out></strong> thông
+										báo được tìm thấy
 									</p>
 								</div>
 								<!-- sắp xếp(từ từ tính) -->
@@ -558,7 +556,8 @@
 													class="form-control" onchange="this.form.submit()">
 													<option value="AZ">A-Z</option>
 													<option value="ZA">Z-A</option>
-													<option value="TacGia">Tên Thông Báo</option>
+													<option value="TenThongBao">Tên Thông Báo</option>
+													<option value="NoiDung">Nội Dung</option>
 												</select>
 											</div>
 										</div>
@@ -590,26 +589,26 @@
 														<th>Tên Thông Báo</th>
 														<th>Nội Dung</th>
 														<th>Hình Ảnh</th>
-														<th>Mã Nhân Viên</th>
+														<th>Mã Tài Khoản</th>
 														<th>Thêm và Xóa&nbsp;&nbsp;&nbsp;&nbsp;</th>
 													</tr>
 												</thead>
 												<tbody>
-													<c:forEach var="thongBao" items="${listthongBao}">
+													<c:forEach var="thongBao" items="${listThongBao}">
 														<tr>
-															<td><c:out value="${thongBao.getIDThongBao()}" /></td>
+															<td><c:out value="${thongBao.getIdThongBao()}" /></td>
 															<td><c:out value="${thongBao.getTenThongBao()}" /></td>
 															<td style="word-wrap: break-word;"><c:out
-																	value="${thongBao.getMoTa()}" /></td>
+																	value="${thongBao.getNoiDung()}" /></td>
 															<td><img alt="Not found"
-																src="http://localhost:8080/QuanLyThuVien/getHinhAnh?MaThongBao=${thongBao.getMaThongBao() }"
+																src="http://localhost:8080/QuanLyThuVien/getHinhAnh?maThongBao=${thongBao.getIdThongBao() }"
 																width="100px" height="100px"></td>
-															<td><c:out value="${thongBao.getMaNhanVien()}" /></td>
+															<td><c:out value="${thongBao.getMaTaiKhoan()}" /></td>
 
 															<td><a class="btn btn-warning pull-left"
-																href="/QuanLyThuVien/ThongBaoQuanLy/edit?MaThongBao=<c:out value='${thongBao.getMaThongBao()}' />">Sửa</a>
+																href="/QuanLyThuVien/ThongBaoQuanLy/edit?maThongBao=<c:out value='${thongBao.getIdThongBao()}' />&pages=<c:out value="${soTrangHienTai}" />">Sửa</a>
 																&nbsp;&nbsp;&nbsp;&nbsp; <a class="btn btn-danger"
-																href="/QuanLyThuVien/ThongBaoQuanLy/delete?MaThongBao=<c:out value='${thongBao.getMaThongBao()}' />">Xóa</a>
+																href="/QuanLyThuVien/ThongBaoQuanLy/delete?maThongBao=<c:out value='${thongBao.getIdThongBao()}' />&pages=<c:out value="${soTrangHienTai}" />">Xóa</a>
 															</td>
 														</tr>
 													</c:forEach>
@@ -623,7 +622,7 @@
 											<div class="shop-pagination pull-right">
 												<ul id="" class="pagination-sm pagination">
 													<li class="page-item first"><a
-														href="/QuanLyThuVien/ThongBaoQuanLy?pages=1"
+														href="/QuanLyThuVien/ThongBaoQuanLy?pages=1&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 														class="page-link">First</a></li>
 													<c:if test="${soTrangHienTai >=2 }">
 														<li class="page-item prev"><a
@@ -633,28 +632,22 @@
 													<c:forEach var="i" begin="1" end="${soTrang}" step="1">
 														<c:if test="${soTrangHienTai == i }">
 															<li class="page-item active"><a
-																href="/QuanLyThuVien/ThongBaoQuanLy?pages=<c:out value='${i}'/>"
-																"
-																class="page-link"><c:out
-																		value="${i}"></c:out></a></li>
+																href="/QuanLyThuVien/ThongBaoQuanLy?pages=<c:out value='${i}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
+																class="page-link"><c:out value="${i}"></c:out></a></li>
 														</c:if>
 														<c:if test="${soTrangHienTai != i }">
 															<li class="page-item  "><a
-																href="/QuanLyThuVien/ThongBaoQuanLy?pages=<c:out value='${i}'/>"
-																"
-																class="page-link"><c:out
-																		value="${i}"></c:out></a></li>
+																href="/QuanLyThuVien/ThongBaoQuanLy?pages=<c:out value='${i}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
+																class="page-link"><c:out value="${i}"></c:out></a></li>
 														</c:if>
 													</c:forEach>
 													<c:if test="${soTrangHienTai < soTrang }">
 														<li class="page-item next"><a
-															href="/QuanLyThuVien/ThongBaoQuanLy?pages=<c:out value='${soTrangHienTai+1}'/>"
-															"
+															href="/QuanLyThuVien/ThongBaoQuanLy?pages=<c:out value='${soTrangHienTai+1}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 															class="page-link">Next</a></li>
 													</c:if>
 													<li class="page-item last"><a
 														href="/QuanLyThuVien/ThongBaoQuanLy?pages=<c:out value='${soTrang}'/>"
-														"
 														class="page-link">Last</a></li>
 												</ul>
 											</div>

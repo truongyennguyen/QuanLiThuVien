@@ -6,8 +6,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import QuanLyThuVien.model.DAL.Object.DauSach;
-import QuanLyThuVien.model.DAL.Object.TheLoai;
 import QuanLyThuVien.model.DAL.Object.TheLoai;
 
 public class DALTheLoai extends ConnectDatabase implements I_DAL<TheLoai> {
@@ -47,14 +45,13 @@ public class DALTheLoai extends ConnectDatabase implements I_DAL<TheLoai> {
 			return 0;
 
 		openConnection();
-		String sqlExec = "EXEC spDauSach ?,?,?";// 14 @param
+		String sqlExec = "EXEC spTheLoai ?,?,?";// 3
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
 
 		statement.setInt(1, record.getMaTheLoai());
 		statement.setString(2, record.getTenTheLoai());
-
 		statement.setString(3, "INSERT");
 
 		int rowInsert = statement.executeUpdate();
@@ -118,18 +115,21 @@ public class DALTheLoai extends ConnectDatabase implements I_DAL<TheLoai> {
 		closeConnection();
 		return theLoai;
 	}
-	public List<TheLoai> getAllPhanTrang(int minRes, int maxRes, int maTheLoai, String sort, String search)
+
+	public List<TheLoai> getAllPhanTrang(int minRes, int maxRes, String sort, String search)
 			throws SQLException, ClassNotFoundException {
+
 		openConnection();
+
 		List<TheLoai> TheLoais = new ArrayList<>();
-		String sqlExec = "EXEC spLayTheLoaiPhanTrang ?,?,?,?,?";
+
+		String sqlExec = "EXEC spLayTheLoaiPhanTrang ?,?,?,?";
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setInt(1, minRes);
 		statement.setInt(2, maxRes);
-		statement.setInt(3, maTheLoai);
-		statement.setString(4, sort);
-		statement.setString(5, search);
+		statement.setString(3, sort);
+		statement.setString(4, search);
 
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
@@ -137,23 +137,25 @@ public class DALTheLoai extends ConnectDatabase implements I_DAL<TheLoai> {
 
 		while (res.next()) {
 			TheLoai TheLoai = new TheLoai();
+
 			TheLoai.setMaTheLoai(res.getInt(1));
 			TheLoai.setTenTheLoai(res.getString(2));
+
 			TheLoais.add(TheLoai);
 		}
-//		closeConnection();
+		closeConnection();
 		return TheLoais;
 	}
-	public int getSoLuongPhanTu(int maTheLoai, String search) throws SQLException, ClassNotFoundException {
+
+	public int getSoLuongPhanTu(String search) throws SQLException, ClassNotFoundException {
 		openConnection();
-		String sqlExec = "EXEC spLayTheLoaiPhanTrangCount ?,?";
+		String sqlExec = "EXEC spLayTheLoaiPhanTrangCount ?";
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
 
-		statement.setInt(1, maTheLoai);
-		statement.setString(2, search);
+		statement.setString(1, search);
 
 		int kq = 0;
 		ResultSet res = statement.executeQuery();
@@ -161,10 +163,10 @@ public class DALTheLoai extends ConnectDatabase implements I_DAL<TheLoai> {
 
 			kq = res.getInt(1);
 		}
-		// Because load image very time-consuming --> Don't close connect to DB
-		// closeConnection();
+		closeConnection();
 		return kq;
 	}
+
 	@Override
 	public int maxCode(String tenBang) throws SQLException, ClassNotFoundException {
 		openConnection();
@@ -182,8 +184,7 @@ public class DALTheLoai extends ConnectDatabase implements I_DAL<TheLoai> {
 
 			kq = res.getInt(1);
 		}
-		// Because load image very time-consuming --> Don't close connect to DB
-		// closeConnection();
+		closeConnection();
 		return kq;
 	}
 

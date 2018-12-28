@@ -191,12 +191,10 @@
 
 
 		<c:if test="${phieuPhatIU != null }">
-			<form method="post" action="/QuanLyThuVien/PhieuPhatQuanLy/update"
-				enctype="multipart/form-data">
+			<form method="post" action="/QuanLyThuVien/PhieuPhatQuanLy/update">
 		</c:if>
 		<c:if test="${phieuPhatIU == null }">
-			<form method="post" action="/QuanLyThuVien/PhieuPhatQuanLy/insert"
-				enctype="multipart/form-data">
+			<form method="post" action="/QuanLyThuVien/PhieuPhatQuanLy/insert">
 		</c:if>
 		<!-- Modal -->
 		<div class="modal fade" id="InsertUpdate" tabindex="-1" role="dialog"
@@ -223,11 +221,13 @@
 					<div class="modal-body">
 						<div class="row">
 							<div class="form-group col-md-12">
-								<label>ID Phiếu Phạt</label>
+								<label>ID Phiếu Phạt</label><input type="hidden"
+									class="form-control" id="pages" name="pages"
+									value="${soTrangHienTai}">
 								<c:if test="${phieuPhatIU != null }">
 									<input type="text" name="txtIDPhieuPhat" required="required"
 										readonly="readonly" class="form-control"
-										value="${phieuPhatIU.getIDPhieuPhat() }">
+										value="${phieuPhatIU.getIdPhieuPhat() }">
 								</c:if>
 								<c:if test="${phieuPhatIU == null }">
 									<input type="text" name="txtIDPhieuPhat" required="required"
@@ -236,39 +236,45 @@
 
 							</div>
 							<div class="form-group col-md-12">
-								<label>Mã Nhân Viên</label>
-								<input type="text" name="txtMaNhanVien"
-									required="required" class="form-control"
+								<label>Mã Nhân Viên</label> <input type="text"
+									name="txtMaNhanVien" required="required" class="form-control"
 									value="${phieuPhatIU.getMaNhanVien() }">
-								
+
 							</div>
-							
+
 							<div class="form-group col-md-12">
-								<label>Mã Thẻ</label>
-								<input type="text" name="txtMaThe"
+								<label>Mã Thẻ</label> <input type="text" name="txtMaThe"
 									required="required" class="form-control"
-									value="${phieuPhatIU.getIDPhieuPhat() }">
-								
+									value="${phieuPhatIU.getMaThe() }">
+
 							</div>
 							<div class="form-group col-md-12">
-									<label>Ngày Lập</label> <input type="date" name="dateNgayLap"
-										class="form-control " required="required"
-										value="${phieuPhatIU.getNgayLap() }">
+								<label>Ngày Lập</label>
+								<c:if test="${phieuPhatIU != null }">
+									<input type="date" name="dateNgayLap" class="form-control "
+										required="required" value="${phieuPhatIU.getNgayLap() }">
+								</c:if>
+								<c:if test="${phieuPhatIU == null }">
+									<input type="date" name="dateNgayLap" class="form-control"
+										readonly="readonly" id="dateNgayLap" required="required"
+										placeholder="${toDate}" value="${toDate}">
+								</c:if>
 							</div>
 							<div class="form-group col-md-12">
-									<label>Tiền Đặt Cọc</label> <input type="txt" name="txtTienDatCoc"
-										class="form-control" required="required"
-										value="${phieuPhatIU.getTienDatCoc() }">
+								<label>Tiền Đặt Cọc</label> <input type="number"
+									name="numberTienPhat" class="form-control" step="1000"
+									min="1000" required="required"
+									value="${phieuPhatIU.getTienPhat() }">
 							</div>
 						</div>
 						<div class="modal-footer pull-left">
 							<button class="btn btn-secondary pull-left" data-dismiss="modal">Đóng</button>
 						</div>
-						<c:if test="${docGiaIU != null }">
+						<c:if test="${phieuPhatIU != null }">
 							<div class="modal-footer pull-right">
 								<input class="btn btn-primary" type="submit" value="Sửa">
 						</c:if>
-						<c:if test="${docGiaIU == null }">
+						<c:if test="${phieuPhatIU == null }">
 							<div class="modal-footer pull-right">
 								<input class="btn btn-primary" type="submit" value="Thêm">
 						</c:if>
@@ -276,9 +282,9 @@
 				</div>
 			</div>
 
+		</div>
 	</div>
-</div>
-</form>
+	</form>
 
 
 
@@ -529,15 +535,18 @@
 													class="form-control" onchange="this.form.submit()">
 													<option value="AZ">A-Z</option>
 													<option value="ZA">Z-A</option>
-													<option value="TenNXB">Email</option>
-													
+													<option value="MaNhanVien">Nhân Viên</option>
+													<option value="TienPhat">Tiền Phạt</option>
+													<option value="NgayLap">Ngày Lập</option>
 												</select>
 											</div>
 										</div>
 										<script type="text/javascript">
 											document
-													.getElementById("selectSort").value = "${selectSort}";
-										</script>
+													.getElementById("
+										selectSort").value="${selectSort}";
+										
+									</script>
 									</div>
 
 								</div>
@@ -562,22 +571,22 @@
 														<th>Mã Nhân Viên</th>
 														<th>Mã Thẻ</th>
 														<th>Ngày Lập</th>
-														<th> Tiền Phạt</th>
+														<th>Tiền Phạt</th>
 														<th>Thêm và Xóa&nbsp;&nbsp;&nbsp;&nbsp;</th>
 													</tr>
 												</thead>
 												<tbody>
 													<c:forEach var="phieuPhat" items="${listPhieuPhat}">
 														<tr>
-															<td><c:out value="${phieuPhat.getIDPhieuPhat()}" /></td>
+															<td><c:out value="${phieuPhat.getIdPhieuPhat()}" /></td>
 															<td><c:out value="${phieuPhat.getMaNhanVien()}" /></td>
 															<td><c:out value="${phieuPhat.getMaThe()}" /></td>
 															<td><c:out value="${phieuPhat.getNgayLap()}" /></td>
-															<td><c:out value="${phieuPhat.getSoDienThoai()}" /></td>
+															<td><c:out value="${phieuPhat.getTienPhat()}" /></td>
 															<td><a class="btn btn-warning pull-left"
-																href="/QuanLyThuVien/PhieuPhatQuanLy/edit?MaPhieuPhat=<c:out value='${phieuPhat.getMaPhieuPhat()}' />">Sửa</a>
+																href="/QuanLyThuVien/PhieuPhatQuanLy/edit?idPhieuPhat=<c:out value='${phieuPhat.getIdPhieuPhat()}' />&pages=<c:out value="${soTrangHienTai}" />">Sửa</a>
 																&nbsp;&nbsp;&nbsp;&nbsp; <a class="btn btn-danger"
-																href="/QuanLyThuVien/PhieuPhatQuanLy/delete?MaPhieuPhat=<c:out value='${phieuPhat.getMaPhieuPhat()}' />">Xóa</a>
+																href="/QuanLyThuVien/PhieuPhatQuanLy/delete?idPhieuPhat=<c:out value='${phieuPhat.getIdPhieuPhat()}' />&pages=<c:out value="${soTrangHienTai}" />">Xóa</a>
 															</td>
 														</tr>
 													</c:forEach>
@@ -591,7 +600,7 @@
 											<div class="shop-pagination pull-right">
 												<ul id="" class="pagination-sm pagination">
 													<li class="page-item first"><a
-														href="/QuanLyThuVien/PhieuPhatQuanLy?pages=1"
+														href="/QuanLyThuVien/PhieuPhatQuanLy?pages=1&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 														class="page-link">First</a></li>
 													<c:if test="${soTrangHienTai >=2 }">
 														<li class="page-item prev"><a
@@ -601,28 +610,22 @@
 													<c:forEach var="i" begin="1" end="${soTrang}" step="1">
 														<c:if test="${soTrangHienTai == i }">
 															<li class="page-item active"><a
-																href="/QuanLyThuVien/PhieuPhatQuanLy?pages=<c:out value='${i}'/>"
-																"
-																class="page-link"><c:out
-																		value="${i}"></c:out></a></li>
+																href="/QuanLyThuVien/PhieuPhatQuanLy?pages=<c:out value='${i}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
+																class="page-link"><c:out value="${i}"></c:out></a></li>
 														</c:if>
 														<c:if test="${soTrangHienTai != i }">
 															<li class="page-item  "><a
-																href="/QuanLyThuVien/PhieuPhatQuanLy?pages=<c:out value='${i}'/>"
-																"
-																class="page-link"><c:out
-																		value="${i}"></c:out></a></li>
+																href="/QuanLyThuVien/PhieuPhatQuanLy?pages=<c:out value='${i}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
+																class="page-link"><c:out value="${i}"></c:out></a></li>
 														</c:if>
 													</c:forEach>
 													<c:if test="${soTrangHienTai < soTrang }">
 														<li class="page-item next"><a
-															href="/QuanLyThuVien/PhieuPhatQuanLy?pages=<c:out value='${soTrangHienTai+1}'/>"
-															"
+															href="/QuanLyThuVien/PhieuPhatQuanLy?pages=<c:out value='${soTrangHienTai+1}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 															class="page-link">Next</a></li>
 													</c:if>
 													<li class="page-item last"><a
-														href="/QuanLyThuVien/PhieuPhatQuanLy?pages=<c:out value='${soTrang}'/>"
-														"
+														href="/QuanLyThuVien/PhieuPhatQuanLy?pages=<c:out value='${soTrang}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 														class="page-link">Last</a></li>
 												</ul>
 											</div>

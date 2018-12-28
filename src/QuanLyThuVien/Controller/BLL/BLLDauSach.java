@@ -32,7 +32,7 @@ import QuanLyThuVien.model.DAL.Object.TheLoai;
  * BLLdal_dauSach.java This servlet acts as a page controller for the
  * application, handling all requests from the user.
  * 
- * @author IT1006
+ * @author IT100soDongTrenMotTrang
  */
 @WebServlet(name = "DauSachQuanLy", urlPatterns = { "/DauSachQuanLy", "/DauSachQuanLy/delete", "/DauSachQuanLy/list",
 		"/DauSachQuanLy/insert", "/DauSachQuanLy/update", "/DauSachQuanLy/edit", "/DauSachDanhSach",
@@ -42,6 +42,7 @@ import QuanLyThuVien.model.DAL.Object.TheLoai;
 		maxRequestSize = 1024 * 1024 * 50) // 50MB
 public class BLLDauSach extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final int soDongTrenMotTrang = 6;
 
 	private DALDauSach dal_dauSach;
 	private DALNxb dal_nxb;
@@ -122,36 +123,41 @@ public class BLLDauSach extends HttpServlet {
 		if (request.getParameter("selectSort") != null) {
 			sort = request.getParameter("selectSort");
 		}
+		String loaiSach = "eBooks";
+		if (request.getParameter("selectLoaiSach") != null) {
+			loaiSach = request.getParameter("selectLoaiSach");
+		}
 		try {
-			total = dal_dauSach.getSoLuongPhanTu(0, search);
+			total = dal_dauSach.getSoLuongPhanTu(loaiSach, 0, search);
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		}
-		if (total <= 6) {
+		if (total <= soDongTrenMotTrang) {
 			minRes = 1;
 			maxRes = total;
 		} else {
-			minRes = (pages - 1) * 6 + 1;
-			maxRes = minRes + 6 - 1;
+			minRes = (pages - 1) * soDongTrenMotTrang + 1;
+			maxRes = minRes + soDongTrenMotTrang - 1;
 		}
 
 		int soTrang = 0;
-		if (total % 6 == 0) {
-			soTrang = (int) (total / 6);
+		if (total % soDongTrenMotTrang == 0) {
+			soTrang = (int) (total / soDongTrenMotTrang);
 		} else {
-			soTrang = (int) (total / 6) + 1;
+			soTrang = (int) (total / soDongTrenMotTrang) + 1;
 		}
 
 		int maxCode = 0;
 
 		try {
 			maxCode = dal_dauSach.maxCode("DauSach");
-			listDauSach = dal_dauSach.getAllPhanTrang(minRes, maxRes, 0, sort, search);
+			listDauSach = dal_dauSach.getAllPhanTrang(loaiSach, minRes, maxRes, 0, sort, search);
 			listNxb = dal_nxb.getAll();
 			listTheLoai = dal_theLoai.getAll();
 			request.setAttribute("maxCode", maxCode);
 			request.setAttribute("txtSearch", search);
 			request.setAttribute("selectSort", sort);
+			request.setAttribute("selectLoaiSach", loaiSach);
 			request.setAttribute("soTrang", soTrang);
 			request.setAttribute("total", total);
 			request.setAttribute("soTrangHienTai", pages);
@@ -170,6 +176,7 @@ public class BLLDauSach extends HttpServlet {
 			throws SQLException, IOException, ServletException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
+
 		List<Nxb> listNxb = new ArrayList<Nxb>();
 		List<TheLoai> listTheLoai = new ArrayList<TheLoai>();
 		List<DauSach> listDauSach = new ArrayList<DauSach>();
@@ -192,26 +199,35 @@ public class BLLDauSach extends HttpServlet {
 		if (request.getParameter("selectSort") != null) {
 			sort = request.getParameter("selectSort");
 		}
+		String loaiSach = "eBooks";
+		/*
+		 * if (request.getParameter("selectLoaiSach") != null) { loaiSach =
+		 * request.getParameter("selectLoaiSach"); }
+		 */
 		try {
-			total = dal_dauSach.getSoLuongPhanTu(maTheLoai, search);
+			total = dal_dauSach.getSoLuongPhanTu(loaiSach, maTheLoai, search);
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		}
-		if (total <= 6) {
+		if (total <= soDongTrenMotTrang) {
 			minRes = 1;
 			maxRes = total;
 		} else {
-			minRes = (pages - 1) * 6 + 1;
-			maxRes = minRes + 6 - 1;
+			minRes = (pages - 1) * soDongTrenMotTrang + 1;
+			maxRes = minRes + soDongTrenMotTrang - 1;
 		}
 
-		int soTrang = (int) (total / 6) + 1;
-
+		int soTrang = 0;
+		if (total % soDongTrenMotTrang == 0) {
+			soTrang = (int) (total / soDongTrenMotTrang);
+		} else {
+			soTrang = (int) (total / soDongTrenMotTrang) + 1;
+		}
 		int maxCode = 0;
 
 		try {
 			maxCode = dal_dauSach.maxCode("DauSach");
-			listDauSach = dal_dauSach.getAllPhanTrang(minRes, maxRes, maTheLoai, sort, search);
+			listDauSach = dal_dauSach.getAllPhanTrang(loaiSach, minRes, maxRes, maTheLoai, sort, search);
 			listNxb = dal_nxb.getAll();
 			listTheLoai = dal_theLoai.getAll();
 			request.setAttribute("maxCode", maxCode);
@@ -224,7 +240,7 @@ public class BLLDauSach extends HttpServlet {
 			request.setAttribute("listTheLoai", listTheLoai);
 			request.setAttribute("listNxb", listNxb);
 
-			request.getRequestDispatcher("DauSachDanhSach.jsp").include(request, response);
+			request.getRequestDispatcher("DauSachDanhSach.jsp").forward(request, response);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -302,9 +318,28 @@ public class BLLDauSach extends HttpServlet {
 		record.setNgonNgu(request.getParameter("txtNgonNgu"));
 		record.setTrangThai(request.getParameter("txtTrangThai"));
 		record.setGia(Integer.parseInt(request.getParameter("numberGia")));
+		record.setLoaiSach(request.getParameter("selectLoaiSach"));
+
 		try {
 			dal_dauSach.Add(record);
-			response.sendRedirect("/QuanLyThuVien/DauSachQuanLy");
+
+			// Sau khi insert sẽ về pages cuối
+			int total = 0;
+			try {
+				total = dal_dauSach.getSoLuongPhanTu(request.getParameter("selectLoaiSach"), 0, "default");
+			} catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			}
+
+			int soTrang = 0;
+			if (total % soDongTrenMotTrang == 0) {
+				soTrang = (int) (total / soDongTrenMotTrang);
+			} else {
+				soTrang = (int) (total / soDongTrenMotTrang) + 1;
+			}
+
+			response.sendRedirect("/QuanLyThuVien/DauSachQuanLy" + "?pages=" + soTrang + "&selectLoaiSach="
+					+ request.getParameter("selectLoaiSach"));
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -367,9 +402,19 @@ public class BLLDauSach extends HttpServlet {
 		record.setNgonNgu(request.getParameter("txtNgonNgu"));
 		record.setTrangThai(request.getParameter("txtTrangThai"));
 		record.setGia(Integer.parseInt(request.getParameter("numberGia")));
+		record.setLoaiSach(request.getParameter("selectLoaiSach"));
+
+		int pages = 0;
+		if (request.getParameter("pages") != null) {
+			pages = (int) Integer.parseInt(request.getParameter("pages"));
+		} else {
+			pages = 1;
+		}
+
 		try {
 			dal_dauSach.Update(record);
-			response.sendRedirect("/QuanLyThuVien/DauSachQuanLy");
+			response.sendRedirect("/QuanLyThuVien/DauSachQuanLy" + "?pages=" + pages + "&selectLoaiSach="
+					+ request.getParameter("selectLoaiSach"));
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -394,12 +439,21 @@ public class BLLDauSach extends HttpServlet {
 		request.setAttribute("listTheLoai", listTheLoai);
 		request.setAttribute("listNxb", listNxb);
 
+		int pages = 0;
+		if (request.getParameter("pages") != null) {
+			pages = (int) Integer.parseInt(request.getParameter("pages"));
+		} else {
+			pages = 1;
+		}
+
 		try {
 			DauSach dauSach = new DauSach();
 			dauSach = dal_dauSach.GetOne(code);
 			request.setAttribute("dauSachIU", dauSach);
-			request.getRequestDispatcher("/DauSachQuanLy").forward(request, response);
-			;
+			request.getRequestDispatcher(
+					"/DauSachQuanLy" + "?pages=" + pages + "&selectLoaiSach=" + request.getParameter("selectLoaiSach"))
+					.forward(request, response);
+
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -428,9 +482,40 @@ public class BLLDauSach extends HttpServlet {
 			throws SQLException, IOException {
 		int code = Integer.parseInt(request.getParameter("maDauSach"));
 
+		String loaiSach = "eBooks";
+		if (request.getParameter("selectLoaiSach") != null) {
+			loaiSach = request.getParameter("selectLoaiSach");
+		}
+
 		try {
 			dal_dauSach.Delete(code);
-			response.sendRedirect("/QuanLyThuVien/DauSachQuanLy");
+
+			int pages = 0;
+			if (request.getParameter("pages") != null) {
+				pages = (int) Integer.parseInt(request.getParameter("pages"));
+			} else {
+				pages = 1;
+			}
+
+			int total = 0;
+			try {
+				total = dal_dauSach.getSoLuongPhanTu(loaiSach, 0, "default");
+			} catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			}
+
+			int soTrang = 0;
+			if (total % soDongTrenMotTrang == 0) {
+				soTrang = (int) (total / soDongTrenMotTrang);
+			} else {
+				soTrang = (int) (total / soDongTrenMotTrang) + 1;
+			}
+
+			if (pages > soTrang)
+				pages = soTrang;
+
+			response.sendRedirect("/QuanLyThuVien/DauSachQuanLy" + "?pages=" + pages + "&selectLoaiSach="
+					+ request.getParameter("selectLoaiSach"));
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}

@@ -6,16 +6,12 @@ import java.sql.SQLException;
 import java.util.concurrent.Executors;
 
 /**
- * Class connect xuống dưới MySql. Method: openConnection và
- * closeConnection.
+ * Class connect xuống dưới MySql. Method: openConnection và closeConnection.
  * 
  * @author param: jdbcURL, jdbcUsername, jdbcPassword bên file web.xml
  */
 public class ConnectDatabase {
-
 	protected String jdbcURL;
-	protected String jdbcUsername;
-	protected String jdbcPassword;
 	protected Connection jdbcConnection;
 
 	public ConnectDatabase(String jdbcURL) throws SQLException {

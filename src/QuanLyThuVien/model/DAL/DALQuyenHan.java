@@ -9,7 +9,7 @@ import java.util.List;
 import QuanLyThuVien.model.DAL.Object.PhieuPhat;
 import QuanLyThuVien.model.DAL.Object.QuyenHan;
 
-public class DALQuyenHan  extends ConnectDatabase implements I_DAL<QuyenHan>{
+public class DALQuyenHan extends ConnectDatabase implements I_DAL<QuyenHan> {
 
 	public DALQuyenHan(String jdbcURL) throws SQLException {
 		super(jdbcURL);
@@ -99,6 +99,12 @@ public class DALQuyenHan  extends ConnectDatabase implements I_DAL<QuyenHan>{
 		}
 		closeConnection();
 		return quyenHan;
+	}
+
+	@Override
+	public int maxCode(String tenBang) throws SQLException, ClassNotFoundException {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
