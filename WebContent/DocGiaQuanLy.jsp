@@ -208,8 +208,10 @@
 
 					<div class="modal-body">
 						<div class="row">
-							<div class="form-group col-md-4">
-								<label>Mã Độc Giả</label>
+							<div class="form-group col-md-3">
+								<label>Mã Độc Giả</label> <input type="hidden"
+									class="form-control" id="pages" name="pages"
+									value="${soTrangHienTai}">
 								<c:if test="${docGiaIU != null }">
 									<input type="text" name="txtMaDocGia" required="required"
 										readonly="readonly" class="form-control"
@@ -220,14 +222,12 @@
 										readonly="readonly" class="form-control" value="${maxCode +1}">
 								</c:if>
 							</div>
-						</div>
-						<div class="row">
-							<div class="form-group col-md-4">
+							<div class="form-group col-md-6">
 								<label>Tên Độc Giả</label> <input type="text"
 									name="txtTenDocGia" class="form-control" required="required"
 									value="${docGiaIU.getTenDocGia() }">
 							</div>
-							<div class="form-group col-md-4">
+							<div class="form-group col-md-3">
 								<label>Giới Tính</label> <input type="hidden" name="txtGioiTinh"
 									id="txtGioiTinh" class="form-control" required="required"
 									value="${docGiaIU.getGioiTinh() }"> <select
@@ -245,25 +245,25 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="form-group col-md-4">
+							<div class="form-group col-md-6">
 								<label>Ngày Sinh</label> <input type="date" name="dateNgaySinh"
 									class="form-control " required="required"
 									value="${docGiaIU.getNgaySinh() }">
 							</div>
-							<div class="form-group col-md-4">
+							<div class="form-group col-md-6">
 								<label>Địa Chỉ</label> <input type="text" name="txtDiaChi"
 									class="form-control" required="required"
 									value="${docGiaIU.getDiaChi() }">
 							</div>
 						</div>
 						<div class="row">
-							<div class="form-group col-md-4">
-								<label>Email</label> <input type="txt" name="txtEmail"
+							<div class="form-group col-md-6">
+								<label>Email</label> <input type="text" name="txtEmail"
 									class="form-control" required="required"
 									value="${docGiaIU.getEmail() }">
 							</div>
 
-							<div class="form-group col-md-4">
+							<div class="form-group col-md-6">
 								<label>Số Điện Thoại</label> <input type="text"
 									name="txtSoDienThoai" class="form-control" required="required"
 									value="${docGiaIU.getSoDienThoai() }">
@@ -526,6 +526,8 @@
 													class="form-control" onchange="this.form.submit()">
 													<option value="AZ">A-Z</option>
 													<option value="ZA">Z-A</option>
+													<option value="GioiTinh">Giới Tính</option>
+													<option value="NgaySinh">Ngày Sinh</option>
 													<option value="SoDienThoai">Số Điện Thoại</option>
 													<option value="Email">Email</option>
 												</select>
@@ -575,9 +577,9 @@
 															<td><c:out value="${docGia.getEmail()}" /></td>
 															<td><c:out value="${docGia.getSoDienThoai()}" /></td>
 															<td><a class="btn btn-warning pull-left"
-																href="/QuanLyThuVien/DocGiaQuanLy/edit?MaDocGia=<c:out value='${docGia.getMaDocGia()}' />">Sửa</a>
+																href="/QuanLyThuVien/DocGiaQuanLy/edit?maDocGia=<c:out value='${docGia.getMaDocGia()}' />&pages=<c:out value="${soTrangHienTai}" />">Sửa</a>
 																&nbsp;&nbsp;&nbsp;&nbsp; <a class="btn btn-danger"
-																href="/QuanLyThuVien/DocGiaQuanLy/delete?MaDocGia=<c:out value='${docGia.getMaDocGia()}' />">Xóa</a>
+																href="/QuanLyThuVien/DocGiaQuanLy/delete?maDocGia=<c:out value='${docGia.getMaDocGia()}' />&pages=<c:out value="${soTrangHienTai}" />">Xóa</a>
 															</td>
 														</tr>
 													</c:forEach>
@@ -591,7 +593,7 @@
 											<div class="shop-pagination pull-right">
 												<ul id="" class="pagination-sm pagination">
 													<li class="page-item first"><a
-														href="/QuanLyThuVien/DocGiaQuanLy?pages=1"
+														href="/QuanLyThuVien/DocGiaQuanLy?pages=1&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 														class="page-link">First</a></li>
 													<c:if test="${soTrangHienTai >=2 }">
 														<li class="page-item prev"><a
@@ -601,14 +603,14 @@
 													<c:forEach var="i" begin="1" end="${soTrang}" step="1">
 														<c:if test="${soTrangHienTai == i }">
 															<li class="page-item active"><a
-																href="/QuanLyThuVien/DocGiaQuanLy?pages=<c:out value='${i}'/>"
+																href="/QuanLyThuVien/DocGiaQuanLy?pages=<c:out value='${i}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 																"
 																class="page-link"><c:out
 																		value="${i}"></c:out></a></li>
 														</c:if>
 														<c:if test="${soTrangHienTai != i }">
 															<li class="page-item  "><a
-																href="/QuanLyThuVien/DocGiaQuanLy?pages=<c:out value='${i}'/>"
+																href="/QuanLyThuVien/DocGiaQuanLy?pages=<c:out value='${i}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 																"
 																class="page-link"><c:out
 																		value="${i}"></c:out></a></li>
@@ -616,12 +618,12 @@
 													</c:forEach>
 													<c:if test="${soTrangHienTai < soTrang }">
 														<li class="page-item next"><a
-															href="/QuanLyThuVien/DocGiaQuanLy?pages=<c:out value='${soTrangHienTai+1}'/>"
+															href="/QuanLyThuVien/DocGiaQuanLy?pages=<c:out value='${soTrangHienTai+1}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 															"
 															class="page-link">Next</a></li>
 													</c:if>
 													<li class="page-item last"><a
-														href="/QuanLyThuVien/DocGiaQuanLy?pages=<c:out value='${soTrang}'/>"
+														href="/QuanLyThuVien/DocGiaQuanLy?pages=<c:out value='${soTrang}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 														"
 														class="page-link">Last</a></li>
 												</ul>

@@ -177,12 +177,10 @@
 		</aside>
 		<!-- END MENU SIDEBAR-->
 		<c:if test="${cuonSachIU != null }">
-			<form method="post" action="/QuanLyThuVien/CuonSachQuanLy/update"
-				enctype="multipart/form-data">
+			<form method="post" action="/QuanLyThuVien/CuonSachQuanLy/update">
 		</c:if>
 		<c:if test="${cuonSachIU == null }">
-			<form method="post" action="/QuanLyThuVien/CuonSachQuanLy/insert"
-				enctype="multipart/form-data">
+			<form method="post" action="/QuanLyThuVien/CuonSachQuanLy/insert">
 		</c:if>
 		<!-- Modal -->
 		<div class="modal fade" id="InsertUpdate" tabindex="-1" role="dialog"
@@ -209,7 +207,9 @@
 					<div class="modal-body">
 						<div class="row">
 							<div class="form-group col-md-12">
-								<label>Mã Cuốn Sách</label>
+								<label>Mã Cuốn Sách</label> <input type="hidden"
+									class="form-control" id="pages" name="pages"
+									value="${soTrangHienTai}">
 								<c:if test="${cuonSachIU != null }">
 									<input type="text" name="txtMaCuonSach" required="required"
 										readonly="readonly" class="form-control"
@@ -223,28 +223,30 @@
 						</div>
 						<div class="row">
 							<div class="form-group col-md-12">
-								<label>Mã Đầu Sách</label> <input type="text" name="txtMaDauSach"
-									required="required" class="form-control"
-									value="${phieuPhatIU.getMaDauSach() }">
+								<label>Mã Đầu Sách</label> <input type="text"
+									name="txtMaDauSach" required="required" class="form-control"
+									value="${cuonSachIU.getMaDauSach() }">
 							</div>
 						</div>
 						<div class="row">
-						<div class="form-group col-md-12">
+							<div class="form-group col-md-12">
 								<label>Vị Trí</label> <input type="text" name="txtViTri"
 									class="form-control" required="required"
 									value="${cuonSachIU.getViTri() }">
 							</div>
-							</div>
-						<div class="form-group col-md-12">
-								<label>Trạng Thái</label> <input type="hidden" name="txtTrangThai"
-									id="txtTrangThai" class="form-control" required="required"
-									value="${cuonSachIU.getTrangThai() }"> <select
-									onchange="onchangetxt()" name="selectTrangThai"
+						</div>
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label>Trạng Thái</label> <input type="hidden"
+									name="txtTrangThai" id="txtTrangThai" class="form-control"
+									required="required" value="${cuonSachIU.getTrangThai() }">
+								<select onchange="onchangetxt()" name="selectTrangThai"
 									id="selectTrangThai" class="form-control">
-									<option value="Sẵn Sàng">1</option>
-									<option value="Đang Mượn">2</option>
-									<option value="Đang Mượn">3</option>
-									<option value="Mới Về">4</option>
+									<option value="Sẵn Sàng">Sẵn Sàng</option>
+									<option value="Chỉ Đọc Tại Thư Viện">Chỉ Đọc Tại Thư
+										Viện</option>
+									<option value="Đang Mượn">Đang Mượn</option>
+									<option value="Mới Về">Mới Về</option>
 								</select>
 								<script type="text/javascript">
 									function onchangetxt() {
@@ -253,7 +255,8 @@
 									}
 								</script>
 							</div>
-						
+						</div>
+
 						<div class="modal-footer pull-left">
 							<button class="btn btn-secondary pull-left" data-dismiss="modal">Đóng</button>
 						</div>
@@ -494,9 +497,9 @@
 								<div class="space-200"></div>
 								<div class="pull-left col-6">
 									<p>
-										<strong><c:out value="${listcuonSach.size() }"></c:out></strong>
-										of <strong><c:out value="${total }"></c:out></strong> Cuốn Sách
-										được tìm thấy
+										<strong><c:out value="${listCuonSach.size() }"></c:out></strong>
+										of <strong><c:out value="${total }"></c:out></strong> Cuốn
+										Sách được tìm thấy
 									</p>
 								</div>
 								<!-- sắp xếp(từ từ tính) -->
@@ -511,8 +514,8 @@
 													class="form-control" onchange="this.form.submit()">
 													<option value="AZ">A-Z</option>
 													<option value="ZA">Z-A</option>
-													<option value="SoDienThoai">Vị Trí</option>
-													<option value="SoDienThoai">Trạng Thái</option>
+													<option value="ViTri">Vị Trí</option>
+													<option value="TrangThai">Trạng Thái</option>
 												</select>
 											</div>
 										</div>
@@ -547,16 +550,16 @@
 													</tr>
 												</thead>
 												<tbody>
-													<c:forEach var="cuonSach" items="${listcuonSach}">
+													<c:forEach var="cuonSach" items="${listCuonSach}">
 														<tr>
 															<td><c:out value="${cuonSach.getMaCuonSach()}" /></td>
 															<td><c:out value="${cuonSach.getMaDauSach()}" /></td>
 															<td><c:out value="${cuonSach.getViTri()}" /></td>
 															<td><c:out value="${cuonSach.getTrangThai()}" /></td>
 															<td><a class="btn btn-warning pull-left"
-																href="/QuanLyThuVien/CuonSachQuanLy/edit?MaCuonSach=<c:out value='${cuonSach.getMaCuonSach()}' />">Sửa</a>
+																href="/QuanLyThuVien/CuonSachQuanLy/edit?maCuonSach=<c:out value="${cuonSach.getMaCuonSach()}"/>&pages=<c:out value="${soTrangHienTai}" />">Sửa</a>
 																&nbsp;&nbsp;&nbsp;&nbsp; <a class="btn btn-danger"
-																href="/QuanLyThuVien/CuonSachQuanLy/delete?MaCuonSach=<c:out value='${cuonSach.getMaCuonSach()}' />">Xóa</a>
+																href="/QuanLyThuVien/CuonSachQuanLy/delete?maCuonSach=<c:out value='${cuonSach.getMaCuonSach()}' />&pages=<c:out value="${soTrangHienTai}" />">Xóa</a>
 															</td>
 														</tr>
 													</c:forEach>
@@ -580,14 +583,12 @@
 													<c:forEach var="i" begin="1" end="${soTrang}" step="1">
 														<c:if test="${soTrangHienTai == i }">
 															<li class="page-item active"><a
-																href="/QuanLyThuVien/CuonSachQuanLy?pages=<c:out value='${i}'/>"
-																"
-																class="page-link"><c:out
-																		value="${i}"></c:out></a></li>
+																href="/QuanLyThuVien/CuonSachQuanLy?pages=<c:out value='${i}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
+																class="page-link"><c:out value="${i}"></c:out></a></li>
 														</c:if>
 														<c:if test="${soTrangHienTai != i }">
 															<li class="page-item  "><a
-																href="/QuanLyThuVien/CuonSachQuanLy?pages=<c:out value='${i}'/>"
+																href="/QuanLyThuVien/CuonSachQuanLy?pages=<c:out value='${i}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 																"
 																class="page-link"><c:out
 																		value="${i}"></c:out></a></li>
@@ -595,12 +596,12 @@
 													</c:forEach>
 													<c:if test="${soTrangHienTai < soTrang }">
 														<li class="page-item next"><a
-															href="/QuanLyThuVien/CuonSachQuanLy?pages=<c:out value='${soTrangHienTai+1}'/>"
+															href="/QuanLyThuVien/CuonSachQuanLy?pages=<c:out value='${soTrangHienTai+1}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 															"
 															class="page-link">Next</a></li>
 													</c:if>
 													<li class="page-item last"><a
-														href="/QuanLyThuVien/CuonSachQuanLy?pages=<c:out value='${soTrang}'/>"
+														href="/QuanLyThuVien/CuonSachQuanLy?pages=<c:out value='${soTrang}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 														"
 														class="page-link">Last</a></li>
 												</ul>

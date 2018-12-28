@@ -40,7 +40,9 @@ public class DALMuonTraSach extends ConnectDatabase implements I_DAL<MuonTraSach
 	public List<MuonTraSach> getAllPhanTrang(int minRes, int maxRes, int maThe, String sort, String search)
 			throws SQLException, ClassNotFoundException {
 		openConnection();
+
 		List<MuonTraSach> MuonTraSachs = new ArrayList<>();
+
 		String sqlExec = "EXEC spLayMuonTraSachPhanTrang ?,?,?,?,?";
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
@@ -54,12 +56,15 @@ public class DALMuonTraSach extends ConnectDatabase implements I_DAL<MuonTraSach
 		statement.setString(5, search);
 
 		ResultSet res = statement.executeQuery();
+
 		while (res.next()) {
 			MuonTraSach muonTraSach = new MuonTraSach();
+
 			muonTraSach.setMaMuonSach(res.getInt(1));
 			muonTraSach.setMaThe(res.getInt(2));
 			muonTraSach.setTienDatCoc(res.getString(3));
 			muonTraSach.setGhiChu(res.getString(4));
+
 			MuonTraSachs.add(muonTraSach);
 		}
 

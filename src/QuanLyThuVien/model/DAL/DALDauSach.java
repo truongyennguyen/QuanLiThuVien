@@ -15,13 +15,13 @@ public class DALDauSach extends ConnectDatabase implements I_DAL<DauSach> {
 		super(jdbcURL);
 	}
 
-	@Override
-	public List<DauSach> getAll() throws SQLException, ClassNotFoundException {
+	public List<DauSach> getAll(String loaiSach) throws SQLException, ClassNotFoundException {
 		openConnection();
 		List<DauSach> DauSachs = new ArrayList<>();
-		String sqlExec = "EXEC spLayDauSach";
+		String sqlExec = "EXEC spLayDauSach ?";
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
+		statement.setString(1, loaiSach);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
 		ResultSet res = statement.executeQuery();
@@ -42,7 +42,7 @@ public class DALDauSach extends ConnectDatabase implements I_DAL<DauSach> {
 			dauSach.setTrangThai(res.getString(11));
 			dauSach.setGia(res.getInt(12));
 			dauSach.setFilePDFBlob(res.getBlob(13));// filePDF
-			
+			dauSach.setLoaiSach(res.getString(14));
 			DauSachs.add(dauSach);
 		}
 
@@ -50,18 +50,21 @@ public class DALDauSach extends ConnectDatabase implements I_DAL<DauSach> {
 		return DauSachs;
 	}
 
-	public List<DauSach> getAllPhanTrang(int minRes, int maxRes, int maTheLoai, String sort, String search)
-			throws SQLException, ClassNotFoundException {
+	public List<DauSach> getAllPhanTrang(String loaiSach, int minRes, int maxRes, int maTheLoai, String sort,
+			String search) throws SQLException, ClassNotFoundException {
+
 		openConnection();
 		List<DauSach> DauSachs = new ArrayList<>();
-		String sqlExec = "EXEC spLayDauSachPhanTrang ?,?,?,?,?";
+		String sqlExec = "EXEC spLayDauSachPhanTrang ?,?,?,?,?,?";
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
-		statement.setInt(1, minRes);
-		statement.setInt(2, maxRes);
-		statement.setInt(3, maTheLoai);
-		statement.setString(4, sort);
-		statement.setString(5, search);
+
+		statement.setString(1, loaiSach);
+		statement.setInt(2, minRes);
+		statement.setInt(3, maxRes);
+		statement.setInt(4, maTheLoai);
+		statement.setString(5, sort);
+		statement.setString(6, search);
 
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
@@ -83,6 +86,7 @@ public class DALDauSach extends ConnectDatabase implements I_DAL<DauSach> {
 			dauSach.setTrangThai(res.getString(11));
 			dauSach.setGia(res.getInt(12));
 			dauSach.setFilePDFBlob(res.getBlob(13));// filePDF DauSachs.add(dauSach); }
+			dauSach.setLoaiSach(res.getString(14));
 
 			DauSachs.add(dauSach);
 		}
@@ -101,7 +105,7 @@ public class DALDauSach extends ConnectDatabase implements I_DAL<DauSach> {
 			return 0;
 
 		openConnection();
-		String sqlExec = "EXEC spDauSach ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?";// 14 @param
+		String sqlExec = "EXEC spDauSach ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?";// 15 @param
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
@@ -118,8 +122,9 @@ public class DALDauSach extends ConnectDatabase implements I_DAL<DauSach> {
 		statement.setString(11, record.getTrangThai());
 		statement.setFloat(12, record.getGia());
 		statement.setBlob(13, record.getFilePDF());
+		statement.setString(14, record.getLoaiSach());
 
-		statement.setString(14, "INSERT");
+		statement.setString(15, "INSERT");
 
 		int rowInsert = statement.executeUpdate();
 
@@ -146,7 +151,7 @@ public class DALDauSach extends ConnectDatabase implements I_DAL<DauSach> {
 	@Override
 	public int Update(DauSach record) throws SQLException, ClassNotFoundException {
 		openConnection();
-		String sqlExec = "EXEC spDauSach ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?";
+		String sqlExec = "EXEC spDauSach ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?";// 15 @param
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
@@ -164,7 +169,9 @@ public class DALDauSach extends ConnectDatabase implements I_DAL<DauSach> {
 		statement.setString(11, record.getTrangThai());
 		statement.setFloat(12, record.getGia());
 		statement.setBlob(13, record.getFilePDF());
-		statement.setString(14, "UPDATE");
+		statement.setString(14, record.getLoaiSach());
+
+		statement.setString(15, "UPDATE");
 
 		int rowUpdate = statement.executeUpdate();
 
@@ -199,6 +206,7 @@ public class DALDauSach extends ConnectDatabase implements I_DAL<DauSach> {
 			dauSach.setTrangThai(res.getString(11));
 			dauSach.setGia(res.getInt(12));
 			dauSach.setFilePDFBlob(res.getBlob(13));
+			dauSach.setLoaiSach(res.getString(14));
 
 		}
 		// Because load image very time-consuming --> Don't close connect to DB
@@ -251,16 +259,18 @@ public class DALDauSach extends ConnectDatabase implements I_DAL<DauSach> {
 		return theLoai;
 	}
 
-	public int getSoLuongPhanTu(int maTheLoai, String search) throws SQLException, ClassNotFoundException {
+	public int getSoLuongPhanTu(String loaiSach, int maTheLoai, String search)
+			throws SQLException, ClassNotFoundException {
 		openConnection();
-		String sqlExec = "EXEC spLayDauSachPhanTrangCount ?,?";
+		String sqlExec = "EXEC spLayDauSachPhanTrangCount ?,?,?";
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
 
-		statement.setInt(1, maTheLoai);
-		statement.setString(2, search);
+		statement.setString(1, loaiSach);
+		statement.setInt(2, maTheLoai);
+		statement.setString(3, search);
 
 		int kq = 0;
 		ResultSet res = statement.executeQuery();
@@ -293,6 +303,12 @@ public class DALDauSach extends ConnectDatabase implements I_DAL<DauSach> {
 		// Because load image very time-consuming --> Don't close connect to DB
 		// closeConnection();
 		return kq;
+	}
+
+	@Override
+	public List<DauSach> getAll() throws SQLException, ClassNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

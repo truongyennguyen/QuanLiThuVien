@@ -16,7 +16,7 @@
 <link href='https://fonts.googleapis.com/css?family=Roboto'
 	rel='stylesheet'>
 <!-- Title Page-->
-<title>QUẢN LÝ NHÂN VIÊN </title>
+<title>QUẢN LÝ NHÂN VIÊN</title>
 
 <!-- Fontfaces CSS-->
 <c:if test="${nhanVienIU != null }">
@@ -177,12 +177,10 @@
 		</aside>
 		<!-- END MENU SIDEBAR-->
 		<c:if test="${nhanVienIU != null }">
-			<form method="post" action="/QuanLyThuVien/nhanVienQuanLy/update"
-				enctype="multipart/form-data">
+			<form method="post" action="/QuanLyThuVien/NhanVienQuanLy/update">
 		</c:if>
 		<c:if test="${nhanVienIU == null }">
-			<form method="post" action="/QuanLyThuVien/nhanVienQuanLy/insert"
-				enctype="multipart/form-data">
+			<form method="post" action="/QuanLyThuVien/NhanVienQuanLy/insert">
 		</c:if>
 		<!-- Modal -->
 		<div class="modal fade" id="InsertUpdate" tabindex="-1" role="dialog"
@@ -208,8 +206,10 @@
 
 					<div class="modal-body">
 						<div class="row">
-							<div class="form-group col-md-4">
-								<label>Mã Nhân Viên</label>
+							<div class="form-group col-md-2">
+								<label>Mã Nhân Viên</label> <input type="hidden" name="pages"
+									id="pages" class="form-control" required="required"
+									value="${soTrangHienTai }">
 								<c:if test="${nhanVienIU != null }">
 									<input type="text" name="txtMaNhanVien" required="required"
 										readonly="readonly" class="form-control"
@@ -220,38 +220,37 @@
 										readonly="readonly" class="form-control" value="${maxCode +1}">
 								</c:if>
 							</div>
-							
-							<div class="form-group col-md-4">
-								<label>Họ Và Tên</label> <input type="text" name="txtTenNhanVien"
+
+							<div class="form-group col-md-5">
+								<label>Họ Và Tên</label> <input type="text" name="txtHoVaTen"
 									class="form-control" required="required"
-									value="${nhanVienIU.getTenNhanVien() }">
-							</div >
+									value="${nhanVienIU.getHoVaTen() }">
 							</div>
-							<div class="row">
-							<div class="form-group col-md-4">
-								<label>Email</label> <input type="txt" name="txtEmail"
+							<div class="form-group col-md-5">
+								<label>Email</label> <input type="text" name="txtEmail"
 									class="form-control" required="required"
 									value="${nhanVienIU.getEmail() }">
 							</div>
-						
-							
-							<div class="form-group col-md-4">
-								<label>Số Điện Thoại</label> <input type="text" name="txtSoDienThoai"
-									class="form-control" required="required"
-									value="${nhanVienIU.getSoDienThoai() }">
-							</div>
-							</div>
-							<div class="row">
-							<div class="form-group col-md-4">
-								<label>Ngày Sinh</label> <input type="date"
-									name="dateNgaySinh" class="form-control " required="required"
-									value="${nhanVienIU.getNgaySinh() }">
-							</div>
-							<div class="form-group col-md-4">
-								<label>Mã Tài Khoản</label> <input type="text" name="txtMaTaiKhoan"
-									required="required" class="form-control"
-									value="${nhanVienIU.getMaTaiKhoan() }">
 
+						</div>
+
+
+						<div class="row">
+							<div class="form-group col-md-2">
+								<label>Mã Tài Khoản</label> <input type="text"
+									name="txtMaTaiKhoan" required="required" class="form-control"
+									value="${nhanVienIU.getMaTaiKhoan() }">
+							</div>
+
+							<div class="form-group col-md-5">
+								<label>Số Điện Thoại</label> <input type="text"
+									name="txtSoDienThoai" class="form-control" required="required"
+									maxlength="10" value="${nhanVienIU.getSoDienThoai() }">
+							</div>
+							<div class="form-group col-md-5">
+								<label>Ngày Sinh</label> <input type="date" name="dateNgaySinh"
+									class="form-control " required="required"
+									value="${nhanVienIU.getNgaySinh() }">
 							</div>
 						</div>
 						<div class="modal-footer pull-left">
@@ -482,8 +481,7 @@
 								<div class="space-5"></div>
 								<div class="input-group">
 									<input type="text" class="form-control" id="txtSearch"
-										name="txtSearch"
-										placeholder="Nhập tên nhân viên,..."
+										name="txtSearch" placeholder="Nhập tên nhân viên,..."
 										value="${txtSearch}"> <input type="hidden"
 										class="form-control" id="pages" name="pages"
 										value="${soTrangHienTai}">
@@ -495,9 +493,9 @@
 								<div class="space-200"></div>
 								<div class="pull-left col-6">
 									<p>
-										<strong><c:out value="${listnhanVien.size() }"></c:out></strong>
-										of <strong><c:out value="${total }"></c:out></strong>  nhân viên
-										 được tìm thấy
+										<strong><c:out value="${listNhanVien.size() }"></c:out></strong>
+										of <strong><c:out value="${total }"></c:out></strong> nhân
+										viên được tìm thấy
 									</p>
 								</div>
 								<!-- sắp xếp(từ từ tính) -->
@@ -512,8 +510,9 @@
 													class="form-control" onchange="this.form.submit()">
 													<option value="AZ">A-Z</option>
 													<option value="ZA">Z-A</option>
-													<option value="TenNhanVien">Tên Nhân Viên</option>
+													<option value="NgaySinh">Ngày Sinh</option>
 													<option value="Email">Email</option>
+													<option value="SoDienThoai">Số Điện Thoại</option>
 												</select>
 											</div>
 										</div>
@@ -544,14 +543,15 @@
 														<th>Họ Và Tên</th>
 														<th>Email</th>
 														<th>Số Điện Thoại</th>
-														<th>Ngày Sinh </th>
+														<th>Ngày Sinh</th>
 														<th>Mã Tài Khoản</th>
-														
-														
+														<th>Sửa Và Xóa</th>
+
+
 													</tr>
 												</thead>
 												<tbody>
-													<c:forEach var="nhanVien" items="${listnhanVien}">
+													<c:forEach var="nhanVien" items="${listNhanVien}">
 														<tr>
 															<td><c:out value="${nhanVien.getMaNhanVien()}" /></td>
 															<td><c:out value="${nhanVien.getHoVaTen()}" /></td>
@@ -559,12 +559,12 @@
 															<td><c:out value="${nhanVien.getSoDienThoai()}" /></td>
 															<td><c:out value="${nhanVien.getNgaySinh()}" /></td>
 															<td><c:out value="${nhanVien.getMaTaiKhoan()}" /></td>
-														
-															
+
+
 															<td><a class="btn btn-warning pull-left"
-																href="/QuanLyThuVien/NhanVienQuanLy/edit?MaNhanVien=<c:out value='${nhanVien.getMaNhanVien()}' />">Sửa</a>
+																href="/QuanLyThuVien/NhanVienQuanLy/edit?maNhanVien=<c:out value='${nhanVien.getMaNhanVien()}' />&pages=<c:out value="${soTrangHienTai}" />">Sửa</a>
 																&nbsp;&nbsp;&nbsp;&nbsp; <a class="btn btn-danger"
-																href="/QuanLyThuVien/NhanVienQuanLy/delete?MaNhanVien=<c:out value='${nhanVien.getMaNhanVien()}' />">Xóa</a>
+																href="/QuanLyThuVien/NhanVienQuanLy/delete?maNhanVien=<c:out value='${nhanVien.getMaNhanVien()}' />&pages=<c:out value="${soTrangHienTai}" />">Xóa</a>
 															</td>
 														</tr>
 													</c:forEach>
@@ -578,7 +578,7 @@
 											<div class="shop-pagination pull-right">
 												<ul id="" class="pagination-sm pagination">
 													<li class="page-item first"><a
-														href="/QuanLyThuVien/NhanVienQuanLy?pages=1"
+														href="/QuanLyThuVien/NhanVienQuanLy?pages=1&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 														class="page-link">First</a></li>
 													<c:if test="${soTrangHienTai >=2 }">
 														<li class="page-item prev"><a
@@ -588,14 +588,12 @@
 													<c:forEach var="i" begin="1" end="${soTrang}" step="1">
 														<c:if test="${soTrangHienTai == i }">
 															<li class="page-item active"><a
-																href="/QuanLyThuVien/NhanVienQuanLy?pages=<c:out value='${i}'/>"
-																"
-																class="page-link"><c:out
-																		value="${i}"></c:out></a></li>
+																href="/QuanLyThuVien/NhanVienQuanLy?pages=<c:out value='${i}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
+																class="page-link"><c:out value="${i}"></c:out></a></li>
 														</c:if>
 														<c:if test="${soTrangHienTai != i }">
 															<li class="page-item  "><a
-																href="/QuanLyThuVien/NhanVienQuanLy?pages=<c:out value='${i}'/>"
+																href="/QuanLyThuVien/NhanVienQuanLy?pages=<c:out value='${i}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 																"
 																class="page-link"><c:out
 																		value="${i}"></c:out></a></li>
@@ -603,12 +601,12 @@
 													</c:forEach>
 													<c:if test="${soTrangHienTai < soTrang }">
 														<li class="page-item next"><a
-															href="/QuanLyThuVien/NhanVienQuanLy?pages=<c:out value='${soTrangHienTai+1}'/>"
+															href="/QuanLyThuVien/NhanVienQuanLy?pages=<c:out value='${soTrangHienTai+1}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 															"
 															class="page-link">Next</a></li>
 													</c:if>
 													<li class="page-item last"><a
-														href="/QuanLyThuVien/NhanVienQuanLy?pages=<c:out value='${soTrang}'/>"
+														href="/QuanLyThuVien/NhanVienQuanLy?pages=<c:out value='${soTrang}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 														"
 														class="page-link">Last</a></li>
 												</ul>

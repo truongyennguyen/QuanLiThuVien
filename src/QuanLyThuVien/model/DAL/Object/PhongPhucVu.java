@@ -48,16 +48,16 @@ public class PhongPhucVu {
 		return gioBatDau;
 	}
 
-	public void setGioBatDau(Time gioBatDau) {
-		this.gioBatDau = gioBatDau;
+	public void setGioBatDau(Time time) {
+		this.gioBatDau = time;
 	}
 
 	public Time getGioKetThuc() {
 		return gioKetThuc;
 	}
 
-	public void setGioKetThuc(Time gioKetThuc) {
-		this.gioKetThuc = gioKetThuc;
+	public void setGioKetThuc(Time timeStart) {
+		this.gioKetThuc = timeStart;
 	}
 
 	public int getMaNhanVien() {

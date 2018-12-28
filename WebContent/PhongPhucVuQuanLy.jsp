@@ -79,15 +79,10 @@
 	<!-- Main CSS-->
 	<link href="./css/theme_1.css" rel="stylesheet" media="all">
 </c:if>
-
-
 </head>
 
 <body class="animsition">
 	<div class="page-wrapper">
-
-
-
 		<!-- HEADER MOBILE-->
 		<header class="header-mobile d-block d-lg-none">
 			<div class="header-mobile__bar">
@@ -120,13 +115,13 @@
 								<li><a href="phieuphat.html">Lập phiếu phạt</a></li>
 							</ul></li>
 						<li class="has-sub"><a class="js-arrow" href="#"> <i
-								class="fas fas fa-table"></i>Quản lí
+								class="fas fas fa-table"></i>Quản lý
 						</a>
 							<ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
 								<li><a href="quanlinhanvien.html">Nhân viên</a></li>
-								<li><a href="docgia.html">Đọc giả</a></li>
+								<li><a href="PhongPhucVu.html">Đọc giả</a></li>
 								<li><a href="thongbao.html">Thông báo</a></li>
-								<li><a href="phongPhucVu.html">Đầu sách</a></li>
+								<li><a href="PhongPhucVu.html">Đầu sách</a></li>
 								<li><a href="nhaxuatban.html">Nhà xuất bản</a></li>
 								<li><a href="taikhoan.html">Tài khoản</a></li>
 								<li><a href="phongphucvu.html">Phòng phục vụ</a></li>
@@ -139,10 +134,6 @@
 			</nav>
 		</header>
 		<!-- END HEADER MOBILE-->
-
-
-
-
 		<!-- MENU SIDEBAR-->
 		<aside class="menu-sidebar d-none d-lg-block">
 			<div class="logo">
@@ -170,9 +161,9 @@
 						</a>
 							<ul class="list-unstyled navbar__sub-list js-sub-list">
 								<li><a href="quanlinhanvien.html">Nhân viên</a></li>
-								<li><a href="docgia.html">Đọc giả</a></li>
+								<li><a href="PhongPhucVu.html">Đọc giả</a></li>
 								<li><a href="thongbao.html">Thông báo</a></li>
-								<li><a href="phongPhucVu.html">Đầu sách</a></li>
+								<li><a href="PhongPhucVu.html">Đầu sách</a></li>
 								<li><a href="nhaxuatban.html">Nhà xuất bản</a></li>
 								<li><a href="taikhoan.html">Tài khoản</a></li>
 								<li><a href="phongphucvu.html">Phòng phục vụ</a></li>
@@ -185,24 +176,299 @@
 			</div>
 		</aside>
 		<!-- END MENU SIDEBAR-->
+		<c:if test="${phongPhucVuIU != null }">
+			<form method="post" action="/QuanLyThuVien/PhongPhucVuQuanLy/update">
+		</c:if>
+		<c:if test="${phongPhucVuIU == null }">
+			<form method="post" action="/QuanLyThuVien/PhongPhucVuQuanLy/insert">
+		</c:if>
+		<!-- Modal -->
+		<div class="modal fade" id="InsertUpdate" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true"
+			data-backdrop="false">
+			<div class=" modal-dialog " role="document">
+				<div class="modal-content ">
+					<div class="modal-header">
+						<c:if test="${phongPhucVuIU != null }">
+							<h3 class="modal-title" id="InsertLabel"
+								style="font-family: 'Roboto';">Sửa Phòng Phục Vụ</h3>
+						</c:if>
+						<c:if test="${phongPhucVuIU == null }">
+							<h3 class="modal-title" id="InsertLabel"
+								style="font-family: 'Roboto';">Thêm Phòng Phục Vụ</h3>
+						</c:if>
 
-		<!-- PAGE CONTAINER-->
-		<div class="page-container">
-			<!-- HEADER DESKTOP-->
-			<header class="header-desktop">
-				<div class="section__content section__content--p30">
-					<div class="container-fluid">
-						<div class="header-wrap"></div>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+					<div class="modal-body">
+						<div class="row">
+							<div class="form-group col-md-6">
+								<label>ID Phòng</label> <input type="hidden"
+									class="form-control" id="pages" name="pages"
+									value="${soTrangHienTai}">
+								<c:if test="${phongPhucVuIU != null }">
+									<input type="text" name="txtIdPhong" required="required"
+										readonly="readonly" class="form-control"
+										value="${phongPhucVuIU.getIdPhong() }">
+								</c:if>
+								<c:if test="${phongPhucVuIU == null }">
+									<input type="text" name="txtIdPhong" required="required"
+										readonly="readonly" class="form-control" value="${maxCode +1}">
+								</c:if>
+							</div>
+							<div class="form-group col-md-6">
+								<label>Mã Nhân Viên</label> <input type="text"
+									name="txtMaNhanVien" class="form-control" required="required"
+									value="${phongPhucVuIU.getMaNhanVien() }">
+							</div>
+
+
+						</div>
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label>Tên Phòng</label> <input type="text" name="txtTenPhong"
+									class="form-control" required="required"
+									value="${phongPhucVuIU.getTenPhong() }">
+							</div>
+
+						</div>
+						<div class="row">
+							<div class="form-group col-md-6">
+								<label>Giờ Bắt Đầu</label> <input type="time"
+									name="timeGioBatDau" class="form-control" required="required"
+									min="06:00 AM" pattern="hh:mm:ss" placeholder="06:00:00"
+									value="${phongPhucVuIU.getGioBatDau() }">
+							</div>
+							<div class="form-group col-md-6">
+								<label>Giờ Kết Thúc</label> <input type="time"
+									name="timeGioKetThuc" class="form-control" required="required"
+									pattern="hh:mm:ss" placeholder="16:30:00"
+									value="${phongPhucVuIU.getGioKetThuc() }">
+							</div>
+						</div>
+						<div class="modal-footer pull-left">
+							<button class="btn btn-secondary pull-left" data-dismiss="modal">Đóng</button>
+						</div>
+						<c:if test="${phongPhucVuIU != null }">
+							<div class="modal-footer pull-right">
+								<input class="btn btn-primary" type="submit" value="Sửa">
+						</c:if>
+						<c:if test="${phongPhucVuIU == null }">
+							<div class="modal-footer pull-right">
+								<input class="btn btn-primary" type="submit" value="Thêm">
+						</c:if>
 					</div>
 				</div>
-			</header>
-			<!-- HEADER DESKTOP-->
-
-			<!-- MAIN CONTENT-->
-		<div class="main-content">
-
+			</div>
+		</div>
+	</div>
+	</form>
+	<!-- PAGE CONTAINER-->
+	<div class="page-container">
+		<header class="header-desktop">
 			<div class="section__content section__content--p30">
+				<div class="container-fluid">
+					<div class="header-wrap"></div>
+				</div>
+				<div class="header-button pull-right">
+					<div class="noti-wrap">
+						<div class="noti__item js-item-menu">
+							<i class="zmdi zmdi-comment-more"></i> <span class="quantity">1</span>
+							<div class="mess-dropdown js-dropdown">
+								<div class="mess__title">
+									<p>You have 2 news message</p>
+								</div>
+								<div class="mess__item">
+									<div class="image img-cir img-40">
+										<c:if test="${phongPhucVuIU != null }">
+											<img src="../images/icon/avatar-06.jpg" alt="Michelle Moreno" />
+										</c:if>
+										<c:if test="${phongPhucVuIU == null }">
+											<img src="./images/icon/avatar-06.jpg" alt="Michelle Moreno" />
+										</c:if>
 
+									</div>
+									<div class="content">
+										<h6>Michelle Moreno</h6>
+										<p>Have sent a photo</p>
+										<span class="time">3 min ago</span>
+									</div>
+								</div>
+								<div class="mess__item">
+									<div class="image img-cir img-40">
+										<c:if test="${phongPhucVuIU != null }">
+											<img src="../images/icon/avatar-04.jpg" alt="Diane Myers" />
+										</c:if>
+										<c:if test="${phongPhucVuIU != null }">
+											<img src="./images/icon/avatar-04.jpg" alt="Diane Myers" />
+										</c:if>
+									</div>
+									<div class="content">
+										<h6>Diane Myers</h6>
+										<p>You are now connected on message</p>
+										<span class="time">Yesterday</span>
+									</div>
+								</div>
+								<div class="mess__footer">
+									<a href="#">View all messages</a>
+								</div>
+							</div>
+						</div>
+						<div class="noti__item js-item-menu">
+							<i class="zmdi zmdi-email"></i> <span class="quantity">1</span>
+							<div class="email-dropdown js-dropdown">
+								<div class="email__title">
+									<p>You have 3 New Emails</p>
+								</div>
+								<div class="email__item">
+									<div class="image img-cir img-40">
+										<c:if test="${phongPhucVuIU != null }">
+											<img src="../images/icon/avatar-06.jpg" alt="Cynthia Harvey" />
+										</c:if>
+										<c:if test="${phongPhucVuIU == null }">
+											<img src="./images/icon/avatar-06.jpg" alt="Cynthia Harvey" />
+										</c:if>
+									</div>
+									<div class="content">
+										<p>Meeting about new dashboard...</p>
+										<span>Cynthia Harvey, 3 min ago</span>
+									</div>
+								</div>
+								<div class="email__item">
+									<div class="image img-cir img-40">
+										<c:if test="${phongPhucVuIU != null }">
+											<img src="../images/icon/avatar-05.jpg" alt="Cynthia Harvey" />
+										</c:if>
+										<c:if test="${phongPhucVuIU == null }">
+											<img src="./images/icon/avatar-05.jpg" alt="Cynthia Harvey" />
+										</c:if>
+									</div>
+									<div class="content">
+										<p>Meeting about new dashboard...</p>
+										<span>Cynthia Harvey, Yesterday</span>
+									</div>
+								</div>
+								<div class="email__item">
+									<div class="image img-cir img-40">
+										<c:if test="${phongPhucVuIU != null }">
+											<img src="../images/icon/avatar-04.jpg" alt="Cynthia Harvey" />
+										</c:if>
+										<c:if test="${phongPhucVuIU == null }">
+											<img src="../images/icon/avatar-04.jpg" alt="Cynthia Harvey" />
+										</c:if>
+
+									</div>
+									<div class="content">
+										<p>Meeting about new dashboard...</p>
+										<span>Cynthia Harvey, April 12,,2018</span>
+									</div>
+								</div>
+								<div class="email__footer">
+									<a href="#">See all emails</a>
+								</div>
+							</div>
+						</div>
+						<div class="noti__item js-item-menu">
+							<i class="zmdi zmdi-notifications"></i> <span class="quantity">3</span>
+							<div class="notifi-dropdown js-dropdown">
+								<div class="notifi__title">
+									<p>You have 3 Notifications</p>
+								</div>
+								<div class="notifi__item">
+									<div class="bg-c1 img-cir img-40">
+										<i class="zmdi zmdi-email-open"></i>
+									</div>
+									<div class="content">
+										<p>You got a email notification</p>
+										<span class="date">April 12, 2018 06:50</span>
+									</div>
+								</div>
+								<div class="notifi__item">
+									<div class="bg-c2 img-cir img-40">
+										<i class="zmdi zmdi-account-box"></i>
+									</div>
+									<div class="content">
+										<p>Your account has been blocked</p>
+										<span class="date">April 12, 2018 06:50</span>
+									</div>
+								</div>
+								<div class="notifi__item">
+									<div class="bg-c3 img-cir img-40">
+										<i class="zmdi zmdi-file-text"></i>
+									</div>
+									<div class="content">
+										<p>You got a new file</p>
+										<span class="date">April 12, 2018 06:50</span>
+									</div>
+								</div>
+								<div class="notifi__footer">
+									<a href="#">All notifications</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="account-wrap">
+						<div class="account-item clearfix js-item-menu">
+							<div class="image">
+								<c:if test="${phongPhucVuIU != null }">
+									<img src="../images/icon/avatar-01.jpg" alt="John Doe" />
+								</c:if>
+								<c:if test="${phongPhucVuIU == null }">
+									<img src="./images/icon/avatar-01.jpg" alt="John Doe" />
+								</c:if>
+
+							</div>
+							<div class="content">
+								<a class="js-acc-btn" href="#">john doe</a>
+							</div>
+							<div class="account-dropdown js-dropdown">
+								<div class="info clearfix">
+									<div class="image">
+										<a href="#"> <c:if test="${phongPhucVuIU != null }">
+												<img src="../images/icon/avatar-01.jpg" alt="John Doe" />
+											</c:if> <c:if test="${phongPhucVuIU == null }">
+												<img src="./images/icon/avatar-01.jpg" alt="John Doe" />
+											</c:if>
+										</a>
+									</div>
+									<div class="content">
+										<h5 class="name">
+											<a href="#">john doe</a>
+										</h5>
+										<span class="email">johndoe@example.com</span>
+									</div>
+								</div>
+								<div class="account-dropdown__body">
+									<div class="account-dropdown__item">
+										<a href="#"> <i class="zmdi zmdi-account"></i>Account
+										</a>
+									</div>
+									<div class="account-dropdown__item">
+										<a href="#"> <i class="zmdi zmdi-settings"></i>Setting
+										</a>
+									</div>
+									<div class="account-dropdown__item">
+										<a href="#"> <i class="zmdi zmdi-money-box"></i>Billing
+										</a>
+									</div>
+								</div>
+								<div class="account-dropdown__footer">
+									<a href="#"> <i class="zmdi zmdi-power"></i>Logout
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<!-- MAIN CONTENT-->
+		<div class="main-content">
+			<div class="section__content section__content--p30">
 				<div class="container-fluid">
 					<div class="row">
 						<form method="post" action="/QuanLyThuVien/PhongPhucVuQuanLy"
@@ -212,8 +478,7 @@
 								<div class="space-5"></div>
 								<div class="input-group">
 									<input type="text" class="form-control" id="txtSearch"
-										name="txtSearch"
-										placeholder="Nhập tên sách hoặc tên tác giả, ngôn ngữ,..."
+										name="txtSearch" placeholder="Nhập tên độc giả,..."
 										value="${txtSearch}"> <input type="hidden"
 										class="form-control" id="pages" name="pages"
 										value="${soTrangHienTai}">
@@ -225,9 +490,9 @@
 								<div class="space-200"></div>
 								<div class="pull-left col-6">
 									<p>
-										<strong><c:out value="${listphongPhucVu.size() }"></c:out></strong>
-										of <strong><c:out value="${total }"></c:out></strong> phòng
-										 được tìm thấy
+										<strong><c:out value="${listPhongPhucVu.size() }"></c:out></strong>
+										of <strong><c:out value="${total }"></c:out></strong> độc giả
+										được tìm thấy
 									</p>
 								</div>
 								<!-- sắp xếp(từ từ tính) -->
@@ -242,8 +507,8 @@
 													class="form-control" onchange="this.form.submit()">
 													<option value="AZ">A-Z</option>
 													<option value="ZA">Z-A</option>
-													<option value="TacGia">Tên Phòng</option>
-													<option value="TacGia">Giờ Bắt Đầu</option>
+													<option value="GioBatDau">Giờ Bắt Đầu</option>
+													<option value="GioKetThuc">Giờ Kết Thúc</option>
 												</select>
 											</div>
 										</div>
@@ -259,7 +524,7 @@
 						<div class="col-sm-12 col-md-12">
 							<div class="card">
 								<div class="card-header">
-									<h3>Phòng Phục Vụ</h3>
+									<h3>Độc Giả</h3>
 								</div>
 								<div class="card-body card-block">
 
@@ -269,27 +534,27 @@
 											<table style="width: 100%"
 												class="table  table-borderless table-striped table-earning">
 												<thead>
-
 													<tr class="col-sm-12">
-														<th>IDPhong</th>
+														<th>ID Phòng</th>
 														<th>Tên Phòng</th>
 														<th>Giờ Bắt Đầu</th>
-														<th>Giờ Kết Thúc </th>
-														<th>Mã Nhân Viên </th>
-														<th>Xóa</th>
+														<th>Giờ Kết Thúc</th>
+														<th>Mã Nhân Viên</th>
+														<th>Sửa Và Xóa</th>
 													</tr>
 												</thead>
 												<tbody>
-													<c:forEach var="phongPhucVu" items="${listPhongPhucVu}">
+													<c:forEach var="PhongPhucVu" items="${listPhongPhucVu}">
 														<tr>
-															<td><c:out value="${phongPhucVu.getIDPhong()}" /></td>
-															<td><c:out value="${phongPhucVu.getTenPhong()}" /></td>
-															<td><c:out value="${phongPhucVu.getGioBatDau()}" /></td>
-															<td><c:out value="${phongPhucVu.getGioKetThuc()}" /></td>
-															<td><c:out value="${phongPhucVu.getMaNhanVien()}" /></td>
-
-															<td> <a class="btn btn-danger"
-																href="/QuanLyThuVien/PhongPhucVuQuanLy/delete?maPhongPhucVu=<c:out value='${phongPhucVu.getMaPhongPhucVu()}' />">Xóa</a>
+															<td><c:out value="${PhongPhucVu.getIdPhong()}" /></td>
+															<td><c:out value="${PhongPhucVu.getTenPhong()}" /></td>
+															<td><c:out value="${PhongPhucVu.getGioBatDau()}" /></td>
+															<td><c:out value="${PhongPhucVu.getGioKetThuc()}" /></td>
+															<td><c:out value="${PhongPhucVu.getMaNhanVien()}" /></td>
+															<td><a class="btn btn-warning pull-left"
+																href="/QuanLyThuVien/PhongPhucVuQuanLy/edit?idPhong=<c:out value='${PhongPhucVu.getIdPhong()}' />&pages=<c:out value="${soTrangHienTai}" />">Sửa</a>
+																&nbsp;&nbsp;&nbsp;&nbsp; <a class="btn btn-danger"
+																href="/QuanLyThuVien/PhongPhucVuQuanLy/delete?idPhong=<c:out value='${PhongPhucVu.getIdPhong()}' />&pages=<c:out value="${soTrangHienTai}" />">Xóa</a>
 															</td>
 														</tr>
 													</c:forEach>
@@ -303,7 +568,7 @@
 											<div class="shop-pagination pull-right">
 												<ul id="" class="pagination-sm pagination">
 													<li class="page-item first"><a
-														href="/QuanLyThuVien/PhongPhucVuQuanLy?pages=1"
+														href="/QuanLyThuVien/PhongPhucVuQuanLy?pages=1&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 														class="page-link">First</a></li>
 													<c:if test="${soTrangHienTai >=2 }">
 														<li class="page-item prev"><a
@@ -313,14 +578,14 @@
 													<c:forEach var="i" begin="1" end="${soTrang}" step="1">
 														<c:if test="${soTrangHienTai == i }">
 															<li class="page-item active"><a
-																href="/QuanLyThuVien/PhongPhucVuQuanLy?pages=<c:out value='${i}'/>"
+																href="/QuanLyThuVien/PhongPhucVuQuanLy?pages=<c:out value='${i}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 																"
 																class="page-link"><c:out
 																		value="${i}"></c:out></a></li>
 														</c:if>
 														<c:if test="${soTrangHienTai != i }">
 															<li class="page-item  "><a
-																href="/QuanLyThuVien/PhongPhucVuQuanLy?pages=<c:out value='${i}'/>"
+																href="/QuanLyThuVien/PhongPhucVuQuanLy?pages=<c:out value='${i}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 																"
 																class="page-link"><c:out
 																		value="${i}"></c:out></a></li>
@@ -328,17 +593,21 @@
 													</c:forEach>
 													<c:if test="${soTrangHienTai < soTrang }">
 														<li class="page-item next"><a
-															href="/QuanLyThuVien/PhongPhucVuQuanLy?pages=<c:out value='${soTrangHienTai+1}'/>"
+															href="/QuanLyThuVien/PhongPhucVuQuanLy?pages=<c:out value='${soTrangHienTai+1}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 															"
 															class="page-link">Next</a></li>
 													</c:if>
 													<li class="page-item last"><a
-														href="/QuanLyThuVien/PhongPhucVuQuanLy?pages=<c:out value='${soTrang}'/>"
+														href="/QuanLyThuVien/PhongPhucVuQuanLy?pages=<c:out value='${soTrang}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 														"
 														class="page-link">Last</a></li>
 												</ul>
 											</div>
 										</div>
+									</div>
+									<div id="Bieu_mau">
+										<button type="button" class="btn btn-primary"
+											data-toggle="modal" data-target="#InsertUpdate">Thêm</button>
 									</div>
 
 								</div>

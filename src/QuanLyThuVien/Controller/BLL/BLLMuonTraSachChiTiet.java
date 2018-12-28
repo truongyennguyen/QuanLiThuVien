@@ -19,11 +19,13 @@ import QuanLyThuVien.model.DAL.DALMuonTraSachChiTiet;
 import QuanLyThuVien.model.DAL.Object.MuonTraSach;
 import QuanLyThuVien.model.DAL.Object.MuonTraSachChiTiet;
 import QuanLyThuVien.model.DAL.Object.MuonTraSachChiTiet;
+
 @WebServlet(name = "MuonTraSachChiTiet", urlPatterns = { "/MuonTraSachChiTiet", "/MuonTraSachChiTiet/delete",
 		"/MuonTraSachChiTiet/list", "/MuonTraSachChiTiet/insert", "/MuonTraSachChiTiet/update",
 		"/MuonTraSachChiTiet/edit" })
 public class BLLMuonTraSachChiTiet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final int soDongTrenMotTrang = 6;
 	private DALMuonTraSachChiTiet dal_muonTraSachChiTiet;
 
 	public void init() {
@@ -69,29 +71,38 @@ public class BLLMuonTraSachChiTiet extends HttpServlet {
 		}
 	}
 
-	private void editMuonTraSachChiTiet(HttpServletRequest request, HttpServletResponse response) 	
+	private void editMuonTraSachChiTiet(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		int code = Integer.parseInt(request.getParameter("maMuonSach"));
 
+		int pages = 0;
+		if (request.getParameter("pages") != null) {
+			pages = (int) Integer.parseInt(request.getParameter("pages"));
+		} else {
+			pages = 1;
+		}
+
 		try {
 			MuonTraSachChiTiet muonTraSachChiTiet = new MuonTraSachChiTiet();
 			muonTraSachChiTiet = dal_muonTraSachChiTiet.GetOne(code);
 			request.setAttribute("muonTraSachChiTietIU", muonTraSachChiTiet);
-			request.getRequestDispatcher("/MuonTraSachChiTiet").forward(request, response);
+			request.getRequestDispatcher("/MuonTraSachChiTiet" + "?pages=" + pages).forward(request, response);
 			;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 
 	}
+
 	private void listMuonTraSachChiTiet(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		List<MuonTraSachChiTiet> listMuonTraSachChiTiet = new ArrayList<MuonTraSachChiTiet>();
+
 		int pages = 0, minRes = 0, maxRes = 0, total = 0;
 		if (request.getParameter("pages") != null) {
 			pages = (int) Integer.parseInt(request.getParameter("pages"));
@@ -111,19 +122,19 @@ public class BLLMuonTraSachChiTiet extends HttpServlet {
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		}
-		if (total <= 6) {
+		if (total <= soDongTrenMotTrang) {
 			minRes = 1;
 			maxRes = total;
 		} else {
-			minRes = (pages - 1) * 6 + 1;
-			maxRes = minRes + 6 - 1;
+			minRes = (pages - 1) * soDongTrenMotTrang + 1;
+			maxRes = minRes + soDongTrenMotTrang - 1;
 		}
 
 		int soTrang = 0;
-		if (total % 6 == 0) {
-			soTrang = (int) (total / 6);
+		if (total % soDongTrenMotTrang == 0) {
+			soTrang = (int) (total / soDongTrenMotTrang);
 		} else {
-			soTrang = (int) (total / 6) + 1;
+			soTrang = (int) (total / soDongTrenMotTrang) + 1;
 		}
 
 		int maxCode = 0;
@@ -149,8 +160,9 @@ public class BLLMuonTraSachChiTiet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
+
 		MuonTraSachChiTiet record = new MuonTraSachChiTiet();
-		record.setMaMuonSach(Integer.parseInt(request.getParameter("txtMaMuonTra")));
+		record.setMaMuonSach(Integer.parseInt(request.getParameter("txtMaMuonSach")));
 		record.setMaCuonSach(Integer.parseInt(request.getParameter("txtMaCuonSach")));
 		if (request.getParameter("dateNgayMuon") != null) {
 			try {
@@ -168,6 +180,7 @@ public class BLLMuonTraSachChiTiet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+
 		if (request.getParameter("dateNgayTra") != null) {
 			try {
 				Date ngayTra = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dateNgayTra"));
@@ -176,12 +189,21 @@ public class BLLMuonTraSachChiTiet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		record.setTrangThai(request.getParameter("txtTrangThai"));
-		record.setSoLuong(Integer.parseInt(request.getParameter("txtSoLuong")));
+
+		record.setTrangThai(request.getParameter("selectTrangThai"));
+		record.setSoLuong(Integer.parseInt(request.getParameter("numberSoLuong")));
+
+		int pages = 0;
+		if (request.getParameter("pages") != null) {
+			pages = (int) Integer.parseInt(request.getParameter("pages"));
+		} else {
+			pages = 1;
+		}
 
 		try {
 			dal_muonTraSachChiTiet.Update(record);
-			response.sendRedirect("/QuanLyThuVien/MuonTraSachChiTiet");
+			response.sendRedirect("/QuanLyThuVien/MuonTraSachChiTiet" + "?pages=" + pages);
+
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -194,7 +216,32 @@ public class BLLMuonTraSachChiTiet extends HttpServlet {
 
 		try {
 			dal_muonTraSachChiTiet.Delete(code);
-			response.sendRedirect("/QuanLyThuVien/DauSachQuanLy");
+
+			int pages = 0;
+			if (request.getParameter("pages") != null) {
+				pages = (int) Integer.parseInt(request.getParameter("pages"));
+			} else {
+				pages = 1;
+			}
+
+			int total = 0;
+			try {
+				total = dal_muonTraSachChiTiet.getSoLuongPhanTu(0, "default");
+			} catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			}
+
+			int soTrang = 0;
+			if (total % soDongTrenMotTrang == 0) {
+				soTrang = (int) (total / soDongTrenMotTrang);
+			} else {
+				soTrang = (int) (total / soDongTrenMotTrang) + 1;
+			}
+
+			if (pages > soTrang)
+				pages = soTrang;
+
+			response.sendRedirect("/QuanLyThuVien/MuonTraSachChiTiet" + "?pages=" + pages);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -207,7 +254,7 @@ public class BLLMuonTraSachChiTiet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 
 		MuonTraSachChiTiet record = new MuonTraSachChiTiet();
-		record.setMaMuonSach(Integer.parseInt(request.getParameter("txtMaMuonTra")));
+		record.setMaMuonSach(Integer.parseInt(request.getParameter("txtMaMuonSach")));
 		record.setMaCuonSach(Integer.parseInt(request.getParameter("txtMaCuonSach")));
 		if (request.getParameter("dateNgayMuon") != null) {
 			try {
@@ -235,12 +282,28 @@ public class BLLMuonTraSachChiTiet extends HttpServlet {
 			}
 		}
 
-		record.setTrangThai(request.getParameter("txtTrangThai"));
-		record.setSoLuong(Integer.parseInt(request.getParameter("txtSoLuong")));
+		record.setTrangThai(request.getParameter("selectTrangThai"));
+		record.setSoLuong(Integer.parseInt(request.getParameter("numberSoLuong")));
 
 		try {
 			dal_muonTraSachChiTiet.Add(record);
-			response.sendRedirect("/QuanLyThuVien/MuonTraSachChiTiet");
+
+			// Sau khi insert sẽ về pages cuối
+			int total = 0;
+			try {
+				total = dal_muonTraSachChiTiet.getSoLuongPhanTu(0, "default");
+			} catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			}
+
+			int soTrang = 0;
+			if (total % soDongTrenMotTrang == 0) {
+				soTrang = (int) (total / soDongTrenMotTrang);
+			} else {
+				soTrang = (int) (total / soDongTrenMotTrang) + 1;
+			}
+
+			response.sendRedirect("/QuanLyThuVien/MuonTraSachChiTiet" + "?pages=" + soTrang);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}

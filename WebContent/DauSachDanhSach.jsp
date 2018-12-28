@@ -257,28 +257,28 @@
 									href="/QuanLyThuVien/DauSachDanhSach?pages=1" class="page-link">First</a></li>
 								<c:if test="${soTrangHienTai >=2 }">
 									<li class="page-item prev"><a
-										href="/QuanLyThuVien/DauSachDanhSach?pages=<c:out value='${soTrangHienTai-1}'/>"
+										href="/QuanLyThuVien/DauSachDanhSach?pages=<c:out value='${soTrangHienTai-1}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 										class="page-link">Previous</a></li>
 								</c:if>
 								<c:forEach var="i" begin="1" end="${soTrang}" step="1">
 									<c:if test="${soTrangHienTai == i }">
 										<li class="page-item active"><a
-											href="/QuanLyThuVien/DauSachDanhSach?pages=<c:out value='${i}'/>"
+											href="/QuanLyThuVien/DauSachDanhSach?pages=<c:out value='${i}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 											class="page-link"><c:out value="${i}"></c:out></a></li>
 									</c:if>
 									<c:if test="${soTrangHienTai != i }">
 										<li class="page-item "><a
-											href="/QuanLyThuVien/DauSachDanhSach?pages=<c:out value='${i}'/>"
+											href="/QuanLyThuVien/DauSachDanhSach?pages=<c:out value='${i}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 											class="page-link"><c:out value="${i}"></c:out></a></li>
 									</c:if>
 								</c:forEach>
 								<c:if test="${soTrangHienTai < soTrang }">
 									<li class="page-item next"><a
-										href="/QuanLyThuVien/DauSachDanhSach?pages=<c:out value='${soTrangHienTai+1}'/>"
+										href="/QuanLyThuVien/DauSachDanhSach?pages=<c:out value='${soTrangHienTai+1}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 										class="page-link">Next</a></li>
 								</c:if>
 								<li class="page-item last"><a
-									href="/QuanLyThuVien/DauSachDanhSach?pages=<c:out value='${soTrang}'/>"
+									href="/QuanLyThuVien/DauSachDanhSach?pages=<c:out value='${soTrang}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 									class="page-link">Last</a></li>
 							</ul>
 						</div>

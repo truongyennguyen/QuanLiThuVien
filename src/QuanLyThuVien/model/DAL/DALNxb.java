@@ -42,14 +42,14 @@ public class DALNxb extends ConnectDatabase implements I_DAL<Nxb> {
 			return 0;
 
 		openConnection();
-		String sqlExec = "EXEC spNxb ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?";// 14 @param
+		String sqlExec = "EXEC spNxb ?,?,?,?";// 4 @param
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
 		statement.setInt(1, record.getMaNxb());
 		statement.setString(2, record.getTenNxb());
 		statement.setString(3, record.getGhiChu());
-		statement.setString(14, "INSERT");
+		statement.setString(4, "INSERT");
 		int rowInsert = statement.executeUpdate();
 		closeConnection();
 		return rowInsert;
@@ -71,13 +71,13 @@ public class DALNxb extends ConnectDatabase implements I_DAL<Nxb> {
 	@Override
 	public int Update(Nxb record) throws SQLException, ClassNotFoundException {
 		openConnection();
-		String sqlExec = "EXEC spNxb ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?";
+		String sqlExec = "EXEC spNxb ?,?,?,?";
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setInt(1, record.getMaNxb());
 		statement.setString(2, record.getTenNxb());
 		statement.setString(3, record.getGhiChu());
-		statement.setString(14, "UPDATE");
+		statement.setString(4, "UPDATE");
 		int rowUpdate = statement.executeUpdate();
 		closeConnection();
 		return rowUpdate;
@@ -103,18 +103,18 @@ public class DALNxb extends ConnectDatabase implements I_DAL<Nxb> {
 		closeConnection();
 		return Nxb;
 	}
-	public List<Nxb> getAllPhanTrang(int minRes, int maxRes, int maNxb, String sort, String search)
+
+	public List<Nxb> getAllPhanTrang(int minRes, int maxRes, String sort, String search)
 			throws SQLException, ClassNotFoundException {
 		openConnection();
 		List<Nxb> Nxbs = new ArrayList<>();
-		String sqlExec = "EXEC spLayDauSachPhanTrang ?,?,?,?,?";
+		String sqlExec = "EXEC spLayNxbPhanTrang ?,?,?,?";
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setInt(1, minRes);
 		statement.setInt(2, maxRes);
-		statement.setInt(3, maNxb);
-		statement.setString(4, sort);
-		statement.setString(5, search);
+		statement.setString(3, sort);
+		statement.setString(4, search);
 
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
@@ -122,35 +122,36 @@ public class DALNxb extends ConnectDatabase implements I_DAL<Nxb> {
 
 		while (res.next()) {
 			Nxb Nxb = new Nxb();
+
 			Nxb.setMaNxb(res.getInt(1));
 			Nxb.setTenNxb(res.getString(2));
 			Nxb.setGhiChu(res.getString(3));
+
 			Nxbs.add(Nxb);
 		}
-//		closeConnection();
+		closeConnection();
 		return Nxbs;
 	}
-	public int getSoLuongPhanTu(int maNxb, String search) throws SQLException, ClassNotFoundException {
+
+	public int getSoLuongPhanTu(String search) throws SQLException, ClassNotFoundException {
 		openConnection();
-		String sqlExec = "EXEC spLayNxbPhanTrangCount ?,?";
+		String sqlExec = "EXEC spLayNxbPhanTrangCount ?";
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
 
-		statement.setInt(1, maNxb);
-		statement.setString(2, search);
+		statement.setString(1, search);
 
 		int kq = 0;
 		ResultSet res = statement.executeQuery();
 		if (res.next()) {
-
 			kq = res.getInt(1);
 		}
-		// Because load image very time-consuming --> Don't close connect to DB
-		// closeConnection();
+		closeConnection();
 		return kq;
 	}
+
 	@Override
 	public int maxCode(String tenBang) throws SQLException, ClassNotFoundException {
 		openConnection();
@@ -168,8 +169,7 @@ public class DALNxb extends ConnectDatabase implements I_DAL<Nxb> {
 
 			kq = res.getInt(1);
 		}
-		// Because load image very time-consuming --> Don't close connect to DB
-		// closeConnection();
+		closeConnection();
 		return kq;
 
 	}

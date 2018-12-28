@@ -223,7 +223,11 @@
 					<div class="modal-body">
 						<div class="row">
 							<div class="form-group col-md-4">
-								<label>Mã Đầu Sách</label>
+								<label>Mã Đầu Sách</label> <input type="hidden"
+									class="form-control" id="pages" name="pages"
+									value="${soTrangHienTai}"> <input type="hidden"
+									class="form-control" id="selectLoaiSach" name="selectLoaiSach"
+									value="${selectLoaiSach}">
 								<c:if test="${dauSachIU != null }">
 									<input type="text" name="txtMaDauSach" required="required"
 										readonly="readonly" class="form-control"
@@ -364,13 +368,14 @@
 
 
 						<div class="row">
-							<div class="form-group col-md-12">
-								<label>File PDF</label> <input type="file" name="fileFilePDF"
-									class="form-control" accept="application/pdf"
-									value="${dauSachIU.getFilePDFBlob() }"
-									enctype='multipart/form-data'>
-
-							</div>
+							<c:if test="${selectLoaiSach == 'eBooks' }">
+								<div class="form-group col-md-12">
+									<label>File PDF</label> <input type="file" name="fileFilePDF"
+										class="form-control" accept="application/pdf"
+										value="${dauSachIU.getFilePDFBlob() }"
+										enctype='multipart/form-data'>
+								</div>
+							</c:if>
 						</div>
 						<div class="modal-footer pull-left">
 							<button class="btn btn-secondary pull-left" data-dismiss="modal">Đóng</button>
@@ -651,6 +656,27 @@
 									</div>
 
 								</div>
+								<div class="pull-right col-6">
+
+									<div class="form-group">
+										<label class="control-label col-xs-12" for="sort">Loại
+											Sách: </label>
+										<div class="col-xs-4">
+											<div class="form-group">
+												<select name="selectLoaiSach" id="selectLoaiSach1"
+													class="form-control" onchange="this.form.submit()">
+													<option value="eBooks">eBooks</option>
+													<option value="paperBooks">paperBooks</option>
+												</select>
+											</div>
+										</div>
+										<script type="text/javascript">
+											document
+													.getElementById("selectLoaiSach1").value = "${selectLoaiSach}";
+										</script>
+									</div>
+
+								</div>
 							</div>
 						</form>
 						<div class="col-sm-12 col-md-12">
@@ -682,7 +708,9 @@
 														<th>Ảnh bìa</th>
 														<th>Trạng thái</th>
 														<th>Gia</th>
-														<th>PDF</th>
+														<c:if test="${selectLoaiSach == 'eBooks' }">
+															<th>PDF</th>
+														</c:if>
 														<th>Thêm và Xóa&nbsp;&nbsp;&nbsp;&nbsp;</th>
 													</tr>
 												</thead>
@@ -719,12 +747,13 @@
 																width="100px" height="200px"></td>
 															<td><c:out value="${dauSach.getTrangThai()}" /></td>
 															<td><c:out value="${dauSach.getGia()}" /></td>
-															<td><c:out value="${dauSach.getFilePDFBlob()}" /></td>
-
+															<c:if test="${selectLoaiSach == 'eBooks' }">
+																<td><c:out value="${dauSach.getFilePDFBlob()}" /></td>
+															</c:if>
 															<td><a class="btn btn-warning pull-left"
-																href="/QuanLyThuVien/DauSachQuanLy/edit?maDauSach=<c:out value='${dauSach.getMaDauSach()}' />">Sửa</a>
+																href="/QuanLyThuVien/DauSachQuanLy/edit?maDauSach=<c:out value='${dauSach.getMaDauSach()}' />&pages=<c:out value="${soTrangHienTai}" />&selectLoaiSach=<c:out value="${selectLoaiSach}" />">Sửa</a>
 																&nbsp;&nbsp;&nbsp;&nbsp; <a class="btn btn-danger"
-																href="/QuanLyThuVien/DauSachQuanLy/delete?maDauSach=<c:out value='${dauSach.getMaDauSach()}' />">Xóa</a>
+																href="/QuanLyThuVien/DauSachQuanLy/delete?maDauSach=<c:out value='${dauSach.getMaDauSach()}' />&pages=<c:out value="${soTrangHienTai}" />&selectLoaiSach=<c:out value="${selectLoaiSach}" />">Xóa</a>
 															</td>
 														</tr>
 													</c:forEach>
@@ -738,24 +767,24 @@
 											<div class="shop-pagination pull-right">
 												<ul id="" class="pagination-sm pagination">
 													<li class="page-item first"><a
-														href="/QuanLyThuVien/DauSachQuanLy?pages=1"
+														href="/QuanLyThuVien/DauSachQuanLy?pages=1&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>&selectLoaiSach=<c:out value="${selectLoaiSach}" />"
 														class="page-link">First</a></li>
 													<c:if test="${soTrangHienTai >=2 }">
 														<li class="page-item prev"><a
-															href="/QuanLyThuVien/DauSachQuanLy?pages=<c:out value='${soTrangHienTai-1}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
+															href="/QuanLyThuVien/DauSachQuanLy?pages=<c:out value='${soTrangHienTai-1}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>&selectLoaiSach=<c:out value="${selectLoaiSach}" />"
 															class="page-link">Previous</a></li>
 													</c:if>
 													<c:forEach var="i" begin="1" end="${soTrang}" step="1">
 														<c:if test="${soTrangHienTai == i }">
 															<li class="page-item active"><a
-																href="/QuanLyThuVien/DauSachQuanLy?pages=<c:out value='${i}'/>"
+																href="/QuanLyThuVien/DauSachQuanLy?pages=<c:out value='${i}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>&selectLoaiSach=<c:out value="${selectLoaiSach}" />"
 																"
 																class="page-link"><c:out
 																		value="${i}"></c:out></a></li>
 														</c:if>
 														<c:if test="${soTrangHienTai != i }">
 															<li class="page-item  "><a
-																href="/QuanLyThuVien/DauSachQuanLy?pages=<c:out value='${i}'/>"
+																href="/QuanLyThuVien/DauSachQuanLy?pages=<c:out value='${i}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>&selectLoaiSach=<c:out value="${selectLoaiSach}" />"
 																"
 																class="page-link"><c:out
 																		value="${i}"></c:out></a></li>
@@ -763,12 +792,12 @@
 													</c:forEach>
 													<c:if test="${soTrangHienTai < soTrang }">
 														<li class="page-item next"><a
-															href="/QuanLyThuVien/DauSachQuanLy?pages=<c:out value='${soTrangHienTai+1}'/>"
+															href="/QuanLyThuVien/DauSachQuanLy?pages=<c:out value='${soTrangHienTai+1}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>&selectLoaiSach=<c:out value="${selectLoaiSach}" />"
 															"
 															class="page-link">Next</a></li>
 													</c:if>
 													<li class="page-item last"><a
-														href="/QuanLyThuVien/DauSachQuanLy?pages=<c:out value='${soTrang}'/>"
+														href="/QuanLyThuVien/DauSachQuanLy?pages=<c:out value='${soTrang}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>&selectLoaiSach=<c:out value="${selectLoaiSach}" />"
 														"
 														class="page-link">Last</a></li>
 												</ul>

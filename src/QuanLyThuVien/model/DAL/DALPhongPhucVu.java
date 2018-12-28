@@ -10,7 +10,7 @@ import QuanLyThuVien.model.DAL.Object.PhongPhucVu;
 import QuanLyThuVien.model.DAL.Object.PhieuPhat;
 import QuanLyThuVien.model.DAL.Object.PhongPhucVu;
 
-public class DALPhongPhucVu extends ConnectDatabase implements I_DAL<PhongPhucVu>{
+public class DALPhongPhucVu extends ConnectDatabase implements I_DAL<PhongPhucVu> {
 
 	public DALPhongPhucVu(String jdbcURL) throws SQLException {
 		super(jdbcURL);
@@ -113,16 +113,17 @@ public class DALPhongPhucVu extends ConnectDatabase implements I_DAL<PhongPhucVu
 		closeConnection();
 		return phongPhucVu;
 	}
-	public List<PhongPhucVu> getAllPhanTrang(int minRes, int maxRes, int maPhongPhucVu, String sort, String search)
+
+	public List<PhongPhucVu> getAllPhanTrang(int minRes, int maxRes, int maNhanVien, String sort, String search)
 			throws SQLException, ClassNotFoundException {
 		openConnection();
 		List<PhongPhucVu> PhongPhucVus = new ArrayList<>();
-		String sqlExec = "EXEC spLayDauSachPhanTrang ?,?,?,?,?";
+		String sqlExec = "EXEC spLayPhongPhucVuPhanTrang ?,?,?,?,?";
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setInt(1, minRes);
 		statement.setInt(2, maxRes);
-		statement.setInt(3, maPhongPhucVu);
+		statement.setInt(3, maNhanVien);
 		statement.setString(4, sort);
 		statement.setString(5, search);
 
@@ -139,10 +140,11 @@ public class DALPhongPhucVu extends ConnectDatabase implements I_DAL<PhongPhucVu
 			phongPhucVu.setMaNhanVien(res.getInt(5));
 			PhongPhucVus.add(phongPhucVu);
 		}
-//		closeConnection();
+		closeConnection();
 		return PhongPhucVus;
 	}
-	public int getSoLuongPhanTu(int maPhongPhucVu, String search) throws SQLException, ClassNotFoundException {
+
+	public int getSoLuongPhanTu(int maNhanVien, String search) throws SQLException, ClassNotFoundException {
 		openConnection();
 		String sqlExec = "EXEC spLayPhongPhucVuPhanTrangCount ?,?";
 
@@ -150,7 +152,7 @@ public class DALPhongPhucVu extends ConnectDatabase implements I_DAL<PhongPhucVu
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
 
-		statement.setInt(1, maPhongPhucVu);
+		statement.setInt(1, maNhanVien);
 		statement.setString(2, search);
 
 		int kq = 0;
@@ -159,10 +161,10 @@ public class DALPhongPhucVu extends ConnectDatabase implements I_DAL<PhongPhucVu
 
 			kq = res.getInt(1);
 		}
-		// Because load image very time-consuming --> Don't close connect to DB
-		// closeConnection();
+		closeConnection();
 		return kq;
 	}
+
 	@Override
 	public int maxCode(String tenBang) throws SQLException, ClassNotFoundException {
 		openConnection();
@@ -180,8 +182,7 @@ public class DALPhongPhucVu extends ConnectDatabase implements I_DAL<PhongPhucVu
 
 			kq = res.getInt(1);
 		}
-		// Because load image very time-consuming --> Don't close connect to DB
-		// closeConnection();
+		closeConnection();
 		return kq;
 
 	}

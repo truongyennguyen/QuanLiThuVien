@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import QuanLyThuVien.model.DAL.Object.CuonSach;
-import QuanLyThuVien.model.DAL.Object.CuonSach;
-import QuanLyThuVien.model.DAL.Object.PhieuPhat;
 
 public class DALCuonSach extends ConnectDatabase implements I_DAL<CuonSach> {
 
@@ -26,17 +24,21 @@ public class DALCuonSach extends ConnectDatabase implements I_DAL<CuonSach> {
 		statement.setQueryTimeout(15);
 		ResultSet res = statement.executeQuery();
 		while (res.next()) {
+
 			CuonSach cuonSach = new CuonSach();
+
 			cuonSach.setMaCuonSach(res.getInt(1));
 			cuonSach.setMaDauSach(res.getInt(2));
 			cuonSach.setViTri(res.getString(3));
 			cuonSach.setTrangThai(res.getString(4));
+
 			CuonSachs.add(cuonSach);
 		}
 
 		closeConnection();
 		return CuonSachs;
 	}
+
 	public List<CuonSach> getAllPhanTrang(int minRes, int maxRes, int maCuonSach, String sort, String search)
 			throws SQLException, ClassNotFoundException {
 		openConnection();
@@ -60,10 +62,12 @@ public class DALCuonSach extends ConnectDatabase implements I_DAL<CuonSach> {
 			cuonSach.setMaDauSach(res.getInt(2));
 			cuonSach.setViTri(res.getString(3));
 			cuonSach.setTrangThai(res.getString(4));
-			CuonSachs.add(cuonSach);		}
-//		closeConnection();
+			CuonSachs.add(cuonSach);
+		}
+		closeConnection();
 		return CuonSachs;
 	}
+
 	public int getSoLuongPhanTu(int maCuonSach, String search) throws SQLException, ClassNotFoundException {
 		openConnection();
 		String sqlExec = "EXEC spLayCuonSachPhanTrangCount ?,?";
@@ -81,10 +85,10 @@ public class DALCuonSach extends ConnectDatabase implements I_DAL<CuonSach> {
 
 			kq = res.getInt(1);
 		}
-		// Because load image very time-consuming --> Don't close connect to DB
-		// closeConnection();
+		closeConnection();
 		return kq;
 	}
+
 	@Override
 	public int Add(CuonSach record) throws SQLException, ClassNotFoundException {
 		if (record == null)
@@ -174,8 +178,7 @@ public class DALCuonSach extends ConnectDatabase implements I_DAL<CuonSach> {
 
 			kq = res.getInt(1);
 		}
-		// Because load image very time-consuming --> Don't close connect to DB
-		// closeConnection();
+		closeConnection();
 		return kq;
 	}
 }

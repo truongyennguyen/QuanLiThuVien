@@ -80,14 +80,23 @@ public class BLLDocGia extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-		int code = Integer.parseInt(request.getParameter("MaDocGia"));
 
+		
+		int code = Integer.parseInt(request.getParameter("maDocGia"));
+
+		int pages = 0;
+		if (request.getParameter("pages") != null) {
+			pages = (int) Integer.parseInt(request.getParameter("pages"));
+		} else {
+			pages = 1;
+		}
+
+		
 		try {
 			DocGia docGia = new DocGia();
 			docGia = dal_docGia.GetOne(code);
 			request.setAttribute("docGiaIU", docGia);
-			request.getRequestDispatcher("/DocGiaQuanLy").forward(request, response);
-			;
+			request.getRequestDispatcher("/DocGiaQuanLy" + "?pages=" + pages).forward(request, response);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -117,9 +126,16 @@ public class BLLDocGia extends HttpServlet {
 		record.setEmail(request.getParameter("txtEmail"));
 		record.setSoDienThoai(request.getParameter("txtSoDienThoai"));
 
+		int pages = 0;
+		if (request.getParameter("pages") != null) {
+			pages = (int) Integer.parseInt(request.getParameter("pages"));
+		} else {
+			pages = 1;
+		}
+
 		try {
 			dal_docGia.Update(record);
-			response.sendRedirect("/QuanLyThuVien/DocGiaQuanLy");
+			response.sendRedirect("/QuanLyThuVien/DocGiaQuanLy" + "?pages=" + pages);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -132,7 +148,32 @@ public class BLLDocGia extends HttpServlet {
 
 		try {
 			dal_docGia.Delete(code);
-			response.sendRedirect("/QuanLyThuVien/DocGiaQuanLy");
+
+			int pages = 0;
+			if (request.getParameter("pages") != null) {
+				pages = (int) Integer.parseInt(request.getParameter("pages"));
+			} else {
+				pages = 1;
+			}
+
+			int total = 0;
+			try {
+				total = dal_docGia.getSoLuongPhanTu("default");
+			} catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			}
+
+			int soTrang = 0;
+			if (total % soDongTrenMotTrang == 0) {
+				soTrang = (int) (total / soDongTrenMotTrang);
+			} else {
+				soTrang = (int) (total / soDongTrenMotTrang) + 1;
+			}
+
+			if (pages > soTrang)
+				pages = soTrang;
+
+			response.sendRedirect("/QuanLyThuVien/DocGiaQuanLy" + "?pages=" + pages);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -157,11 +198,27 @@ public class BLLDocGia extends HttpServlet {
 			}
 		}
 		record.setDiaChi(request.getParameter("txtDiaChi"));
-		record.setEmail(request.getParameter("txteMail"));
+		record.setEmail(request.getParameter("txtEmail"));
 		record.setSoDienThoai(request.getParameter("txtSoDienThoai"));
 		try {
 			dal_docGia.Add(record);
-			response.sendRedirect("/QuanLyThuVien/DocGiaQuanLy");
+
+			// Sau khi insert sẽ về pages cuối
+			int total = 0;
+			try {
+				total = dal_docGia.getSoLuongPhanTu("default");
+			} catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			}
+
+			int soTrang = 0;
+			if (total % soDongTrenMotTrang == 0) {
+				soTrang = (int) (total / soDongTrenMotTrang);
+			} else {
+				soTrang = (int) (total / soDongTrenMotTrang) + 1;
+			}
+
+			response.sendRedirect("/QuanLyThuVien/DocGiaQuanLy" + "?pages=" + soTrang);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -190,7 +247,7 @@ public class BLLDocGia extends HttpServlet {
 			sort = request.getParameter("selectSort");
 		}
 		try {
-			total = dal_docGia.getSoLuongPhanTu(0, search);
+			total = dal_docGia.getSoLuongPhanTu(search);
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		}
@@ -203,7 +260,7 @@ public class BLLDocGia extends HttpServlet {
 		}
 
 		int soTrang = 0;
-		if (total % 6 == 0) {
+		if (total % soDongTrenMotTrang == 0) {
 			soTrang = (int) (total / soDongTrenMotTrang);
 		} else {
 			soTrang = (int) (total / soDongTrenMotTrang) + 1;

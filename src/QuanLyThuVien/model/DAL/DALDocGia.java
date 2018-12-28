@@ -40,18 +40,18 @@ public class DALDocGia extends ConnectDatabase implements I_DAL<DocGia> {
 		closeConnection();
 		return DocGias;
 	}
+
 	public List<DocGia> getAllPhanTrang(int minRes, int maxRes, int maDocGia, String sort, String search)
 			throws SQLException, ClassNotFoundException {
 		openConnection();
 		List<DocGia> DocGias = new ArrayList<>();
-		String sqlExec = "EXEC spLayDocGiaPhanTrang ?,?,?,?,?";
+		String sqlExec = "EXEC spLayDocGiaPhanTrang ?,?,?,?";
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setInt(1, minRes);
 		statement.setInt(2, maxRes);
-		statement.setInt(3, maDocGia);
-		statement.setString(4, sort);
-		statement.setString(5, search);
+		statement.setString(3, sort);
+		statement.setString(4, search);
 
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
@@ -68,9 +68,10 @@ public class DALDocGia extends ConnectDatabase implements I_DAL<DocGia> {
 			docGia.setSoDienThoai(res.getString(7));
 			DocGias.add(docGia);
 		}
-//		closeConnection();
+		closeConnection();
 		return DocGias;
 	}
+
 	@Override
 	public int Add(DocGia record) throws SQLException, ClassNotFoundException {
 		if (record == null)
@@ -152,16 +153,16 @@ public class DALDocGia extends ConnectDatabase implements I_DAL<DocGia> {
 		closeConnection();
 		return docGia;
 	}
-	public int getSoLuongPhanTu(int maDocGia, String search) throws SQLException, ClassNotFoundException {
+
+	public int getSoLuongPhanTu(String search) throws SQLException, ClassNotFoundException {
 		openConnection();
-		String sqlExec = "EXEC spLayDocGiaPhanTrangCount ?,?";
+		String sqlExec = "EXEC spLayDocGiaPhanTrangCount ?";
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
 
-		statement.setInt(1, maDocGia);
-		statement.setString(2, search);
+		statement.setString(1, search);
 
 		int kq = 0;
 		ResultSet res = statement.executeQuery();
@@ -173,6 +174,7 @@ public class DALDocGia extends ConnectDatabase implements I_DAL<DocGia> {
 		// closeConnection();
 		return kq;
 	}
+
 	@Override
 	public int maxCode(String tenBang) throws SQLException, ClassNotFoundException {
 		openConnection();
@@ -196,4 +198,3 @@ public class DALDocGia extends ConnectDatabase implements I_DAL<DocGia> {
 	}
 
 }
-

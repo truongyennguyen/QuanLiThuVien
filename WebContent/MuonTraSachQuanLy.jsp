@@ -182,12 +182,10 @@
 		</aside>
 		<!-- END MENU SIDEBAR-->
 		<c:if test="${muonTraSachIU != null }">
-			<form method="get" action="/QuanLyThuVien/MuonTraSachQuanLy/update"
-				enctype="multipart/form-data">
+			<form method="post" action="/QuanLyThuVien/MuonTraSachQuanLy/update">
 		</c:if>
 		<c:if test="${muonTraSachIU == null }">
-			<form method="get" action="/QuanLyThuVien/MuonTraSachQuanLy/insert"
-				enctype="multipart/form-data">
+			<form method="post" action="/QuanLyThuVien/MuonTraSachQuanLy/insert">
 		</c:if>
 		<!-- Modal -->
 		<div class="modal fade" id="InsertUpdate" tabindex="-1" role="dialog"
@@ -214,7 +212,9 @@
 					<div class="modal-body">
 						<div class="row">
 							<div class="form-group col-md-4">
-								<label>Mã Mượn Sách</label>
+								<label>Mã Mượn Sách</label> <input type="hidden" name="pages"
+									id="pages" class="form-control" required="required"
+									value="${soTrangHienTai }">
 								<c:if test="${muonTraSachIU != null }">
 									<input type="text" name="txtMaMuonSach" required="required"
 										readonly="readonly" class="form-control"
@@ -477,15 +477,14 @@
 
 				<div class="container-fluid">
 					<div class="row">
-						<form method="post" action="/QuanLyThuVien/MuonTraSachQuanLy"
+						<form method="get" action="/QuanLyThuVien/MuonTraSachQuanLy"
 							class="col-12 pull-left">
 							<div class="col-12 pull-left">
 								<h4>Tìm kiếm</h4>
 								<div class="space-5"></div>
 								<div class="input-group">
 									<input type="text" class="form-control" id="txtSearch"
-										name="txtSearch"
-										placeholder="Nhập thông tin..."
+										name="txtSearch" placeholder="Nhập thông tin..."
 										value="${txtSearch}"> <input type="hidden"
 										class="form-control" id="pages" name="pages"
 										value="${soTrangHienTai}">
@@ -497,7 +496,7 @@
 								<div class="space-200"></div>
 								<div class="pull-left col-6">
 									<p>
-										<strong><c:out value="${listDauSach.size() }"></c:out></strong>
+										<strong><c:out value="${listMuonTraSach.size() }"></c:out></strong>
 										of <strong><c:out value="${total }"></c:out></strong> cuốn
 										sách được tìm thấy
 									</p>
@@ -514,10 +513,8 @@
 													class="form-control" onchange="this.form.submit()">
 													<option value="AZ">A-Z</option>
 													<option value="ZA">Z-A</option>
-													<option value="NgayMuon">Ngày Mượn</option>
-													<option value="NgayTra">Ngày Trả</option>
-													<option value="TrangThai">Trạng Thái</option>
-													<option value="SoLuong">Số Lượng</option>
+													<option value="TienDatCoc">Tiền Đặt Cọc</option>
+													<option value="GhiChu">Ghi Chú</option>
 												</select>
 											</div>
 										</div>
@@ -561,9 +558,9 @@
 															<td style="word-wrap: break-word;"><c:out
 																	value="${muonTraSach.getGhiChu()}" /></td>
 															<td><a class="btn btn-warning pull-left"
-																href="/QuanLyThuVien/MuonTraSachQuanLy/edit?maMuonSach=<c:out value='${muonTraSach.getMaMuonSach()}' />">Sửa</a>
+																href="/QuanLyThuVien/MuonTraSachQuanLy/edit?maMuonSach=<c:out value='${muonTraSach.getMaMuonSach()}' />&pages=<c:out value="${soTrangHienTai}" />">Sửa</a>
 																&nbsp;&nbsp;&nbsp;&nbsp; <a class="btn btn-danger"
-																href="/QuanLyThuVien/MuonTraSachQuanLy/delete?maMuonSach=<c:out value='${muonTraSach.getMaMuonSach()}' />">Xóa</a>
+																href="/QuanLyThuVien/MuonTraSachQuanLy/delete?maMuonSach=<c:out value='${muonTraSach.getMaMuonSach()}' />&pages=<c:out value="${soTrangHienTai}" />">Thêm</a>
 															</td>
 														</tr>
 													</c:forEach>
@@ -581,28 +578,28 @@
 														class="page-link">First</a></li>
 													<c:if test="${soTrangHienTai >=2 }">
 														<li class="page-item prev"><a
-															href="/QuanLyThuVien/MuonTraSachQuanLy?pages=<c:out value='${soTrangHienTai-1}'/>"
+															href="/QuanLyThuVien/MuonTraSachQuanLy?pages=<c:out value='${soTrangHienTai-1}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 															class="page-link">Previous</a></li>
 													</c:if>
 													<c:forEach var="i" begin="1" end="${soTrang}" step="1">
 														<c:if test="${soTrangHienTai == i }">
 															<li class="page-item active"><a
-																href="/QuanLyThuVien/MuonTraSachQuanLy?pages=<c:out value='${i}'/>"
+																href="/QuanLyThuVien/MuonTraSachQuanLy?pages=<c:out value='${i}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 																class="page-link"><c:out value="${i}"></c:out></a></li>
 														</c:if>
 														<c:if test="${soTrangHienTai != i }">
 															<li class="page-item "><a
-																href="/QuanLyThuVien/MuonTraSachQuanLy?pages=<c:out value='${i}'/>"
+																href="/QuanLyThuVien/MuonTraSachQuanLy?pages=<c:out value='${i}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 																class="page-link"><c:out value="${i}"></c:out></a></li>
 														</c:if>
 													</c:forEach>
 													<c:if test="${soTrangHienTai < soTrang }">
 														<li class="page-item next"><a
-															href="/QuanLyThuVien/MuonTraSachQuanLy?pages=<c:out value='${soTrangHienTai+1}'/>"
+															href="/QuanLyThuVien/MuonTraSachQuanLy?pages=<c:out value='${soTrangHienTai+1}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 															class="page-link">Next</a></li>
 													</c:if>
 													<li class="page-item last"><a
-														href="/QuanLyThuVien/MuonTraSachQuanLy?pages=<c:out value='${soTrang}'/>"
+														href="/QuanLyThuVien/MuonTraSachQuanLy?pages=<c:out value='${soTrang}'/>&txtSearch=<c:out value='${txtSearch}'/>&selectSort=<c:out value='${selectSort}'/>"
 														class="page-link">Last</a></li>
 												</ul>
 											</div>

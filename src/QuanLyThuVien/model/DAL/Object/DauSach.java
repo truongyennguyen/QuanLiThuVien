@@ -27,6 +27,7 @@ public class DauSach {
 	private int gia;
 	private InputStream filePDF;
 	private Blob filePDFBlob;
+	private String loaiSach;
 
 	/**
 	 * Phá»¥c vá»¥ cho viá»‡c xÃ³a
@@ -197,5 +198,13 @@ public class DauSach {
 
 	public DauSach() {
 		this.namXuatBan = new Date(0);
+	}
+
+	public String getLoaiSach() {
+		return loaiSach;
+	}
+
+	public void setLoaiSach(String loaiSach) {
+		this.loaiSach = loaiSach;
 	}
 }

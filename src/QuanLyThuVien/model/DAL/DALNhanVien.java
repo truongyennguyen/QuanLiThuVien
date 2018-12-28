@@ -10,7 +10,7 @@ import QuanLyThuVien.model.DAL.Object.NhanVien;
 import QuanLyThuVien.model.DAL.Object.NhanVien;
 import QuanLyThuVien.model.DAL.Object.PhieuPhat;
 
-public class DALNhanVien extends ConnectDatabase implements I_DAL<NhanVien>{
+public class DALNhanVien extends ConnectDatabase implements I_DAL<NhanVien> {
 
 	public DALNhanVien(String jdbcURL) throws SQLException {
 		super(jdbcURL);
@@ -116,55 +116,58 @@ public class DALNhanVien extends ConnectDatabase implements I_DAL<NhanVien>{
 		closeConnection();
 		return nhanVien;
 	}
-	public List<NhanVien> getAllPhanTrang(int minRes, int maxRes, int maNhanVien, String sort, String search)
+
+	public List<NhanVien> getAllPhanTrang(int minRes, int maxRes, String sort, String search)
 			throws SQLException, ClassNotFoundException {
 		openConnection();
 		List<NhanVien> NhanViens = new ArrayList<>();
-		String sqlExec = "EXEC spLayDauSachPhanTrang ?,?,?,?,?";
+
+		String sqlExec = "EXEC spLayNhanVienPhanTrang ?,?,?,?";
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
+		
 		statement.setInt(1, minRes);
 		statement.setInt(2, maxRes);
-		statement.setInt(3, maNhanVien);
-		statement.setString(4, sort);
-		statement.setString(5, search);
+		statement.setString(3, sort);
+		statement.setString(4, search);
 
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
+
 		ResultSet res = statement.executeQuery();
 
 		while (res.next()) {
 			NhanVien nhanVien = new NhanVien();
+
 			nhanVien.setMaNhanVien(res.getInt(1));
 			nhanVien.setHoVaTen(res.getString(2));
 			nhanVien.setEmail(res.getString(3));
 			nhanVien.setSoDienThoai(res.getString(4));
 			nhanVien.setNgaySinh(res.getDate(5));
 			nhanVien.setMaTaiKhoan(res.getInt(6));
+
 			NhanViens.add(nhanVien);
 		}
-//		closeConnection();
+		closeConnection();
 		return NhanViens;
 	}
-	public int getSoLuongPhanTu(int maNhanVien, String search) throws SQLException, ClassNotFoundException {
+
+	public int getSoLuongPhanTu(String search) throws SQLException, ClassNotFoundException {
 		openConnection();
-		String sqlExec = "EXEC spLayNhanVienPhanTrangCount ?,?";
+		String sqlExec = "EXEC spLayNhanVienPhanTrangCount ?";
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sqlExec);
 		statement.setEscapeProcessing(true);
 		statement.setQueryTimeout(15);
 
-		statement.setInt(1, maNhanVien);
-		statement.setString(2, search);
+		statement.setString(1, search);
 
 		int kq = 0;
 		ResultSet res = statement.executeQuery();
 		if (res.next()) {
-
 			kq = res.getInt(1);
 		}
-		// Because load image very time-consuming --> Don't close connect to DB
-		// closeConnection();
+		closeConnection();
 		return kq;
 	}
 

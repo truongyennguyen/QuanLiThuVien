@@ -4,21 +4,27 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import QuanLyThuVien.model.DAL.DALPhieuPhat;
+import QuanLyThuVien.model.DAL.Object.DauSach;
 import QuanLyThuVien.model.DAL.Object.PhieuPhat;
 
+@WebServlet(name = "PhieuPhatQuanLy", urlPatterns = { "/PhieuPhatQuanLy", "/PhieuPhatQuanLy/delete",
+		"/PhieuPhatQuanLy/list", "/PhieuPhatQuanLy/insert", "/PhieuPhatQuanLy/update", "/PhieuPhatQuanLy/edit" })
 public class BLLPhieuPhat extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final int soDongTrenMotTrang = 6;
 	private DALPhieuPhat dal_phieuPhat;
 
 	public void init() {
@@ -62,20 +68,28 @@ public class BLLPhieuPhat extends HttpServlet {
 		} catch (SQLException ex) {
 			throw new ServletException(ex);
 		}
-}
+	}
 
-	private void editPhieuPhat(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+	private void editPhieuPhat(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-		int code = Integer.parseInt(request.getParameter("IDPhieuPhat"));
+		int code = Integer.parseInt(request.getParameter("idPhieuPhat"));
+
+		int pages = 0;
+		if (request.getParameter("pages") != null) {
+			pages = (int) Integer.parseInt(request.getParameter("pages"));
+		} else {
+			pages = 1;
+		}
 
 		try {
 			PhieuPhat phieuPhat = new PhieuPhat();
 			phieuPhat = dal_phieuPhat.GetOne(code);
 			request.setAttribute("phieuPhatIU", phieuPhat);
-			request.getRequestDispatcher("/PhieuPhatQuanLy").forward(request, response);
-			;
+			request.getRequestDispatcher("/PhieuPhatQuanLy" + "?pages=" + pages).forward(request, response);
+
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -83,9 +97,12 @@ public class BLLPhieuPhat extends HttpServlet {
 
 	private void listPhieuPhat(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
+
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
+
 		List<PhieuPhat> listPhieuPhat = new ArrayList<PhieuPhat>();
+
 		int pages = 0, minRes = 0, maxRes = 0, total = 0;
 		if (request.getParameter("pages") != null) {
 			pages = (int) Integer.parseInt(request.getParameter("pages"));
@@ -101,29 +118,31 @@ public class BLLPhieuPhat extends HttpServlet {
 			sort = request.getParameter("selectSort");
 		}
 		try {
-			total = dal_phieuPhat.getSoLuongPhanTu(0, search);
+			total = dal_phieuPhat.getSoLuongPhanTu(search);
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		}
-		if (total <= 6) {
+		if (total <= soDongTrenMotTrang) {
 			minRes = 1;
 			maxRes = total;
 		} else {
-			minRes = (pages - 1) * 6 + 1;
-			maxRes = minRes + 6 - 1;
+			minRes = (pages - 1) * soDongTrenMotTrang + 1;
+			maxRes = minRes + soDongTrenMotTrang - 1;
 		}
 
 		int soTrang = 0;
-		if (total % 6 == 0) {
-			soTrang = (int) (total / 6);
+		if (total % soDongTrenMotTrang == 0) {
+			soTrang = (int) (total / soDongTrenMotTrang);
 		} else {
-			soTrang = (int) (total / 6) + 1;
+			soTrang = (int) (total / soDongTrenMotTrang) + 1;
 		}
 
 		int maxCode = 0;
+
+		LocalDate toDate = LocalDate.now();
 		try {
 			maxCode = dal_phieuPhat.maxCode("phieuPhat");
-			listPhieuPhat = dal_phieuPhat.getAllPhanTrang(minRes, maxRes, 0, sort, search);
+			listPhieuPhat = dal_phieuPhat.getAllPhanTrang(minRes, maxRes, sort, search);
 			request.setAttribute("maxCode", maxCode);
 			request.setAttribute("txtSearch", search);
 			request.setAttribute("selectSort", sort);
@@ -131,6 +150,7 @@ public class BLLPhieuPhat extends HttpServlet {
 			request.setAttribute("total", total);
 			request.setAttribute("soTrangHienTai", pages);
 			request.setAttribute("listPhieuPhat", listPhieuPhat);
+			request.setAttribute("toDate", toDate);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("PhieuPhatQuanLy.jsp");
 			dispatcher.forward(request, response);
 		} catch (ClassNotFoundException e) {
@@ -139,7 +159,7 @@ public class BLLPhieuPhat extends HttpServlet {
 	}
 
 	private void updatePhieuPhat(HttpServletRequest request, HttpServletResponse response)
-	throws SQLException, IOException {
+			throws SQLException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
@@ -156,10 +176,19 @@ public class BLLPhieuPhat extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		record.setTienPhat(Integer.parseInt(request.getParameter("txtTienPhat")));
+		record.setTienPhat(Integer.parseInt(request.getParameter("numberTienPhat")));
+
+		int pages = 0;
+		if (request.getParameter("pages") != null) {
+			pages = (int) Integer.parseInt(request.getParameter("pages"));
+		} else {
+			pages = 1;
+		}
+
 		try {
+			
 			dal_phieuPhat.Update(record);
-			response.sendRedirect("/QuanLyThuVien/PhieuPhatQuanLy");
+			response.sendRedirect("/QuanLyThuVien/PhieuPhatQuanLy" + "?pages=" + pages);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -167,15 +196,40 @@ public class BLLPhieuPhat extends HttpServlet {
 
 	private void deletePhieuPhat(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
-		int code = Integer.parseInt(request.getParameter("maPhieuPhat"));
+		int code = Integer.parseInt(request.getParameter("idPhieuPhat"));
 
 		try {
 			dal_phieuPhat.Delete(code);
-			response.sendRedirect("/QuanLyThuVien/PhieuPhatQuanLy");
+
+			int pages = 0;
+			if (request.getParameter("pages") != null) {
+				pages = (int) Integer.parseInt(request.getParameter("pages"));
+			} else {
+				pages = 1;
+			}
+
+			int total = 0;
+			try {
+				total = dal_phieuPhat.getSoLuongPhanTu("default");
+			} catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			}
+
+			int soTrang = 0;
+			if (total % soDongTrenMotTrang == 0) {
+				soTrang = (int) (total / soDongTrenMotTrang);
+			} else {
+				soTrang = (int) (total / soDongTrenMotTrang) + 1;
+			}
+
+			if (pages > soTrang)
+				pages = soTrang;
+
+			response.sendRedirect("/QuanLyThuVien/PhieuPhatQuanLy" + "?pages=" + pages);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	private void insertPhieuPhat(HttpServletRequest request, HttpServletResponse response)
@@ -196,13 +250,28 @@ public class BLLPhieuPhat extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		record.setTienPhat(Integer.parseInt(request.getParameter("txtTienPhat")));
+		record.setTienPhat(Integer.parseInt(request.getParameter("numberTienPhat")));
 
 		try {
 			dal_phieuPhat.Add(record);
-			response.sendRedirect("/QuanLyThuVien/PhieuPhatQuanLy");
+
+			int total = 0;
+			try {
+				total = dal_phieuPhat.getSoLuongPhanTu("default");
+			} catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			}
+
+			int soTrang = 0;
+			if (total % soDongTrenMotTrang == 0) {
+				soTrang = (int) (total / soDongTrenMotTrang);
+			} else {
+				soTrang = (int) (total / soDongTrenMotTrang) + 1;
+			}
+
+			response.sendRedirect("/QuanLyThuVien/PhieuPhatQuanLy" + "?pages=" + soTrang);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
-	}
+}

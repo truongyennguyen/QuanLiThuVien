@@ -17,16 +17,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import QuanLyThuVien.model.DAL.DALNhanVien;
+import QuanLyThuVien.model.DAL.Object.DauSach;
 import QuanLyThuVien.model.DAL.Object.NhanVien;
 import QuanLyThuVien.model.DAL.Object.NhanVien;
-@WebServlet(name = "NhanVienQuanLy", urlPatterns = { "/NhanVienQuanLy", "/NhanVienQuanLy/delete", "/NhanVienQuanLy/list",
-		"/NhanVienQuanLy/insert", "/NhanVienQuanLy/update", "/NhanVienQuanLy/edit", "/NhanVienDanhSach",
-		"/NhanVienNoiDung" })
+
+@WebServlet(name = "NhanVienQuanLy", urlPatterns = { "/NhanVienQuanLy", "/NhanVienQuanLy/delete",
+		"/NhanVienQuanLy/list", "/NhanVienQuanLy/insert", "/NhanVienQuanLy/update", "/NhanVienQuanLy/edit",
+		"/NhanVienDanhSach", "/NhanVienNoiDung" })
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
 		maxFileSize = 1024 * 1024 * 10, // 10MB
 		maxRequestSize = 1024 * 1024 * 50) // 50MB
-public class BLLNhanVien extends HttpServlet  {
+public class BLLNhanVien extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final int soDongTrenMotTrang = 6;
 	private DALNhanVien dal_nhanVien;
 
 	public void init() {
@@ -70,31 +73,40 @@ public class BLLNhanVien extends HttpServlet  {
 		} catch (SQLException ex) {
 			throw new ServletException(ex);
 		}
-}
+	}
 
-	private void editNhanVien(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+	private void editNhanVien(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		int code = Integer.parseInt(request.getParameter("maNhanVien"));
+
+		int pages = 0;
+		if (request.getParameter("pages") != null) {
+			pages = (int) Integer.parseInt(request.getParameter("pages"));
+		} else {
+			pages = 1;
+		}
 
 		try {
 			NhanVien nhanVien = new NhanVien();
 			nhanVien = dal_nhanVien.GetOne(code);
 			request.setAttribute("nhanVienIU", nhanVien);
-			request.getRequestDispatcher("/NhanVien").forward(request, response);
+			request.getRequestDispatcher("/NhanVienQuanLy" + "?pages=" + pages).forward(request, response);
 			;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 
-		
 	}
 
 	private void listNhanVien(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
+
 		List<NhanVien> listNhanVien = new ArrayList<NhanVien>();
+
 		int pages = 0, minRes = 0, maxRes = 0, total = 0;
 		if (request.getParameter("pages") != null) {
 			pages = (int) Integer.parseInt(request.getParameter("pages"));
@@ -110,29 +122,32 @@ public class BLLNhanVien extends HttpServlet  {
 			sort = request.getParameter("selectSort");
 		}
 		try {
-			total = dal_nhanVien.getSoLuongPhanTu(0, search);
+			total = dal_nhanVien.getSoLuongPhanTu(search);
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		}
-		if (total <= 6) {
+		if (total <= soDongTrenMotTrang) {
 			minRes = 1;
 			maxRes = total;
 		} else {
-			minRes = (pages - 1) * 6 + 1;
-			maxRes = minRes + 6 - 1;
+			minRes = (pages - 1) * soDongTrenMotTrang + 1;
+			maxRes = minRes + soDongTrenMotTrang - 1;
 		}
 
 		int soTrang = 0;
-		if (total % 6 == 0) {
-			soTrang = (int) (total / 6);
+		if (total % soDongTrenMotTrang == 0) {
+			soTrang = (int) (total / soDongTrenMotTrang);
 		} else {
-			soTrang = (int) (total / 6) + 1;
+			soTrang = (int) (total / soDongTrenMotTrang) + 1;
 		}
 
 		int maxCode = 0;
 		try {
 			maxCode = dal_nhanVien.maxCode("NhanVien");
-			listNhanVien = dal_nhanVien.getAllPhanTrang(minRes, maxRes, 0, sort, search);
+			listNhanVien = dal_nhanVien.getAllPhanTrang(minRes, maxRes, sort, search);
+			
+			System.out.println(total + minRes + maxRes + sort + search);
+		
 			request.setAttribute("maxCode", maxCode);
 			request.setAttribute("txtSearch", search);
 			request.setAttribute("selectSort", sort);
@@ -140,7 +155,8 @@ public class BLLNhanVien extends HttpServlet  {
 			request.setAttribute("total", total);
 			request.setAttribute("soTrangHienTai", pages);
 			request.setAttribute("listNhanVien", listNhanVien);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("NhanVien.jsp");
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("NhanVienQuanLy.jsp");
 			dispatcher.forward(request, response);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -169,29 +185,61 @@ public class BLLNhanVien extends HttpServlet  {
 		}
 		record.setMaTaiKhoan(Integer.parseInt(request.getParameter("txtMaTaiKhoan")));
 
+		int pages = 0;
+		if (request.getParameter("pages") != null) {
+			pages = (int) Integer.parseInt(request.getParameter("pages"));
+		} else {
+			pages = 1;
+		}
+
 		try {
 			dal_nhanVien.Update(record);
-			response.sendRedirect("/QuanLyThuVien/NhanVienQuanLy");
+			response.sendRedirect("/QuanLyThuVien/NhanVienQuanLy" + "?pages=" + pages);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	private void deleteNhanVien(HttpServletRequest request, HttpServletResponse response) 
+	private void deleteNhanVien(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
 		int code = Integer.parseInt(request.getParameter("maNhanVien"));
 
 		try {
 			dal_nhanVien.Delete(code);
-			response.sendRedirect("/QuanLyThuVien/NhanVienQuanLy");
+
+			int pages = 0;
+			if (request.getParameter("pages") != null) {
+				pages = (int) Integer.parseInt(request.getParameter("pages"));
+			} else {
+				pages = 1;
+			}
+
+			int total = 0;
+			try {
+				total = dal_nhanVien.getSoLuongPhanTu("default");
+			} catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			}
+
+			int soTrang = 0;
+			if (total % soDongTrenMotTrang == 0) {
+				soTrang = (int) (total / soDongTrenMotTrang);
+			} else {
+				soTrang = (int) (total / soDongTrenMotTrang) + 1;
+			}
+
+			if (pages > soTrang)
+				pages = soTrang;
+
+			response.sendRedirect("/QuanLyThuVien/NhanVienQuanLy" + "?pages=" + pages);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 
 	}
 
-	private void insertNhanVien(HttpServletRequest request, HttpServletResponse response) 
+	private void insertNhanVien(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
@@ -213,9 +261,25 @@ public class BLLNhanVien extends HttpServlet  {
 		record.setMaTaiKhoan(Integer.parseInt(request.getParameter("txtMaTaiKhoan")));
 		try {
 			dal_nhanVien.Add(record);
-			response.sendRedirect("/QuanLyThuVien/NhanVienQuanLy");
+
+			// Sau khi insert sẽ về pages cuối
+			int total = 0;
+			try {
+				total = dal_nhanVien.getSoLuongPhanTu("default");
+			} catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			}
+
+			int soTrang = 0;
+			if (total % soDongTrenMotTrang == 0) {
+				soTrang = (int) (total / soDongTrenMotTrang);
+			} else {
+				soTrang = (int) (total / soDongTrenMotTrang) + 1;
+			}
+
+			response.sendRedirect("/QuanLyThuVien/NhanVienQuanLy" + "?pages=" + soTrang);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
-	}
+}
