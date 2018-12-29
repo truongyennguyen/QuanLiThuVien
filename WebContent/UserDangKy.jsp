@@ -154,8 +154,7 @@
 										<strong>Đăng kí thẻ thư viện</strong>
 									</div>
 									<div class="card-body card-block">
-										<form action="" method="post" enctype="multipart/form-data"
-											class="form-horizontal">
+										<form class="form-horizontal">
 											<div class="row form-group">
 												<div class="col col-md-3">
 													<label for="fullname_input" class=" form-control-label">Họ
@@ -164,6 +163,7 @@
 												<div class="col-12 col-md-9">
 													<input type="text" id="fullname" name="fullname_input"
 														placeholder="Họ và tên" class="form-control">
+														<span id="nameerror"></span>
 												</div>
 											</div>
 											<div class="row form-group">
@@ -172,7 +172,7 @@
 														tính</label>
 												</div>
 												<div class="col-12 col-md-9">
-													<select name="sex_input">
+													<select name="sex_input" id="sex">
 														<option value="Nam">Nam</option>
 														<option value="Nữ">Nữ</option>
 													</select>
@@ -190,12 +190,12 @@
 											</div>
 											<div class="row form-group">
 												<div class="col col-md-3">
-													<label for="address_input" class=" form-control-label">Ghi
-														chú</label>
+													<label for="address_input" class=" form-control-label">Địa chỉ</label>
 												</div>
 												<div class="col-12 col-md-9">
 													<textarea name="address_input" id="address" rows="9"
 														placeholder="Địa chỉ" class="form-control"></textarea>
+														<span id="addresserror"></span>
 												</div>
 											</div>
 											<div class="row form-group">
@@ -205,10 +205,22 @@
 												<div class="col-12 col-md-9">
 													<input type="email" id="mail" name="mail_input"
 														class="form-control" placeholder="Mail">
+														<span id="emailerror"></span>
+												</div>
+												
+											</div>
+											<div class="row form-group">
+												<div class="col col-md-3">
+													<label for="phone_input" class=" form-control-label">Số diên thoại</label>
+												</div>
+												<div class="col-12 col-md-9">
+													<input type="text" id="phone" name="phone_input"
+														class="form-control" placeholder="Mail">
+														<span id="phoneerror"></span>
 												</div>
 											</div>
 											<div class="card-footer">
-												<button type="submit" class="btn btn-primary btn-sm">
+												<button type="button" class="btn btn-primary btn-sm" id="register">
 													<i class="fa fa-check"></i> Đăng kí
 												</button>
 											</div>
@@ -253,6 +265,100 @@
 
 	<!-- Main JS-->
 	<script src="js/main_admin.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#nameerror").hide();
+			$("#phoneerror").hide();
+			$("#adresserror").hide();
+			$("#emailerror").hide();
+			
+			var name_error = false;
+			var email_error = false;
+			var phone_error = false;
+			var address_error = false;
+			
+			function checkName(){
+				if($("#fullname").val().length == 0){
+					$("#nameerror").html("Vui lòng nhập vào họ tên");
+					name_error = true;
+					$("#nameerror").show(); 
+				}
+				else{
+					name_error = false;
+					$("#nameerror").hide(); 
+				}
+					
+			}
+			
+			function checkAddress(){
+				if($("#address").val().length == 0){
+					$("#addresserror").html("Vui lòng nhập vào địa chỉ");
+					address_error = true;
+					$("#addresserror").show(); 
+				}
+				else{
+					address_error = false;
+					$("#addresserror").hide();
+				}		
+			}
+			
+			function checkPhone(){
+			    var intRegex = /[0-9 -()+]+$/;
+				if($("#phone").val().length == 0 || !intRegex.test($("#phone").val())){
+					$("#phoneerror").html("Vui lòng nhập vào số điện thoại");
+					phone_error = true;
+					$("#phoneerror").show(); 
+				}
+				else{
+					phone_error = false;
+					$("#phoneerror").hide();
+				}		
+			}
+			
+			function checkEmail(){
+				if($("#email").val().length == 0){
+					$("#addresserror").html("Vui lòng nhập vào email");
+					email_error = true;
+					$("#emailerror").show(); 
+				}
+				else{
+					email_error = false;
+					$("#emailerror").hide();
+				}		
+			}
+			
+			$("#register").click(function(){
+				checkName();
+				checkEmail();
+				checkAddress();
+				checkPhone();
+				
+				if(!email_error && !phone_error && !name_error && !address_error){
+					var name = $("#fullname").val();
+					var address = $("#address").val();
+					var birthdate = $("#birthdate").val();
+					var phone = $("#phone").val();
+					var email = $("#email").val();
+					var sex = $("#sex").text();
+					$.post("DangKy", {name : name, sex : sex, birthdate : birthdate,  address : address, phone : phone, email : email}, function(result){
+						if(result == "errorEmail"){
+							$("#addresserror").html("Email đã được sử dụng");
+							email_error = true;
+							$("#emailerror").show(); 
+						}
+						else{
+							email_error = false;
+							$("#emailerror").hide(); 
+							alert("Đăng kí thành công");
+							location.reload();
+						}
+					});
+				}
+			});
+			
+		});
+	
+	</script>
 
 </body>
 

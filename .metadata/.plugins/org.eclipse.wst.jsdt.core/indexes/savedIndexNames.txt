@@ -1,6 +1,0 @@
-INDEX VERSION 1.4+C:\Users\Admin\Documents\WebSach\QuanLyThuVien\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-2834045651.index
-4031779750.index
-4069490811.index
-1639228810.index
-2022858932.index

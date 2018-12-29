@@ -23,4 +23,44 @@
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
+	<servlet>
+  	<servlet-name>DangNhap</servlet-name>
+  	<display-name>DangNhap</display-name>
+  	<description></description>
+  	<servlet-class>QuanLyThuVien.Controller.BLL.DangNhap</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>DangXuat</servlet-name>
+  	<display-name>DangXuat</display-name>
+  	<description></description>
+  	<servlet-class>QuanLyThuVien.Controller.BLL.DangXuat</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>DoiMatKhau</servlet-name>
+  	<display-name>DoiMatKhau</display-name>
+  	<description></description>
+  	<servlet-class>QuanLyThuVien.Controller.BLL.DoiMatKhau</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>QuenMatKhau</servlet-name>
+  	<display-name>QuenMatKhau</display-name>
+  	<description></description>
+  	<servlet-class>QuanLyThuVien.Controller.BLL.QuenMatKhau</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>DangNhap</servlet-name>
+  	<url-pattern>/DangNhap</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>DangXuat</servlet-name>
+  	<url-pattern>/DangXuat</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>DoiMatKhau</servlet-name>
+  	<url-pattern>/DoiMatKhau</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>QuenMatKhau</servlet-name>
+  	<url-pattern>/QuenMatKhau</url-pattern>
+  </servlet-mapping>
 </web-app>
