@@ -56,7 +56,11 @@ public class DangNhap extends HttpServlet {
 
 			for(TaiKhoan tk : listTK){
 				//response.getWriter().write(tk.getSoDienThoai() + ":" + tk.getSoDienThoai().length() + "; " + tk.getMatKhau() + ":" + tk.getMatKhau().length() + " ");
+<<<<<<< HEAD
 				if(name.equals(tk.getMaThe()) && password.equals(tk.getMatKhau())){
+=======
+				if(name.equals(tk.getSoDienThoai()) && password.equals(tk.getMatKhau())){
+>>>>>>> 687a9df51bfd78b469e65a8afb97620a19bb2dba
 					tkDN = tk;
 					break;
 				}

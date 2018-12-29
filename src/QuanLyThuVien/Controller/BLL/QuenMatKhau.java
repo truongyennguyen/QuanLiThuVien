@@ -116,7 +116,11 @@ public class QuenMatKhau extends HttpServlet {
 		};
 
 		Session session = Session.getInstance(properties, auth);
+<<<<<<< HEAD
 		//session.setDebug(true);
+=======
+		session.setDebug(true);
+>>>>>>> 687a9df51bfd78b469e65a8afb97620a19bb2dba
 
 		Message msg = new MimeMessage(session);
 
