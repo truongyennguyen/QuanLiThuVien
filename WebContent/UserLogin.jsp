@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Thông báo</title>
+    <title>Đăng nhập</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Place favicon.ico in the root directory -->
@@ -71,7 +71,7 @@
                                 <a href="books.html">Sách</a>
                             </li>
                             <li class="active">
-                                <a href="login.html">Đăng nhập</a>
+                                <a href="UserLogin.jsp">Đăng nhập</a>
                             </li>
                         </ul>
                     </div>
@@ -101,12 +101,13 @@
                 <div class="row wow fadeInUp" data-wow-delay="0.5s">
                     <div class="row">
                         <div class="col-xs-12 col-md-8 col-md-offset-4">
-                            <form action="#">
+                            <form>
                                 <div class="row">
                                     <div class="col-xs-12 col-md-7">
                                         <div class="form-group">
                                             <label for="name">Tên đăng nhập</label>
-                                            <input type="text" id="username" class="form-control bg-none" placeholder="Tên đăng nhập...">
+                                            <input type="text" id="name" class="form-control bg-none" placeholder="Tên đăng nhập...">
+                                            <span id="errorName" style="color:red;"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -116,6 +117,7 @@
                                         <div class="form-group">
                                             <label for="password">Password</label>
                                             <input type="password" id="password" class="form-control bg-none" placeholder="Password...">
+                                            <span id="errorPassword" style="color: red;"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -123,7 +125,7 @@
                                 <div class="space-20"></div>
                                 <div class="row">
                                  <div class="col-xs-12 col-sm-6">
-                                    <button type="submit" class="btn btn-default">Đăng nhập<i class="fa fa-long-arrow-right"></i></button>
+                                    <button id = "btnDN" type="button" class="btn btn-default">Đăng nhập<i class="fa fa-long-arrow-right"></i></button>
                                 </div>
                             </div>
 
@@ -150,6 +152,61 @@
 <script src="js/plugins.js"></script>
 <!-- Active-JS -->
 <script src="js/main.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#errorName").hide();
+		$("#errorPassword").hide();
+		
+		$("#name").focusout(function() {
+			if($("#name").val().length <= 0){
+				$("#errorName").html("Bạn chưa nhập tên đăng nhập");
+				$("#errorName").show();
+			}else{
+				$("#errorName").hide();
+			}	
+		});
+		
+		$("#password").focusout(function() {
+			if($("#password").val().length <= 0){
+				$("#errorPassword").html("Bạn chưa nhập mật khẩu");
+				$("#errorPassword").show();
+			}else{
+				$("#errorPassword").hide();
+			}	
+		});
+		
+		
+		$('#btnDN').click(function(){			
+			if($("#name").val().length > 0 && $("#password").val().length > 0){
+				var name = $('#name').val();
+				var password = $('#password').val();
+				$.post("DangNhap", {name:name, password:password}, function(result){
+					if(result == "False"){
+						alert("Tên đăng nhập hoặc mật khẩu không đúng");
+					}else{
+						$(location).attr("href", "index.jsp");
+					}
+					
+				});
+			}else {
+				if($("#password").val().length <= 0){
+					$("#errorPassword").html("Bạn chưa nhập mật khẩu");
+					$("#errorPassword").show();
+				}else{
+					$("#errorPassword").hide();
+				}
+				if($("#name").val().length <= 0){
+					$("#errorName").html("Bạn chưa nhập tên đăng nhập");
+					$("#errorName").show();
+				}else{
+					$("#errorName").hide();
+				}
+			}
+			
+		});
+	});
+	
+</script>
 </body>
 
 </html>

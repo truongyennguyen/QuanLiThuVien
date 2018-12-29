@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Đổi mật khẩu</title>
+    <title>Quên mật khẩu</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Place favicon.ico in the root directory -->
@@ -26,7 +26,6 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
-    <script src="js/jQuery.js"></script>
 </head>
 
 <body data-spy="scroll" data-target="#mainmenu" data-offset="50">
@@ -71,8 +70,11 @@
                             <li>
                                 <a href="books.html">Sách</a>
                             </li>
+                            <li>
+                                <a href="UserLogin.jsp">Đăng nhập</a>
+                            </li>
                             <li class="active">
-                                <a href="login.html">Đăng nhập</a>
+                                <a href="QuenMatKhau.jsp">Quên mật khẩu</a>
                             </li>
                         </ul>
                     </div>
@@ -88,7 +90,7 @@
                 <div class="row wow fadeInUp">
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1 text-center">
                         <div class="jumbotron">
-                            <h1 class="text-white">Đổi mật khẩu</h1>
+                            <h1 class="text-white">Quên mật khẩu</h1>
                         </div>
                         <div class="title-bar white">
                             <ul class="list-inline list-unstyled">
@@ -102,45 +104,32 @@
                 <div class="row wow fadeInUp" data-wow-delay="0.5s">
                     <div class="row">
                         <div class="col-xs-12 col-md-8 col-md-offset-4">
-                            <form action="#" id = "register_form">
-                                <div class="space-20"></div>
+                            <form>
                                 <div class="row">
                                     <div class="col-xs-12 col-md-7">
                                         <div class="form-group">
-                                            <label for="old_password">Nhập mật khẩu cũ</label>
-                                            <input type="password" id="old_password" class="form-control bg-none" placeholder="Old password...">
-                                            <span id="old_password_error" style="color: red"></span>
+                                            <label for="name">Email</label>
+                                            <input type="text" id="email" class="form-control bg-none" placeholder="Email...">
+                                            <span id="errorEmail" style="color:red;"></span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="space-20"></div>
-                                <div class="row">
-                                    <div class="col-xs-12 col-md-7">
-                                        <div class="form-group">
-                                            <label for="new_password">Mật khẩu mới</label>
-                                            <input type="password" id="new_password" class="form-control bg-none" placeholder="New password...">
-                                            <span id="new_password_error" style="color: red"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="space-20"></div>
-                                <div class="row">
-                                    <div class="col-xs-12 col-md-7">
-                                        <div class="form-group">
-                                            <label for="confirm_password">Xác nhận mật khẩu mới</label>
-                                            <input type="password" id="confirm_password" class="form-control bg-none" placeholder="Confirm new password...">
-                                            <span id="confirm_password_error" style="color: red"></span>
-                                        </div>
-                                    </div>
-                                </div>
+								<div class="space-20"></div>
+								<div class="row">
+								</div>
                                 <div class="space-20"></div>
                                 <div class="row">
                                  <div class="col-xs-12 col-sm-6">
-                                    <button id="btnDMK" type="button" class="btn btn-default">Đổi mật khẩu<i class="fa fa-long-arrow-right"></i></button>
+                                    <button id = "btnOK" type="button" class="btn btn-default">Cấp mật khẩu mới<i class="fa fa-long-arrow-right"></i></button>
                                 </div>
                             </div>
-
                         </form>
+                        <div class="space-20"></div>
+                        <div class="space-20"></div>
+                        <div class="space-20"></div>
+                        <div class="space-20"></div>
+                        <div class="space-20"></div>
+                        <div class="space-20"></div>
                     </div>
                 </div>
             </div>
@@ -163,97 +152,53 @@
 <script src="js/plugins.js"></script>
 <!-- Active-JS -->
 <script src="js/main.js"></script>
-<script>
+<script type="text/javascript">
 	$(document).ready(function(){
-		$("#old_password_error").hide();
-		$("#new_password_error").hide();
-		$("#confirm_password_error").hide();
-
+		function validateEmail(email) {
+			  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			  return re.test(email);
+			}
 		
-		var old_password_error = false;
-		var new_password_error = false;
-		var confirm_password_error = false;
-
-
-		$("#old_password").focusout(function() {
-			checkOldPassword();
-		});
-		$("#new_password").focusout(function() {
-			checkNewPassword();
-		});
-		$("#confirm_password").focusout(function() {
-			checkConfirmPassword();
-		});
-
-		function checkOldPassword(){
-			if($("#old_password").val().length <= 0){
-				$("#old_password_error").html("Bạn chưa nhập mật khẩu");
-				old_password_error = true;
-				$("#old_password_error").show();
-			}
-			else{
-				old_password_error = false;
-				$("#old_password_error").hide();
-			}
-		}
-		function checkNewPassword(){
-			if($("#new_password").val().length < 6 || $("#new_password").val().length > 15){
-				$("#new_password_error").html("Password phải có 6-15 kí tự");
-				password_error = true;
-				$("#new_password_error").show();
-			}else if($("#new_password").val().length == 0){
-				$("#new_password_error").html("Vui lòng nhập mật khẩu mới");
-				confirm_password_error = true;
-
-				$("#new_password_error").show();
-			}
-			else{
-				password_error = false;
-				$("#new_password_error").hide();
-			}
-		}
-		function checkConfirmPassword(){
-			if($("#confirm_password").text() != $("#new_password").text()){
-				$("#confirm_password_error").html("Password không giống nhau");
-				confirm_password_error = true;
-
-				$("#confirm_password_error").show();
-			}
-			else if($("#confirm_password").val().length == 0){
-				$("#confirm_password_error").html("Vui lòng nhập xác nhận mật khẩu mới");
-				confirm_password_error = true;
-
-				$("#confirm_password_error").show();
-
-			}
-			else{
-				confirm_password_error = false;
-				$("#confirm_password_error").hide();
-			}
-		}
+		$("#errorEmail").hide();
 		
-		$("#btnDMK").click(function(){
-			checkOldPassword();
-			checkNewPassword();
-			checkConfirmPassword();
-
-			if( old_password_error || new_password_error || confirm_password_error){
-
+		$("#email").focusout(function() {
+			if($("#email").val().length <= 0){
+				$("#errorEmail").html("Bạn chưa nhập địa chỉ email");
+				$("#errorEmail").show();
+			}else{
+				$("#errorEmail").hide();
+			}	
+		});
+		
+		$('#btnOK').click(function(){			
+			if($("#email").val().length > 0){
+				var email = $('#email').val();
+				if(validateEmail(email)){
+					$("#errorEmail").hide();
+					$.post("QuenMatKhau", {email:email}, function(result){
+						if(result == "False"){
+							alert("Địa chỉ email không đúng. Vui lòng nhập đúng địa chỉ email bạn đã đăng kí với thư viện.");
+						}else{
+							alert("Mật khẩu mới đã được gửi vào email của bạn. Vui lòng kiểm tra hộp thư email");
+						}	
+					});
+				}else{
+					$("#errorEmail").html("Địa chỉ email không hợp lệ");
+					$("#errorEmail").show();
+				}
+				
+			}else {
+				if($("#name").val().length <= 0){
+					$("#errorName").html("Bạn chưa nhập địa chỉ email");
+					$("#errorName").show();
+				}else{
+					$("#errorName").hide();
+				}
 			}
-			else{
-				var oldPassword = $("#old_password").val();
-				var newPassword = $("#new_password").val();
-				$.post("DoiMatKhau", {oldPassword : oldPassword, newPassword : newPassword}, function(result){
-					if(result == "success")
-						alert("Đổi mật khẩu thành công");
-					else if(result == "error")
-						alert("Xảy ra lỗi!!!");
-					else 
-						alert("Mật khẩu không đúng");
-				});
-			}
+			
 		});
 	});
+	
 </script>
 </body>
 
