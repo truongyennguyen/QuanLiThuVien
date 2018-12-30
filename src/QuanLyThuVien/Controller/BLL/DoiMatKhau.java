@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import QuanLyThuVien.model.DAL.Object.TaiKhoan;
 /**
  * Servlet implementation class DoiMatKhau
  */
+@WebServlet(name = "DoiMatKhau", urlPatterns = { "/DoiMatKhau" })
 public class DoiMatKhau extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private DALTaiKhoan dal_tk;
@@ -32,7 +34,7 @@ public class DoiMatKhau extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		try {
-			dal_tk = new DALTaiKhoan("jdbc:sqlserver://localhost:1433;databaseName=QuanLyThuVien;user=sa;password=123;");
+			dal_tk = new DALTaiKhoan("jdbc:sqlserver://localhost:1433;databaseName=QuanLyThuVien;user=sa;password=123456;");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

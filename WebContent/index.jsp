@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-	<%@ page isELIgnored="false"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page isELIgnored="false"%>
 <!doctype html>
 <html class="no-js" lang="zxx">
 <head>
@@ -70,52 +70,57 @@
 					<!--Toggle-button-->
 
 					<!--Active User-->
-					<%if(session.getAttribute("tkDN") != null) {%>
-					
+					<%
+						if (session.getAttribute("tkDN") != null) {
+					%>
+
 					<div class="nav navbar-right">
-                        <div class="active-user navbar-left active">
-                            <ul class="list-unstyled">
-                                <li>
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <img src="images/active_user.png" class="img-circle img-thumbnail" alt="library" />
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="UserProfile.jsp"> <span><i class="icofont icofont-user"></i></span> Thông tin cá nhân</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"> <span><i class="icofont icofont-notification"></i></span> Notifications</a>
-                                        </li>
-                                        <li>
-                                            <a href="UserChangePassword.jsp"> <span><i class="icofont icofont-ui-password"></i></span> Đổi mật khẩu</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"> <span><i class="icofont icofont-read-book"></i></span> Sách của tôi</a>
-                                        </li>
-                                        <li>
-                                            <a href="${pageContext.request.contextPath}/DangXuat"> <span><i class="icofont icofont-logout"></i></span> Đăng xuất</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+						<div class="active-user navbar-left active">
+							<ul class="list-unstyled">
+								<li><a href="#" class="dropdown-toggle"
+									data-toggle="dropdown"> <img
+										src="http://localhost:8080/QuanLyThuVien/getAvartar?maTaiKhoan=${tkDN.getMaTaiKhoan() }"
+										class="img-circle img-thumbnail" alt="library" />
+								</a>
+									<ul class="dropdown-menu">
+										<li><a href="UserProfile.jsp"> <span><i
+													class="icofont icofont-user"></i></span> Thông tin cá nhân
+										</a></li>
+										<!-- 	<li><a href="#"> <span><i
+													class="icofont icofont-notification"></i></span> Notifications
+										</a></li> -->
+										<li><a href="UserChangePassword.jsp"> <span><i
+													class="icofont icofont-ui-password"></i></span> Đổi mật khẩu
+										</a></li>
+										<!-- <li><a href="#"> <span><i
+													class="icofont icofont-read-book"></i></span> Sách của tôi
+										</a></li> -->
+										<li><a href="${pageContext.request.contextPath}/DangXuat">
+												<span><i class="icofont icofont-logout"></i></span> Đăng
+												xuất
+										</a></li>
+									</ul></li>
+							</ul>
+						</div>
+					</div>
 					<!--Mainmenu list-->
 					<div class="navbar-right in fade" id="mainmenu">
 						<ul class="nav navbar-nav nav-white text-uppercase">
-							<li class="active"><a href="index.jsp">Trang chủ</a></li>
+							<li class="active"><a href="index">Trang chủ</a></li>
 							<li><a href="#">Giới thiệu</a></li>
 							<li><a href="noitification.jsp">Thông báo</a></li>
 							<li><a href="room.jsp">Phòng đọc</a></li>
 							<li><a href="feedback.jsp">Phản hồi</a></li>
-							<li><a href="books.jsp">Sách</a></li>
+							<li><a href="DauSachDanhSach">Sách</a></li>
 						</ul>
 					</div>
-					<%}else{ %>
+					<%
+						} else {
+					%>
 					<!--Mainmenu list-->
 					<div class="navbar-right in fade" id="mainmenu">
 						<ul class="nav navbar-nav nav-white text-uppercase">
-							<li class="active"><a href="index.jsp">Trang chủ</a></li>
+							<li class="active"><a href="index">Trang chủ</a></li>
 							<li><a href="#">Giới thiệu</a></li>
 							<li><a href="noitification.jsp">Thông báo</a></li>
 							<li><a href="room.jsp">Phòng đọc</a></li>
@@ -125,7 +130,9 @@
 							<li><a href="QuenMatKhau.jsp">Quên mật khẩu</a>
 						</ul>
 					</div>
-					<%} %>
+					<%
+						}
+					%>
 				</div>
 			</nav>
 		</div>
@@ -138,7 +145,11 @@
 				<div class="row wow fadeInUp">
 					<div class="col-xs-12 col-sm-10 col-sm-offset-1 text-center">
 						<div class="jumbotron">
-							<h1 class="text-white">Có hơn 458,948 cuốn sách ở đây</h1>
+							<h1 class="text-white">
+								Có hơn
+								<c:out value="${listDauSach.size() + listCuonSach.size() }"></c:out>
+								cuốn sách ở đây
+							</h1>
 							<p class="text-white">Đến với thư viện đa năng của chúng tôi
 								bạn có thể tận hưởng sự tuyệt vời thời đại mới tha hồ đọc, tải,
 								mượn trực tuyến cùng những cuốn sách mới nhất, hay nhất!!!</p>
@@ -160,17 +171,15 @@
 								<ul class="nav nav-tabs">
 									<li class="active"><a data-toggle="tab" href="#book">Sách</a></li>
 									<li><a data-toggle="tab" href="#author">Tác giả</a></li>
-									<li><a data-toggle="tab" href="#publisher">Nhà xuất
-											bản</a></li>
 								</ul>
 							</div>
 							<div class="panel-body">
 								<div class="tab-content">
 									<div class="tab-pane fade in active" id="book">
-										<form action="#">
+										<form action="DauSachDanhSach" method="get">
 											<div class="input-group">
 												<input type="text" class="form-control"
-													placeholder="Enter book name">
+													placeholder="Enter book name" name="txtSearch">
 												<div class="input-group-btn">
 													<button type="submit" class="btn btn-primary">
 														<i class="icofont icofont-search-alt-2"></i>
@@ -180,23 +189,10 @@
 										</form>
 									</div>
 									<div class="tab-pane fade" id="author">
-										<form action="#">
+										<form action="DauSachDanhSach" method="get">
 											<div class="input-group">
 												<input type="text" class="form-control"
-													placeholder="Enter author name">
-												<div class="input-group-btn">
-													<button type="submit" class="btn btn-primary">
-														<i class="icofont icofont-search-alt-2"></i>
-													</button>
-												</div>
-											</div>
-										</form>
-									</div>
-									<div class="tab-pane fade" id="publisher">
-										<form action="#">
-											<div class="input-group">
-												<input type="text" class="form-control"
-													placeholder="Enter publisher name">
+													placeholder="Enter author name" name="txtSearch">
 												<div class="input-group-btn">
 													<button type="submit" class="btn btn-primary">
 														<i class="icofont icofont-search-alt-2"></i>
@@ -243,12 +239,12 @@
 					<div class="space-60"></div>
 					<div class="my-slider">
 						<ul>
-							<li><img src="images/about-slide/slide1.jpg" alt="library"></li>
-							<li><img src="images/about-slide/slide2.jpg" alt="library"></li>
-							<li><img src="images/about-slide/slide3.jpg" alt="library"></li>
-							<li><img src="images/about-slide/slide4.jpg" alt="library"></li>
-							<li><img src="images/about-slide/slide5.jpg" alt="library"></li>
-							<li><img src="images/about-slide/slide6.jpg" alt="library"></li>
+							<c:forEach var="dauSach" items="${listDauSach }" end="5">
+								<li><img
+									src="http://localhost:8080/QuanLyThuVien/getAnhTacGia?maDauSach=${dauSach.getMaDauSach() }"
+									alt="library"></li>
+							</c:forEach>
+
 						</ul>
 					</div>
 					<div class="mama"></div>
@@ -324,145 +320,37 @@
 					<p>Cùng tìm hiểu về sách nhé!!!</p>
 				</div>
 			</div>
-			<div class="space-60"></div>
+			<div class="space-120"></div>
 			<div class="row text-center">
-				<div class="col-xs-12 col-sm-6 col-md-3 wow fadeInLeft"
-					data-wow-delay="0.1s">
-					<div class="category-item well blue text-cetnr">
-						<div class="category_icon">
-							<i class="icofont icofont-music"></i>
+				<c:forEach var="theLoai" items="${listTheLoai }" end="7">
+					<div class="col-xs-12 col-sm-6 col-md-3 wow fadeInLeft"
+						data-wow-delay="0.1s">
+						<div class="category-item well green text-cetnr">
+							<div class="category_icon">
+								<i class="icofont icofont-music"></i>
+							</div>
+							<div class="space-20"></div>
+							<div class="title-bar">
+								<ul class="list-inline list-unstyled">
+									<li><i class="icofont icofont-square"></i></li>
+								</ul>
+							</div>
+							<div class="space-20"></div>
+							<a href="DauSachDanhSach?maTheLoai=${theLoai.getMaTheLoai() }"><c:out
+									value="${theLoai.getTenTheLoai() }"></c:out></a>
 						</div>
-						<div class="space-20"></div>
-						<div class="title-bar">
-							<ul class="list-inline list-unstyled">
-								<li><i class="icofont icofont-square"></i></li>
-							</ul>
-						</div>
-						<div class="space-20"></div>
-						<a href="b_amNhacHoiHoa.jsp">Âm nhạc và hội họa</a>
 					</div>
-				</div>
-				<div class="col-xs-12 col-sm-6 col-md-3 wow fadeInLeft"
-					data-wow-delay="0.2s">
-					<div class="category-item well red text-cetnr">
-						<div class="category_icon">
-							<i class="icofont icofont-coins"></i>
-						</div>
-						<div class="space-20"></div>
-						<div class="title-bar">
-							<ul class="list-inline list-unstyled">
-								<li><i class="icofont icofont-square"></i></li>
-							</ul>
-						</div>
-						<div class="space-20"></div>
-						<a href="b_Truyen.jsp">Truyện</a>
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-6 col-md-3 wow fadeInLeft"
-					data-wow-delay="0.3s">
-					<div class="category-item well yellow text-cetnr">
-						<div class="category_icon">
-							<i class="icofont icofont-bank-alt"></i>
-						</div>
-						<div class="space-20"></div>
-						<div class="title-bar">
-							<ul class="list-inline list-unstyled">
-								<li><i class="icofont icofont-square"></i></li>
-							</ul>
-						</div>
-						<div class="space-20"></div>
-						<a href="b_ChinhTri.jsp">Chính trị</a>
-					</div>
-				</div>
-
-				<div class="col-xs-12 col-sm-6 col-md-3 wow fadeInLeft"
-					data-wow-delay="0.4s">
-					<div class="category-item well green text-cetnr">
-						<div class="category_icon">
-							<i class="icofont icofont-globe-alt"></i>
-						</div>
-						<div class="space-20"></div>
-						<div class="title-bar">
-							<ul class="list-inline list-unstyled">
-								<li><i class="icofont icofont-square"></i></li>
-							</ul>
-						</div>
-						<div class="space-20"></div>
-						<a href="b_tamLyXaHoi.jsp">Tâm lí - Kĩ năng sống </a>
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-6 col-md-3 wow fadeInLeft"
-					data-wow-delay="0.4s">
-					<div class="category-item well yellow text-cetnr">
-						<div class="category_icon">
-							<i class="icofont icofont-globe-alt"></i>
-						</div>
-						<div class="space-20"></div>
-						<div class="title-bar">
-							<ul class="list-inline list-unstyled">
-								<li><i class="icofont icofont-square"></i></li>
-							</ul>
-						</div>
-						<div class="space-20"></div>
-						<a href="b_ngoaiNgu.jsp">Ngoại ngữ</a>
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-6 col-md-3 wow fadeInLeft"
-					data-wow-delay="0.4s">
-					<div class="category-item well red text-cetnr">
-						<div class="category_icon">
-							<i class="icofont icofont-globe-alt"></i>
-						</div>
-						<div class="space-20"></div>
-						<div class="title-bar">
-							<ul class="list-inline list-unstyled">
-								<li><i class="icofont icofont-square"></i></li>
-							</ul>
-						</div>
-						<div class="space-20"></div>
-						<a href="b_khoaHocXaHoi.jsp">Khoa học - xã hội </a>
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-6 col-md-3 wow fadeInLeft"
-					data-wow-delay="0.4s">
-					<div class="category-item well green text-cetnr">
-						<div class="category_icon">
-							<i class="icofont icofont-globe-alt"></i>
-						</div>
-						<div class="space-20"></div>
-						<div class="title-bar">
-							<ul class="list-inline list-unstyled">
-								<li><i class="icofont icofont-square"></i></li>
-							</ul>
-						</div>
-						<div class="space-20"></div>
-						<a href="b_GiaoKhoa.jsp">Giáo khoa </a>
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-6 col-md-3 wow fadeInLeft"
-					data-wow-delay="0.4s">
-					<div class="category-item well blue text-cetnr">
-						<div class="category_icon">
-							<i class="icofont icofont-globe-alt"></i>
-						</div>
-						<div class="space-20"></div>
-						<div class="title-bar">
-							<ul class="list-inline list-unstyled">
-								<li><i class="icofont icofont-square"></i></li>
-							</ul>
-						</div>
-						<div class="space-20"></div>
-						<a href="b_KinhTe.jsp">Kinh tế </a>
-					</div>
-				</div>
-				<div class="space-60"></div>
-				<div class="row">
-					<div class="col-xs-12 text-center">
-						<a href="books.jsp" class="btn btn-primary">Xem thêm</a>
-					</div>
-				</div>
-				<div class="space-80"></div>
+				</c:forEach>
 			</div>
+
+			<div class="space-60"></div>
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<a href="DauSachDanhSach" class="btn btn-primary">Xem thêm</a>
+				</div>
+			</div>
+			<div class="space-80"></div>
+		</div>
 		</div>
 	</section>
 	<section class="relative fix" id="sc3">
@@ -475,12 +363,13 @@
 					<div class="book-list-photo">
 						<div class="book-list">
 							<!-- book list -->
-							<div class="book_item">
-								<img src="images/book/book1.jpg" alt="library">
-							</div>
-							<div class="book_item">
-								<img src="images/book/book2.jpg" alt="library">
-							</div>
+							<c:forEach var="dauSach" items="${listDauSach }" end="5">
+								<div class="book_item">
+									<img
+										src="http://localhost:8080/QuanLyThuVien/getAnhBia?maDauSach=${dauSach.getMaDauSach() }"
+										width="100%" alt="library">
+								</div>
+							</c:forEach>
 						</div>
 					</div>
 					<div class="bookslide_nav">
@@ -508,101 +397,59 @@
 					<div class="book-content">
 						<!-- book details -->
 						<div class="book-details">
-							<div class="book-details-item">
-								<h4 class="tip-left">Tiêu đề</h4>
-								<p class="lead">Nghĩ khác</p>
-								<div class="space-10"></div>
-								<div class="row">
-									<div class="col-xs-12 col-sm-8">
-										<h4 class="tip-left">Tác giả</h4>
-										<div class="media">
-											<div class="media-left">
-												<img src="images/author.jpg"
-													class="media-object author-photo img-thumbnail"
-													alt="library">
-											</div>
-											<div class="media-body">
-												<h5>Michael heppell</h5>
-												<p>23 Sách được viết</p>
-											</div>
-										</div>
-									</div>
-									<div class="col-xs-12 col-sm-4">
-										<h4>Số trang</h4>
-										<p>320 trang</p>
-									</div>
-								</div>
-								<div class="space-30"></div>
-								<h4 class="tip-left">Mô tả</h4>
-								<p>Nghĩ khác được chia ra thành một số phần xoay quanh một
-									lĩnh vực của đời sống: công việc, sức khỏe, gia đình, thành
-									công, sáng tạo, văn minh. Đọc cuốn sách này bạn sẽ tự nhủ" Mình
-									không thể làm điều này" hay" Mình không có thứ đó trong đời".</p>
-								<div class="space-20"></div>
-								<h4 class="tip-left">Xếp hạng</h4>
-								<ul class="list-inline list-unstyled rating-star">
-									<li class="active"><i class="icofont icofont-star"></i></li>
-									<li class="active"><i class="icofont icofont-star"></i></li>
-									<li class="active"><i class="icofont icofont-star"></i></li>
-									<li class=""><i class="icofont icofont-star"></i></li>
-									<li><i class="icofont icofont-star"></i></li>
-								</ul>
-								<div class="space-20"></div>
-								<a href="books.jsp" class="btn btn-primary hover-btn-default">Xem
-									sách</a> <a href="books.jsp"
-									class="btn btn-primary hover-btn-default">Đọc sau</a>
-							</div>
-							<div class="book-details-item">
-								<h4 class="tip-left">Tiêu đề</h4>
-								<p class="lead">Nghệ thuật nhìn người đoán tính cách</p>
-								<div class="space-10"></div>
-								<div class="row">
-									<div class="col-xs-12 col-sm-8">
-										<h4 class="tip-left">Tác giả</h4>
-										<div class="media">
-											<div class="media-left">
-												<img src="images/client/client1.jpg"
-													class="media-object author-photo img-thumbnail"
-													alt="library">
-											</div>
-											<div class="media-body">
-												<h5>Shozo Shibuya, Pooh chan</h5>
-												<p>23 Sách được viết</p>
+							<c:forEach var="dauSach" items="${listDauSach }" end="5">
+								<div class="book-details-item">
+									<h4 class="tip-left">Tiêu đề</h4>
+									<p class="lead">
+										<c:out value="${dauSach.getTenSach() }"></c:out>
+									</p>
+									<div class="space-10"></div>
+									<div class="row">
+										<div class="col-xs-12 col-sm-8">
+											<h4 class="tip-left">Tác giả</h4>
+											<div class="media">
+												<div class="media-left">
+													<img
+														src="http://localhost:8080/QuanLyThuVien/getAnhTacGia?maDauSach=${dauSach.getMaDauSach() }"
+														class="media-object author-photo img-thumbnail"
+														alt="library">
+												</div>
+												<div class="media-body">
+													<h5>
+														<c:out value="${dauSach.getTacGia() }"></c:out>
+													</h5>
+													<p>Sách được viết</p>
+												</div>
 											</div>
 										</div>
+										<!-- <div class="col-xs-12 col-sm-4">
+											<h4>Số trang</h4>
+											<p>320 trang</p>
+										</div> -->
 									</div>
-									<div class="col-xs-12 col-sm-4">
-										<h4>Số trang</h4>
-										<p>320 trang</p>
-									</div>
+									<div class="space-30"></div>
+									<h4 class="tip-left">Mô tả</h4>
+									<p>
+										<c:out value="${dauSach.getMoTa() }"></c:out>
+									</p>
+									<div class="space-20"></div>
+									<h4 class="tip-left">Xếp hạng</h4>
+									<ul class="list-inline list-unstyled rating-star">
+										<li class="active"><i class="icofont icofont-star"></i></li>
+										<li class="active"><i class="icofont icofont-star"></i></li>
+										<li class=""><i class="icofont icofont-star"></i></li>
+										<li class=""><i class="icofont icofont-star"></i></li>
+										<li><i class="icofont icofont-star"></i></li>
+									</ul>
+									<div class="space-20"></div>
+									<a href="DauSachDanhSach"
+										class="btn btn-primary hover-btn-default">Xem thêm sách
+										khác</a> <a
+										href="DauSachNoiDung?maDauSach=${dauSach.getMaDauSach() }"
+										class="btn btn-primary hover-btn-default">Xem sách</a>
 								</div>
-								<div class="space-30"></div>
-								<h4 class="tip-left">Mô tả</h4>
-								<p>Bạn có tin rằng chúng ta có thể nhìn thấu tính cách một
-									con người qua ngoại hình của họ? Hay nói cách khác, ta hoàn
-									toàn có thể phán đoán tính cách cũng như suy nghĩ, tâm trạng
-									của người đối diện thông qua việc quan sát ngoại hình của họ,
-									từ cách ăn mặc, sử dụng phụ kiện, đến gương mặt, mái tóc, màu
-									da… Ta cũng có thể hiểu được tâm trạng, thái độ, cảm xúc của ai
-									đó qua giao tiếp, ánh mắt, cử chỉ, hành động, lời nói. Với góc
-									nhìn thú vị về “ngoại hình” và “tính cách” theo quan niệm của
-									người Nhật Bản, cuốn sách NGHỆ THUẬT NHÌN NGƯỜI ĐOÁN TÍNH CÁCH
-									sẽ giúp bạn nhận diện và thấu hiểu đối phương để có cách ứng xử
-									phù hợp trong mọi hoàn cảnh.</p>
-								<div class="space-20"></div>
-								<h4 class="tip-left">Xếp hạng</h4>
-								<ul class="list-inline list-unstyled rating-star">
-									<li class="active"><i class="icofont icofont-star"></i></li>
-									<li class="active"><i class="icofont icofont-star"></i></li>
-									<li class=""><i class="icofont icofont-star"></i></li>
-									<li class=""><i class="icofont icofont-star"></i></li>
-									<li><i class="icofont icofont-star"></i></li>
-								</ul>
-								<div class="space-20"></div>
-								<a href="books.jsp" class="btn btn-primary hover-btn-default">Xem
-									sách</a> <a href="books.jsp"
-									class="btn btn-primary hover-btn-default">Đọc sau</a>
-							</div>
+							</c:forEach>
+
 						</div>
 					</div>
 					<div class="space-60"></div>
@@ -630,60 +477,39 @@
 			</div>
 			<div class="space-60"></div>
 			<div class="row event-list">
-				<!--                 <div class="hidden-xs hidden-sm col-md-5 inner-photo wow fadeInLeft">
-                    <img src="images/inner-image.png" class="img-responsive" alt="library">
-                </div> -->
+
 				<div class="col-xs-12 col-md-7 col-md-offset-2">
-					<div class="event-item wow fadeInRight">
-						<h4 class="show tip-left">
-							20-7-2017 <span class="pull-right">14.30</span>
-						</h4>
-						<div class="well">
-							<div class="media">
-								<div class="media-left">
-									<img src="images/evemt/even-1.jpg" class="media-object"
-										alt="library">
-								</div>
-								<div class="media-body">
-									<div class="space-10"></div>
-									<a href="books.jsp"><strong class="media-heading">Tuesday
-											Networking &amp; Lecture</strong>></a>
-									<div class="space-10"></div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-										Ut gravida, quam vitae est Sed non eros elementum nulla
-										sodales ullamcorper.</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="space-20"></div>
-					<div class="event-item wow fadeInRight">
-						<h4 class="show tip-left">
-							15-9-2017 <span class="pull-right">8.30</span>
-						</h4>
-						<div class="well">
-							<div class="media">
-								<div class="media-left">
-									<img src="images/evemt/event-2.jpg" class="media-object"
-										alt="library">
-								</div>
-								<div class="media-body">
-									<div class="space-10"></div>
-									<a href="books.jsp"> <strong class="media-heading">Read
-											Book For 500 People</strong>
-									</a>
-									<div class="space-10"></div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-										Ut gravida, quam vitae est Sed non eros elementum nulla
-										sodales ullamcorper.</p>
+					<c:forEach var="thongBao" items="${listThongBao }" end="2">
+						<div class="event-item wow fadeInRight">
+							<h4 class="show tip-left">
+								<c:out value="${thongBao.getIdThongBao() }"></c:out>
+							</h4>
+							<div class="well">
+								<div class="media">
+									<div class="media-left">
+										<img
+											src="http://localhost:8080/QuanLyThuVien/getHinhAnh?maThongBao=${thongBao.getIdThongBao() }"
+											" class="media-object" alt="library">
+									</div>
+									<div class="media-body">
+										<div class="space-10"></div>
+										<a href="books.jsp"><strong class="media-heading"><c:out
+													value="${thongBao.getTenThongBao() }"></c:out></strong>></a>
+										<div class="space-10"></div>
+										<p>
+											<c:out value="${thongBao.getNoiDung() }"></c:out>
+										</p>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="space-20"></div>
+
+						<div class="space-20"></div>
+					</c:forEach>
 					<div class="fix">
-						<a href="#" class="btn btn-default pull-right hover-btn-primary">Xem
-							thêm <span><i class="icofont icofont-long-arrow-right"></i></span>
+						<a href="ThongBaoQuanLy"
+							class="btn btn-default pull-right hover-btn-primary">Xem thêm
+							<span><i class="icofont icofont-long-arrow-right"></i></span>
 						</a>
 					</div>
 				</div>
@@ -818,7 +644,7 @@
             </div>
         </div>
         <div class="space-80"></div>
-    </section> -->
+    </section> 
 	<!-- Phản hồi -->
 	<!-- <section class="relative" id="sc6">
         <div class="overlay-bg">
@@ -872,7 +698,7 @@
 	<!--  Đăng nhập -->
 	<!-- <section class="bg-primary relative">
         <div class="space-80"></div>
-        <div class="container">
+        <div class="container">;  
             <div class="row">
                 <div class="col-xs-12 col-sm-7">
                     <h2 class="text-white">Lets Take <strong>Your Book</strong></h2>

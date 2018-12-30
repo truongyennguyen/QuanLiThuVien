@@ -26,7 +26,6 @@ public class ConnectDatabase {
 				throw new SQLException(e);
 			}
 			jdbcConnection = DriverManager.getConnection(jdbcURL);
-			jdbcConnection.setAutoCommit(true);
 		}
 	}
 
