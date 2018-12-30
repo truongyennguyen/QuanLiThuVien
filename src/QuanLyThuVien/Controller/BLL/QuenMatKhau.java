@@ -10,6 +10,7 @@ import javax.mail.*;
 import javax.mail.internet.*;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +21,7 @@ import QuanLyThuVien.model.DAL.Object.TaiKhoan;
 /**
  * Servlet implementation class QuenMatKhau
  */
+@WebServlet(name = "QuenMatKhau", urlPatterns = { "/QuenMatKhau" })
 public class QuenMatKhau extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private DALTaiKhoan dal_tk;
@@ -116,11 +118,8 @@ public class QuenMatKhau extends HttpServlet {
 		};
 
 		Session session = Session.getInstance(properties, auth);
-<<<<<<< HEAD
 		//session.setDebug(true);
-=======
 		session.setDebug(true);
->>>>>>> 687a9df51bfd78b469e65a8afb97620a19bb2dba
 
 		Message msg = new MimeMessage(session);
 
