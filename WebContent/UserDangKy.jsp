@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
+﻿<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,24 +68,25 @@
 								class="fas fa-tachometer-alt"></i>Mượn-trả sách
 						</a>
 							<ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-								<li><a href="muonsach.jsp">Mượn sách</a></li>
-								<li><a href="trasach.jsp">Trả sách</a></li>
-								<li><a href="dangki.jsp">Đăng kí thẻ thư viện</a></li>
-								<li><a href="phieuphat.jsp">Lập phiếu phạt</a></li>
+								<li><a href="${pageContext.request.contextPath}/MuonTraSachQuanLy">Mượn sách</a></li>
+								<li><a href="${pageContext.request.contextPath}/MuonTraSachQuanLy">Trả sách</a></li>
+								<li><a href="UserDangKy.jsp">Đăng kí thẻ thư viện</a></li>
+								<li><a href="${pageContext.request.contextPath}/PhieuPhatQuanLy">Lập phiếu phạt</a></li>
 							</ul></li>
 						<li class="has-sub"><a class="js-arrow" href="#"> <i
-								class="fas fas fa-table"></i>Quản lí
+								class="fas fas fa-table"></i>Quản lý
 						</a>
 							<ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-								<li><a href="quanlinhanvien.jsp">Nhân viên</a></li>
-								<li><a href="docgia.jsp">Đọc giả</a></li>
-								<li><a href="thongbao.jsp">Thông báo</a></li>
-								<li><a href="dausach.jsp">Đầu sách</a></li>
-								<li><a href="nhaxuatban.jsp">Nhà xuất bản</a></li>
-								<li><a href="taikhoan.jsp">Tài khoản</a></li>
-								<li><a href="phongphucvu.jsp">Phòng phục vụ</a></li>
+								<li><a href="${pageContext.request.contextPath}/NhanVienQuanLy">Nhân viên</a></li>
+								<li><a href="${pageContext.request.contextPath}/CuonSachQuanLy">Đọc giả</a></li>
+								<li><a href="${pageContext.request.contextPath}/ThongBaoQuanLy">Thông báo</a></li>
+								<li><a href="${pageContext.request.contextPath}/DauSachQuanLy">Đầu sách</a></li>
+								<li><a href="${pageContext.request.contextPath}/NhaXuatBanQuanLy">Nhà xuất bản</a></li>
+								<li><a href="${pageContext.request.contextPath}/TaiKhoanQuanLy">Tài khoản</a></li>
+								<li><a href="${pageContext.request.contextPath}/PhongPhucVuQuanLy">Phòng phục vụ</a></li>
 							</ul></li>
-						<li><a href="#"> <i class="fas fa-chart-bar"></i>Thông kê
+						<li><a href="table.html"> <i class="fas fa-chart-bar"></i>Thông
+								kê
 						</a></li>
 					</ul>
 				</div>
@@ -105,25 +106,25 @@
 						<li class="active has-sub"><a class="js-arrow" href="#">
 								<i class="fas fa-tachometer-alt"></i>Nghiệp vụ thư viện
 						</a>
-							<ul class="list-unstyled navbar__sub-list js-sub-list">
-								<li><a href="muonsach.jsp">Mượn sách</a></li>
-								<li><a href="trasach.jsp">Trả sách</a></li>
-								<li><a href="dangki.jsp">Đăng kí thẻ thư viện</a></li>
-								<li><a href="phieuphat.jsp">Lập phiếu phạt</a></li>
+							<ul cla<li><a href="${pageContext.request.contextPath}/MuonTraSachQuanLy">Mượn sách</a></li>
+								<li><a href="${pageContext.request.contextPath}/MuonTraSachQuanLy">Trả sách</a></li>
+								<li><a href="UserDangKy.jsp">Đăng kí thẻ thư viện</a></li>
+								<li><a href="${pageContext.request.contextPath}/PhieuPhatQuanLy">Lập phiếu phạt</a></li>
 							</ul></li>
 						<li class="has-sub"><a class="js-arrow" href="#"> <i
-								class="fas fas fa-table"></i>Quản lí
+								class="fas fas fa-table"></i>Quản lý
 						</a>
-							<ul class="list-unstyled navbar__sub-list js-sub-list">
-								<li><a href="quanlinhanvien.jsp">Nhân viên</a></li>
-								<li><a href="docgia.jsp">Đọc giả</a></li>
-								<li><a href="thongbao.jsp">Thông báo</a></li>
-								<li><a href="dausach.jsp">Đầu sách</a></li>
-								<li><a href="nhaxuatban.jsp">Nhà xuất bản</a></li>
-								<li><a href="taikhoan.jsp">Tài khoản</a></li>
-								<li><a href="phongphucvu.jsp">Phòng phục vụ</a></li>
+							<ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+								<li><a href="${pageContext.request.contextPath}/NhanVienQuanLy">Nhân viên</a></li>
+								<li><a href="${pageContext.request.contextPath}/CuonSachQuanLy">Đọc giả</a></li>
+								<li><a href="${pageContext.request.contextPath}/ThongBaoQuanLy">Thông báo</a></li>
+								<li><a href="${pageContext.request.contextPath}/DauSachQuanLy">Đầu sách</a></li>
+								<li><a href="${pageContext.request.contextPath}/NhaXuatBanQuanLy">Nhà xuất bản</a></li>
+								<li><a href="${pageContext.request.contextPath}/TaiKhoanQuanLy">Tài khoản</a></li>
+								<li><a href="${pageContext.request.contextPath}/PhongPhucVuQuanLy">Phòng phục vụ</a></li>
 							</ul></li>
-						<li><a href="#"> <i class="fas fa-chart-bar"></i>Thống kê
+						<li><a href="table.html"> <i class="fas fa-chart-bar"></i>Thông
+								kê
 						</a></li>
 					</ul>
 				</nav>

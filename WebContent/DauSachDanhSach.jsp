@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
+﻿<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -62,44 +62,59 @@
 					<!--Toggle-button-->
 
 					<!--Active User-->
+					<%if(session.getAttribute("tkDN") != null) {%>
+					
 					<div class="nav navbar-right">
-						<div class="active-user navbar-left active">
-							<ul class="list-unstyled">
-								<li><a href="#" class="dropdown-toggle"
-									data-toggle="dropdown"> <img src="images/active_user.png"
-										class="img-circle img-thumbnail" alt="library" />
-								</a>
-									<ul class="dropdown-menu">
-										<li><a href="#"> <span><i
-													class="icofont icofont-user"></i></span> Thông tin cá nhân
-										</a></li>
-										<!-- <li>
-                                            <a href="#"> <span><i class="icofont icofont-notification"></i></span> Notifications</a>
-                                        </li> -->
-										<li><a href="#"> <span><i
-													class="icofont icofont-ui-password"></i></span> Đổi mật khẩu
-										</a></li>
-										<li><a href="#"> <span><i
-													class="icofont icofont-read-book"></i></span> Sách của tôi
-										</a></li>
-										<li><a href="#"> <span><i
-													class="icofont icofont-logout"></i></span> Đăng xuất
-										</a></li>
-									</ul></li>
-							</ul>
-						</div>
-					</div>
+                        <div class="active-user navbar-left active">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <img src="images/active_user.png" class="img-circle img-thumbnail" alt="library" />
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="UserProfile.jsp"> <span><i class="icofont icofont-user"></i></span> Thông tin cá nhân</a>
+                                        </li>
+                                        <li>
+                                            <a href="UserChangePassword.jsp"> <span><i class="icofont icofont-ui-password"></i></span> Đổi mật khẩu</a>
+                                        </li>
+                                        <li>
+                                            <a href="UserMyBook.jsp"> <span><i class="icofont icofont-read-book"></i></span> Sách của tôi</a>
+                                        </li>
+                                        <li>
+                                            <a href="${pageContext.request.contextPath}/DangXuat"> <span><i class="icofont icofont-logout"></i></span> Đăng xuất</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
 					<!--Mainmenu list-->
 					<div class="navbar-right in fade" id="mainmenu">
 						<ul class="nav navbar-nav nav-white text-uppercase">
-							<li><a href="index.jsp">Trang chủ</a></li>
-							<li><a href="#">Giới thiệu</a></li>
-							<li><a href="noitification.jsp">Thông báo</a></li>
+							<li class="active"><a href="index.jsp">Trang chủ</a></li>
+							<li><a href="">Giới thiệu</a></li>
+							<li><a href="SystemNoitification.jsp">Thông báo</a></li>
 							<li><a href="room.jsp">Phòng đọc</a></li>
-							<li><a href="feedback.jsp">Phản hồi</a></li>
-							<li class="active"><a href="books.jsp">Sách</a></li>
+							<li><a href="SystemFeedback.jsp">Phản hồi</a></li>
+							<li><a href="books.jsp">Sách</a></li>
 						</ul>
 					</div>
+					<%}else{ %>
+					<!--Mainmenu list-->
+					<div class="navbar-right in fade" id="mainmenu">
+						<ul class="nav navbar-nav nav-white text-uppercase">
+							<li class="active"><a href="index.jsp">Trang chủ</a></li>
+							<li><a href="#">Giới thiệu</a></li>
+							<li><a href="SystemNoitification.jsp">Thông báo</a></li>
+							<li><a href="room.jsp">Phòng đọc</a></li>
+							<li><a href="SystemFeedback.jsp">Phản hồi</a></li>
+							<li><a href="books.jsp">Sách</a></li>
+							<li><a href="UserLogin.jsp">Đăng nhập</a>
+							<li><a href="QuenMatKhau.jsp">Quên mật khẩu</a>
+						</ul>
+					</div>
+					<%} %>
 				</div>
 			</nav>
 		</div>
